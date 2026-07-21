@@ -133,7 +133,20 @@ print("La palabra Vasquez es el valor de la variable?",respuesta[verifacion],
 # Pista: Trabajan directamente con los números en formato binario (0s y 1s).
 # Prueba: & (AND), | (OR), ^ (XOR), ~ (NOT), << (Desplazamiento izq), >> (Desplazamiento der).
 # -----------------------------------------------------------------------------
+a = 10
+duplicado = 10 << 1
+dividido = 10 >> 1
+print("10 duplicado con bits es",duplicado,
+      "\n10 dividido con bitis es",dividido)
+sensor_1 = 1
+sensor_2 = 0
 
+alarma_and = sensor_1 & sensor_2
+alarma_or = sensor_1 | sensor_2
+
+
+print("Alarma AND", alarma_and,
+      "\nAlarma OR",alarma_or)
 
 
 

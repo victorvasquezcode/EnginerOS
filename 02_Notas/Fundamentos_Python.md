@@ -24,6 +24,13 @@
 * **Operadores de Pertenencia (`in`, `not in`):**
   * `in`: Busca si un fragmento de texto o elemento existe dentro de un string o lista.
   * `not in`: Busca si un elemento NO existe dentro del string o lista.
+* **Operadores a Nivel de Bits (Bitwise):**
+  * `<<`(Izquierda) : Desplazamiento de bits a la izquierda esto multiplica el numero por `2`
+  * `>>` (Derecha) :Desplazamiento de bits a la derecha esto divide al numero entre `2`
+  * `&` (AND) : Da `1` si las dos comparaciones son `1`
+  * `|` (OR) : Da `1` si al menos uno de los valores comparados da `1`
+  * `^` (XOR) : Da `1` si la comparacion es diferente
+  * `~` (NOT) : invierte los bits `-(n+1)` 
 
 # Tipos de Operadores
     *in para buscar en un string o una lista
@@ -31,3 +38,4 @@
 
 # Sintaxis y Conceptos
 * **Mapeo / Personalizacion de Respuestas:** Uso de diccionarios '{True:"Mensaje si sale true",False:"Mensaje si sale false}
+
