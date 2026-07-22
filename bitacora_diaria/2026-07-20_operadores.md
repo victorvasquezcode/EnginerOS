@@ -1,4 +1,4 @@
-#Bitácora de Aprendizaje - Lógica de Programación
+# Bitácora de Aprendizaje - Lógica de Programación
 ## Concepto del día: [operadores]
 ### 1. ¿Que problema resuelve exactamente?
 Manipulacion de Variables
@@ -16,7 +16,7 @@ Bitwise
 * **Salida por consola:** En `print()`, al separar texto y variables con comas `,`, Python agrega un espacio automáticamente; no hace falta agregarlo manualmente en el texto.
 * **Flujo:** La declaración de la variable debe ir **antes** de llamar a `print()`.
 * No debo usar operadores de bits en operaciones logicas
-* El operador `~` da numeros negativos
+* El operador `~` da numeros negativos `-(n+1)`
 
 ### 3. Explicación simple(Técnica Feyman):
 * Los operadores son las acciones o verbos del código.

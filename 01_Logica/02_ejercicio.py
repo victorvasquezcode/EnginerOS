@@ -142,8 +142,7 @@ sensor_1 = 1
 sensor_2 = 0
 
 alarma_and = sensor_1 & sensor_2
-alarma_or = sensor_1 | sensor_2
-
+alarma_or = sensor_1 | sensor_2 
 
 print("Alarma AND", alarma_and,
       "\nAlarma OR",alarma_or)
@@ -155,8 +154,14 @@ print("Alarma AND", alarma_and,
 # Pista: Toman decisiones según una condición booleana.
 # Prueba: if, elif, else.
 # -----------------------------------------------------------------------------
+edad = 12;
 
-
+if edad >= 18:
+    print ("Persona adulta ")
+elif edad >= 16:
+    print ("Adolescente")
+else:
+    print ("Niño")
 
 
 # -----------------------------------------------------------------------------

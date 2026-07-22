@@ -39,3 +39,5 @@
 # Sintaxis y Conceptos
 * **Mapeo / Personalizacion de Respuestas:** Uso de diccionarios '{True:"Mensaje si sale true",False:"Mensaje si sale false}
 
+# Estructura de Control de Flujo 
+## Condicionales (`if`,`elif`,`else`)

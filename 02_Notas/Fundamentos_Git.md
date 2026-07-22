@@ -23,3 +23,10 @@
 * `git add .`: Agrega todos los archivos modificados a la zona de preparación (Staging Area).
 * `git commit -m "mensaje"`: Crea el punto de guardado local con un mensaje explicativo.
 * `git push`: Envía los commits locales al repositorio remoto en GitHub.
+
+# Commits
+* `docs:` Para cambios solo en la documentacion o notas (ej: docs: agregar bitacora condicionales)
+* `feat:` Cuando se agregue una funcionalidad nueva o un nuevo ejercicio en el codigo (ej: feat: completar ejercicio de condicionales)
+* `fix:` Cuando se corrige un error o un bug en el codigo (ej: fix: corregir sintaxis de and en el if)
+* `refactor:`  Cuando se reordena o se limpia el codigo sin cambiar lo que se hace
+* `style:` Para cambios de formato, espacios o limpieza de comentarios. 
