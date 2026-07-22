@@ -176,8 +176,27 @@ for variable in range(1,10,2):
 for variable in range(1,20,1):
      print (variable)
 for letra in "Vasquez":
-    print(letra)    
+    print(letra)
 
+contador = 0
+while contador <= 5:
+     contador += 1
+     print(contador)
+
+i = 0
+while i <= 10:
+      if i == 3:
+           break
+      print(i)
+      i += 1  
+
+i = 0
+while i <= 5:
+      i += 1
+      if i == 3:
+           continue
+      print(i)
+       
 
 
 # -----------------------------------------------------------------------------

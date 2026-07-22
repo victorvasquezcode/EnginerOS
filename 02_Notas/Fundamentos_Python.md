@@ -75,3 +75,12 @@ Genera una secuencia de números enteros. El valor de `fin` nunca se incluye en 
 * `range(8)` $\rightarrow$ Genera del `0` al `7` (8 elementos en total).
 * `range(1, 10)` $\rightarrow$ Genera del `1` al `9` (especifica inicio y fin).
 * `range(1, 10, 2)` $\rightarrow$ Genera `1, 3, 5, 7, 9` (el tercer parámetro indica el incremento o paso).
+
+## Bucle Indefinido (`while`)
+Ejecuta un bloque de código repetidamente **mientras** una condición lógica devuelva `True`.
+
+```python
+contador = 0
+while contador < 5:
+    contador += 1
+    print(contador)
