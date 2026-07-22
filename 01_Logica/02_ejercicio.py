@@ -169,7 +169,14 @@ else:
 # Pista: Repiten un bloque de código mientras o para un rango/lista de elementos.
 # Prueba: for (con range), while, y el uso de break y continue.
 # -----------------------------------------------------------------------------
-
+for variable in range (8):
+      print (variable)
+for variable in range(1,10,2):
+     print (variable)
+for variable in range(1,20,1):
+     print (variable)
+for letra in "Vasquez":
+    print(letra)    
 
 
 

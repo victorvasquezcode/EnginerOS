@@ -60,3 +60,18 @@ Evalúan expresiones booleanas para decidir qué bloque de código ejecutar.
 2. **Uso de operadores lógicos:** Utilizar siempre `and` / `or` dentro del `if`, nunca operadores bitwise (`&` / `|`).
 3. **Encadenamiento de rangos:** Se pueden simplificar rangos de manera matemática:
    * `if 16 <= edad < 18:` (equivale a `16 <= edad and edad < 18`).
+
+---
+
+## Bucles de Iteración (`for`)
+Permiten ejecutar un bloque de código de forma repetitiva para cada elemento de una secuencia o rango.
+
+* **Sintaxis básica:** `for variable in secuencia:`
+* **Iteración sobre cadenas de texto (Strings):** Recorre el texto carácter por carácter (`for letra in "Texto":`).
+
+### La Función `range(inicio, fin, paso)`
+Genera una secuencia de números enteros. El valor de `fin` nunca se incluye en el resultado.
+
+* `range(8)` $\rightarrow$ Genera del `0` al `7` (8 elementos en total).
+* `range(1, 10)` $\rightarrow$ Genera del `1` al `9` (especifica inicio y fin).
+* `range(1, 10, 2)` $\rightarrow$ Genera `1, 3, 5, 7, 9` (el tercer parámetro indica el incremento o paso).
