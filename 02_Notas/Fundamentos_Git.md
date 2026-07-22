@@ -30,3 +30,5 @@
 * `fix:` Cuando se corrige un error o un bug en el codigo (ej: fix: corregir sintaxis de and en el if)
 * `refactor:`  Cuando se reordena o se limpia el codigo sin cambiar lo que se hace
 * `style:` Para cambios de formato, espacios o limpieza de comentarios. 
+
+> **Regla rápida:** Redacta siempre el mensaje en minúsculas y empezando con un verbo en infinitivo (*agregar, corregir, actualizar, eliminar*).

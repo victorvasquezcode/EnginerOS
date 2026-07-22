@@ -1,43 +1,62 @@
-* **REFACTORIZACION** cuando el codigo funciona pero se puede hacer de manera mas limpia o legible
-* **MODULARIZAR:** dividir mi codigo para que en vez que sea algo muy complejo sean pequeñas partes que sean independientes y se puede reutilizar en otra ocacion
+# Glosario de Conceptos Generales de Software
+
+* **REFACTORIZACIÓN:** Cuando el código funciona, pero se modifica para hacerlo más limpio, eficiente o legible sin cambiar su comportamiento.
+* **MODULARIZAR:** Dividir un código complejo en partes pequeñas e independientes que se puedan reutilizar en distintas ocasiones.
+
+---
 
 # Glosario de Tipos de Datos en Python
 
-* **String (str):** Texto plano entre comillas
-* **Integer (int):** Numero enteros (positivos o negativos).
-* **Float (float):** Numeros con punto decimal.
-* **Boolean (bool):** Valores logicos 'True' o 'False'.
+* **String (str):** Texto plano delimitado entre comillas (`"hola"` o `'hola'`).
+* **Integer (int):** Números enteros, ya sean positivos o negativos (`10`, `-5`).
+* **Float (float):** Números con punto decimal (`3.14`, `-0.5`).
+* **Boolean (bool):** Valores lógicos de verdad: solo pueden ser `True` o `False` (siempre con la primera letra en mayúscula).
 
-# Glosario de Sintaxis y Conceptos
+---
 
-## Formato y salida de Texto
-* **Salto de linea ('\n'):** Se utiliza para dar un salto de linea
-* **Separacion con coma en 'print()':** para poder utilizar texto con el resultado del codigo se utiliza las comas para poder separarlos
-* **Mapeo / Personalización de Respuestas:** Uso de diccionarios `{True: "Mensaje si sale True", False: "Mensaje si sale False"}` para traducir evaluadores booleanos a texto personalizado sin usar condicionales todavía.
+# Sintaxis y Conceptos Generales
+
+## Formato y Salida de Texto
+* **Salto de línea (`\n`):** Carácter especial que inserta un salto de línea dentro de un string.
+* **Separación con coma en `print()`:** Permite imprimir múltiples variables y textos. Python agrega automáticamente un espacio entre cada elemento.
+* **Mapeo / Personalización de Respuestas:** Uso de diccionarios `{True: "Mensaje si sale True", False: "Mensaje si sale False"}` para traducir evaluadores booleanos a texto personalizado sin necesidad de condicionales.
+
+---
 
 # Tipos de Operadores
-* **Operadores de Asignación Abreviada (`+=`, `-=`, `*=`, etc.):** Modifican el valor de una variable existente aplicando una operación matemática sobre sí misma.
+
+* **Operadores de Asignación Abreviada (`+=`, `-=`, `*=`, `/=`):** Modifican el valor de una variable existente aplicando una operación sobre sí misma. Requieren que la variable haya sido declarada previamente.
 * **Operadores Lógicos (`and`, `or`, `not`):**
-  * `and`: Compara si **ambos** valores son verdaderos; en ese caso devuelve `True`.
-  * `or`: Compara si **al menos uno** de los valores es verdadero; si es así devuelve `True`.
-  * `not`: Invierte el valor del resultado (`True` se vuelve `False`).
+  * `and`: Devuelve `True` solo si **ambas** condiciones son verdaderas.
+  * `or`: Devuelve `True` si **al menos una** condición es verdadera.
+  * `not`: Invierte el valor lógico (`True` se vuelve `False` y viceversa).
 * **Operadores de Pertenencia (`in`, `not in`):**
-  * `in`: Busca si un fragmento de texto o elemento existe dentro de un string o lista.
-  * `not in`: Busca si un elemento NO existe dentro del string o lista.
+  * `in`: Busca si una subcadena o elemento existe dentro de un string o lista (es sensible a mayúsculas/minúsculas).
+  * `not in`: Verifica que un elemento NO exista dentro del string o lista.
+* **Operadores de Identidad (`is`, `is not`):** Evalúan si dos variables apuntan exactamente a la misma posición en la memoria RAM o si una variable es `None`. No deben usarse para comparar valores numéricos o texto (para eso se usa `==`).
 * **Operadores a Nivel de Bits (Bitwise):**
-  * `<<`(Izquierda) : Desplazamiento de bits a la izquierda esto multiplica el numero por `2`
-  * `>>` (Derecha) :Desplazamiento de bits a la derecha esto divide al numero entre `2`
-  * `&` (AND) : Da `1` si las dos comparaciones son `1`
-  * `|` (OR) : Da `1` si al menos uno de los valores comparados da `1`
-  * `^` (XOR) : Da `1` si la comparacion es diferente
-  * `~` (NOT) : invierte los bits `-(n+1)` 
+  * `<<` (Izquierda): Desplaza bits a la izquierda (multiplica el número por 2).
+  * `>>` (Derecha): Desplaza bits a la derecha (divide el número entre 2 de forma entera).
+  * `&` (AND): Devuelve `1` solo si ambos bits son `1`.
+  * `|` (OR): Devuelve `1` si al menos uno de los bits es `1`.
+  * `^` (XOR): Devuelve `1` si los bits comparados son diferentes.
+  * `~` (NOT): Invierte los bits (fórmula en decimal: `-(n + 1)`).
 
-# Tipos de Operadores
-    *in para buscar en un string o una lista
-    *in not para buscar si no existe en el string o la lista
+---
 
-# Sintaxis y Conceptos
-* **Mapeo / Personalizacion de Respuestas:** Uso de diccionarios '{True:"Mensaje si sale true",False:"Mensaje si sale false}
+# Estructuras de Control de Flujo
 
-# Estructura de Control de Flujo 
-## Condicionales (`if`,`elif`,`else`)
+## Condicionales (`if`, `elif`, `else`)
+Evalúan expresiones booleanas para decidir qué bloque de código ejecutar.
+
+* **`if`:** Evalúa la primera condición. Si es `True`, ejecuta su bloque identado.
+* **`elif` (Else If):** Evalúa una nueva condición únicamente si las condiciones anteriores resultaron `False`. Se pueden usar múltiples `elif`.
+* **`else`:** Es el camino de respaldo; se ejecuta cuando ninguna condición anterior se cumplió.
+
+### Reglas de Sintaxis y Buenas Prácticas (PEP 8)
+1. **Sin paréntesis:** En Python no se encierran las condiciones entre paréntesis `()`.
+   * *Correcto:* `if edad >= 18:`
+   * *Incorrecto:* `if (edad >= 18):`
+2. **Uso de operadores lógicos:** Utilizar siempre `and` / `or` dentro del `if`, nunca operadores bitwise (`&` / `|`).
+3. **Encadenamiento de rangos:** Se pueden simplificar rangos de manera matemática:
+   * `if 16 <= edad < 18:` (equivale a `16 <= edad and edad < 18`).
