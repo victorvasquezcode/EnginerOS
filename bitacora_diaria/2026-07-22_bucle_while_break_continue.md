@@ -10,7 +10,7 @@
 * No debo olvidar modificar o incrementar la varible de control dentro del bucle evitando el bucle infinito
 * Al usar `continue` el incremeento de la variable **debe ir antes de la condicion** sino se hara un bucle infinito
 * No debo usar punto y coma al final de `break` o `continue`
-* No debo colocar el inremento dentro de un bloque `else`
+* No debo colocar el incremento dentro de un bloque `else`
 
 ### 3. Explicación simple (Técnica Feynman):
 * `while` es un portero preguntando a la entrada de una discoteca: "mientras tengas entrada (`True`), puedes volver a pasar".

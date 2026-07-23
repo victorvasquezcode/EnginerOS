@@ -17,4 +17,4 @@ Permite que el programa tome decisiones solo eso hace que ejecute bloques si se 
 
 ### 4. ¿Cómo lo rompí y qué error dio?
 * **Al intentar evaluar un rango de edad use `&`:** Escribi `elif (edad < 18 & edad >= 16)`. Aunque la logica matematica tenia sentido `&` evalua bits individuales y no expresiones booleanes completas se puede producir resultados inesperados  o fallos logicos
-    * *Solucion:* Reemplace `&` por la palabra `and`tambien se puede utilizar la comparacion nativa de Python `elif 16 <= edad <18`
+    * *Solucion:* Reemplace `&` por la palabra `and` tambien se puede utilizar la comparacion nativa de Python `elif 16 <= edad <18`

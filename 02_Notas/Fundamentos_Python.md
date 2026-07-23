@@ -84,3 +84,21 @@ contador = 0
 while contador < 5:
     contador += 1
     print(contador)
+```
+
+## Manejo de Excepciones (`try`,`except`,`else`,`finally`)
+Permite gestionar errores en tiempo de ejecucion de forma controlada para evitar el colapso del programa.
+
+```Python
+try:
+  resultado = 10 / 2
+except ZeroDivision as error:
+  #Se ejecuta solo si ocurre un error de division por cero
+  print(f"Ocurrio un error: {error}")
+else:
+  #Se ejecuta solo si No hubo ningun error en el try
+  print(f"Operacion exitosa: {resultado}")
+finally:
+  #Se ejecuta Siempre, haya sido error o no
+  print("Finalizacion del bloque de control.")
+```

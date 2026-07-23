@@ -204,7 +204,15 @@ while i <= 5:
 # Pista: Capturan errores durante la ejecución para que el programa no colapse.
 # Prueba: try, except, else, finally (por ejemplo, intentando dividir entre cero).
 # -----------------------------------------------------------------------------
-
+try :
+     manejo_excepciones=120/0
+     print(manejo_excepciones)
+except ZeroDivisionError as error:
+     print(f"Error: No se puede dividir entre cero -> {error}")
+else :
+     print(f"Fue exitoso. Resultado: {manejo_excepciones}")
+finally:
+     print("Fin del bloque de evaluacion")
 
 
 
