@@ -92,7 +92,7 @@ Permite gestionar errores en tiempo de ejecucion de forma controlada para evitar
 ```Python
 try:
   resultado = 10 / 2
-except ZeroDivision as error:
+except ZeroDivisionError as error:
   #Se ejecuta solo si ocurre un error de division por cero
   print(f"Ocurrio un error: {error}")
 else:
@@ -102,3 +102,8 @@ finally:
   #Se ejecuta Siempre, haya sido error o no
   print("Finalizacion del bloque de control.")
 ```
+
+### Verificacion de Multiplos con Modulo (`%`)
+El operador `%` devuelve el residuo de una division sirve por ejemplo:
+* **Es par:** `numero % 2 == 0`
+* **Es multiplo de 3** `numero % 3 == 0`
