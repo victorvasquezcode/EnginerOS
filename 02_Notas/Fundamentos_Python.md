@@ -107,3 +107,9 @@ finally:
 El operador `%` devuelve el residuo de una division sirve por ejemplo:
 * **Es par:** `numero % 2 == 0`
 * **Es multiplo de 3** `numero % 3 == 0`
+
+# Funciones y Modularizacion
+Una funcion es un bloque de codigo reutilizable y estructurado que realiza una tarea especifica se define con la palabra `def`
+
+# Tipos de Funciones Basicas
+Ejecuta un bloque fijo de instrucciones cada vez que es invocada.
