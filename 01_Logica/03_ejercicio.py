@@ -143,5 +143,6 @@ def parametros_cadena(parametro1,parametro2):
             print(numero)
             contador += 1
     return contador
+
 numeros_impresos = parametros_cadena("Hola","Quetal")
 print(f"El numero total de veces que se imprimio un numero fue : {numeros_impresos}")
