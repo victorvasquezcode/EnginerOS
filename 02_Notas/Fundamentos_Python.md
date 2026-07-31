@@ -88,3 +88,39 @@ while contador < 5:
     contador += 1
     print(contador)
 ```
+
+---
+
+# Estructuras de Datos
+
+Python cuenta con cuatro tipos de datos integrados para almacenar colecciones de elementos:
+
+## 1. Listas (`list`)
+Colecciones mutables, ordenadas y que permiten elementos duplicados.
+* **Creación:** `frutas = ["manzana", "pera"]`
+* **Inserción:** `lista.append("uva")` (al final) | `lista.insert(1, "platano")` (en índice)
+* **Borrado:** `lista.remove("pera")` (por valor) | `lista.pop(0)` (por índice, retorna valor)
+* **Ordenación:** `lista.sort()` (modifica original) | `sorted(lista)` (retorna copia ordenada)
+
+## 2. Tuplas (`tuple`)
+Colecciones inmutables, ordenadas y que permiten elementos duplicados. Ideal para proteger datos.
+* **Creación:** `coordenadas = (10, 20)`
+* **Inmutabilidad:** Intentar `tupla[0] = 5` lanza un `TypeError`.
+* **Desempaquetado (Unpacking):** `x, y = coordenadas`
+
+## 3. Diccionarios (`dict`)
+Colecciones mutables, estructuradas mediante pares `Clave: Valor`. Las claves deben ser únicas.
+* **Creación:** `perfil = {"nombre": "Victor", "edad": 26}`
+* **Inserción / Actualización:** `perfil["cargo"] = "Admin"`
+* **Borrado:** `perfil.pop("edad")` o `del perfil["edad"]`
+* **Métodos de Iteración:**
+  * `perfil.keys()` $\rightarrow$ Retorna solo las claves.
+  * `perfil.values()` $\rightarrow$ Retorna solo los valores.
+  * `perfil.items()` $\rightarrow$ Retorna tuplas `(clave, valor)` para desempaquetar en bucles `for`.
+
+## 4. Conjuntos (`set`)
+Colecciones mutables, no ordenadas y de elementos únicos (filtra duplicados automáticamente).
+* **Creación:** `numeros = {1, 2, 2, 3}` $\rightarrow$ Resultado: `{1, 2, 3}`
+* **Inserción:** `conjunto.add(5)`
+* **Borrado:** `conjunto.remove(2)` (lanza error si no existe) | `conjunto.discard(2)` (seguro)
+* **Eliminación de duplicados en listas:** `lista_limpia = list(set(lista_con_duplicados))`
