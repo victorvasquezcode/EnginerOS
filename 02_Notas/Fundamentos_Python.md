@@ -124,3 +124,34 @@ Colecciones mutables, no ordenadas y de elementos únicos (filtra duplicados aut
 * **Inserción:** `conjunto.add(5)`
 * **Borrado:** `conjunto.remove(2)` (lanza error si no existe) | `conjunto.discard(2)` (seguro)
 * **Eliminación de duplicados en listas:** `lista_limpia = list(set(lista_con_duplicados))`
+
+---
+
+# Métodos de Cadenas (String Methods)
+
+Métodos nativos para inspeccionar, transformar y validar texto:
+
+* **`.strip()`:** Elimina los espacios en blanco sobrantes al inicio y al final de un texto. Ideal para detectar si un `input()` se envió en blanco (`if not texto.strip():`).
+* **`.isdigit()`:** Evalúa si la cadena está compuesta **exclusivamente por dígitos numéricos**. Retorna `True` o `False`.
+* **`.capitalize()`:** Retorna el texto convirtiendo la primera letra en mayúscula y el resto en minúsculas.
+* **`.lower()` / `.upper()`:** Convierte todo el texto a minúsculas o mayúsculas, respectivamente.
+
+---
+
+# Control Avanzado de Bucle y Patrones de Interacción
+
+## Control de Ejecución (`break` y `continue`)
+* **`break`:** Interrumpe y rompe inmediatamente el bucle en el que está contenido, transfiriendo el control de ejecución a la línea posterior al bucle.
+* **`continue`:** Salta el resto de las instrucciones de la vuelta actual y regresa de inmediato al inicio del bucle para evaluar la siguiente iteración.
+
+## Patrones de Interacción y UX Defensiva
+
+### 1. El Bucle Infinito de Validación (`while True`)
+Estructura que fuerza al programa a solicitar un dato repetidamente hasta que el usuario ingrese un formato válido.
+
+```python
+while True:
+    dato = input("Ingrese dato: ")
+    if es_valido(dato):
+        break  # Se rompe el bucle únicamente cuando el dato es correcto
+    print("Dato inválido, intente de nuevo.")
