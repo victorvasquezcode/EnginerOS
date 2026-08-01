@@ -1,33 +1,26 @@
-# Bitácora de Aprendizaje - Lógica de Programación
-## Concepto del día: [operadores]
-### 1. ¿Que problema resuelve exactamente?
-Manipulacion de Variables
-Calculos matematicos
-Evaluacion de condiciones logicas
-Actualizacion en memoria y Busqueda
-Verificacion dentro del codigo
-Bitwise
+# Bitácora de Aprendizaje: Reto 00 - Operadores y Manipulación de Variables
 
-### 2.¿Cuales son sus limites o cuando No debo usarlo?
-* **Aritméticos:** Un `/` siempre devuelve un `float`, mientras que `//` realiza una división entera y devuelve un `int`.
-* **Lógicos:** `and`, `or` y `not` trabajan mayormente con booleanos (`True` y `False`).
-* **Asignación:** Operadores como `+=` o `-=` solo se aplican a variables que ya fueron declaradas previamente con un valor inicial.
-* **Identidad:** NO debo usar `is` para comparar números o texto por su valor (para eso es `==`). `is` solo se usa para corroborar si dos variables comparten la misma posición física en memoria RAM o si una variable está vacía (`None`).
-* **Salida por consola:** En `print()`, al separar texto y variables con comas `,`, Python agrega un espacio automáticamente; no hace falta agregarlo manualmente en el texto.
-* **Flujo:** La declaración de la variable debe ir **antes** de llamar a `print()`.
-* No debo usar operadores de bits en operaciones logicas
-* El operador `~` da numeros negativos `-(n+1)`
+### 1. 🎯 Lo que dominé hoy (El clic mental)
+* Comprendí la diferencia operativa de las comparaciones: `==` compara **valores**, mientras que `is` evalúa si dos variables apuntan al **mismo espacio de memoria RAM** o si una variable es `None`.
+* Entendí la sintaxis del operador de pertenencia `in` (sensible a mayúsculas/minúsculas): funciona como un buscador donde la subcadena buscada va primero y la variable recipiente al final (`"subcadena" in variable`).
+* Comprendí el comportamiento de las divisiones: `/` siempre retorna un decimal (`float`), mientras que `//` ejecuta una división entera truncada (`int`).
 
-### 3. Explicación simple(Técnica Feyman):
-* Los operadores son las acciones o verbos del código.
-* El operador `in` funciona como un `Ctrl + F` (o buscador): escanea un texto para ver si existe una letra o palabra clave dentro de él.
-* `in` es estricto y distingue entre mayúsculas y minúsculas (case-sensitive).
-* Los bits son representaciones de apagado (`0`) y encendido (`1`)
-
-### 4. ¿Como lo rompi y que error dio?
-* Intenté hacer un `not` comparando dos números directamente (`30 not 20`) y dio `SyntaxError`.
-* Intenté hacer `b += a` sin declarar la variable `b` primero y me salió `NameError: name 'b' is not defined`.
-* Al colocar `print()` por encima de la variable declarada, dio error porque Python lee de arriba a abajo y no encuentra la variable.
-* Usé `is` con números directos (`20 is 40`) y Python arrojó un `SyntaxWarning` recomendando usar `==`.
-* Olvidé poner la coma en un `print()` al separar texto y variable, dando un error de sintaxis.
-* Invertí el orden al usar `in` (`apellido in "Vasquez"` en lugar de `"Vas" in apellido`). El estándar es poner primero la subcadena que buscas y luego la variable principal.
+### 2. ⚠️ Tropezones, errores y cómo los solucioné
+1. **Intento de usar `+=` sin inicializar la variable previamente:**
+   * *Error:* `NameError: name 'b' is not defined` al hacer `b += a`.
+   * *Por qué pasó:* Los operadores de asignación abreviada requieren que la variable de destino ya exista en memoria.
+   * *Solución:* Inicializar la variable con un valor por defecto (ej. `b = 0`) antes de aplicar `+=`.
+2. **Sintaxis incorrecta combinando `not` con números (`30 not 20`):**
+   * *Error:* `SyntaxError`.
+   * *Por qué pasó:* `not` es un operador unario que invierte un booleano (`not True`), no un operador binario de comparación entre dos números.
+   * *Solución:* Usar la comparación explícita `30 != 20` o `not (30 == 20)`.
+3. **Inversión de orden en el operador de pertenencia `in`:**
+   * *Por qué pasó:* Escribir `apellido in "Vasquez"` en lugar de `"Vas" in apellido`.
+   * *Resultado:* Incompatibilidad lógica al buscar la variable dentro de un literal estático.
+   * *Solución:* Respetar el estándar: `elemento_buscado in contenedor_o_variable`.
+4. **Uso de `is` para comparar literales numéricos (`20 is 40`):**
+   * *Error:* `SyntaxWarning: "is" with a literal. Did you mean "=="?`.
+   * *Solución:* Usar el operador de igualdad `==` para comparar valores numéricos o cadenas de texto.
+5. **Invocación de `print()` previa a la declaración de la variable:**
+   * *Error:* `NameError` debido al flujo top-down (de arriba a abajo) de Python al interpretar el archivo.
+   * *Solución:* Declarar e inicializar las variables siempre por encima de las líneas donde se usen.

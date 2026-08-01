@@ -1,33 +1,22 @@
-# Bitácora de Aprendizaje - Lógica de Programación
-## Concepto del día: [Estructuras de Datos - Listas, Tuplas, Diccionarios y Sets]
+# Bitácora de Aprendizaje: Reto 04 - Estructuras de Datos y Algoritmos de Búsqueda
 
-### 1. ¿Qué problema resuelve exactamente?
-Permite agrupar, organizar y manipular colecciones de datos en memoria segun su naturaleza
+### 1. 🎯 Lo que dominé hoy (El clic mental)
+* Comprendí la naturaleza de cada estructura: **Listas** (dinámicas/mutables), **Tuplas** (inmutables), **Sets** (únicos/sin orden) y **Diccionarios** (clave-valor).
+* Entendí cómo el extractor `for` abre automáticamente los paquetes de `.items()` en variables independientes (`clave` y `valor`) en cada vuelta.
+* Aprendí la arquitectura de **bucles `while True` aislados** para crear validaciones independientes por campo (UX profesional).
 
-### 2. ¿Cuáles son sus límites o cuándo NO debo usarlo?
-* **Listas** No usar cuando se requiere asegurar que los datos permanezcan inmutables `Tuplas` o cuando se permitan elementos repetidos `Sets`
-* **Tuplas** No usar si los datos van a cambiar a lo largo del tiempo ya que son inmutable
-* **Diccionarios** No usar si solo necesitas una secuencia simple sin identificadores clave-valor.
-* **Sets:** No usar si el orden de los elementos importa o si necesitas acceder a ellos mediante el indice numero `set[0]`
-
-### 3. Explicación simple (Técnica Feynman):
-* **Lista (`[]`)** Es una caja con comportamientos numeros (`0,1,2,....`) donde se puede meter sacar y ordenar lo que se quiera
-* **Tupla (`()`)** Es un bloque de cemento con datos guardados nadie lo puede modificar
-* **Diccionario (`{}`)** Es un casillero etiquetado no se busca por numero se busca por la etiqueta clave para saber el valor adentro
-* **Set (`{}`)** Es un colador anti-duplicados todo pierde su orden pero elimina automaticamente las copias repetidas
-* **Extractor `for` con `.items()`:** Al iterar `for clave, valor in dict.items():` el bucle extrae y desempaqueta automaticamente la clave y el valor en cada vuelta.
-* **Aislamiento de validacion en bucle:** Usar bucles `while True` independientes para cada campo evita pedir nuevamente datos que el usuario ya ingreso correctamente.
-
-### 4. ¿Cómo lo rompí y qué error dio?
-1. **Asignar métodos de lista a variables:** Intentar `remove = lista.remove('a')`.
-   * *Resultado:* La variable guarda `None` porque modifica la lista directamente.
-   * *Solución:* Aplicar el metodo directo a la lista sin asignarlo a una variable.
-2. **Intentar modificar la clave de un diccionario directamente:** Intentar renombrar una clave existente.
-   * *Resultado:* Incompatibilidad logica, las claves no se renombran directamente.
-   * *Solucion:* Asignar el valor a la nueva clave y eliminar la anterior mediante `agenda[nueva] = agenda.pop(vieja)`
-3. **Buscar valores directamente sobre la estructura del diccionario:** Usar `if numero in agenda:`
-   * *Resultado:* `in` solo busca en las **claves** (nombres)
-   * *Solucion:* Buscar en los valores con `in agenda.values()` o iterar los pares con `for nombre, numero in agenda.items():`
-4. **Acoplamiento de validaciones en un solo bucle:** Validar nombre y numero dentro del mismo `while True`
-   * *Resultado:* Un error en el numero obligada al usuario a reescribir el nombre desde cero (mala UX)
-   * *Solucion:* Anidar bucles `while True` separados para cada dato a recolectar
+### 2. ⚠️ Tropezones, errores y cómo los solucioné
+1. **Intentar renombrar la clave de un diccionario directamente:**
+   * *Por qué pasó:* Creía que las claves de los diccionarios se podían mutar directamente.
+   * *Solución:* Usar la técnica de extracción e inyección en una sola línea: `agenda[nueva] = agenda.pop(vieja)`.
+2. **Buscar valores de teléfono usando `if numero in agenda:`:**
+   * *Por qué pasó:* El operador `in` sobre un diccionario solo busca en las **claves** (nombres).
+   * *Resultado:* Decía que el número no existía aunque estuviera guardado.
+   * *Solución:* Buscar explícitamente en los valores con `in agenda.values()` o recorrer el diccionario con `for nombre, numero in agenda.items():`.
+3. **Acoplamiento de validaciones en un solo bucle `while`:**
+   * *Por qué pasó:* Pedir nombre y número en el mismo bloque `while True`.
+   * *Resultado:* Un error en el formato del teléfono obligaba al usuario a volver a escribir el nombre desde cero (mala UX).
+   * *Solución:* Asignar un bucle `while True` independiente a cada entrada de datos.
+4. **Asignar métodos in-situ de listas a variables:** Intentar `resultado = lista.remove('a')`.
+   * *Resultado:* La variable guardaba `None` porque `.remove()` modifica la lista directamente en memoria sin retornar nada.
+   * *Solución:* Ejecutar el método directamente sobre la lista sin asignarlo a variables.

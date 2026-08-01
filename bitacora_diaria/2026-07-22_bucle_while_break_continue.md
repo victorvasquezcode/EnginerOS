@@ -1,24 +1,18 @@
-# Bitácora de Aprendizaje - Lógica de Programación
-## Concepto del día: [Estructuas de Control - Bucle While, Break y Continue]
+# Bitácora de Aprendizaje: Reto 01 - Bucle While, Break y Continue
 
-### 1. ¿Qué problema resuelve exactamente?
-* **`while`:** Permite repetir un bloque de codigo **mientras** una condicion sea `True`, cuando no sabemos cuantas vuelvas dara por ejemplo la contraseña si se equivoca no sabemos cuantas vuelvas dara
-* **`break`:** Detiene y destruye la ejecucion del bucle inmediatamente.
-* **`continue`:** Salta el resto de las lineas de la vuelta actual y sigue con el bulce saltandose esa linea
+### 1. 🎯 Lo que dominé hoy (El clic mental)
+* Entendí la utilidad de cada herramienta de control de flujo:
+  * **`while`:** Ideal para iteraciones indefinidas donde no sabemos de antemano cuántas vueltas dará el programa (ej. reintento de contraseñas).
+  * **`break`:** Rompe y aborta el bucle de inmediato.
+  * **`continue`:** Salta el resto del código de la iteración actual y regresa al inicio para evaluar la siguiente vuelta.
 
-### 2. ¿Cuáles son sus límites o cuándo NO debo usarlo?
-* No debo olvidar modificar o incrementar la varible de control dentro del bucle evitando el bucle infinito
-* Al usar `continue` el incremeento de la variable **debe ir antes de la condicion** sino se hara un bucle infinito
-* No debo usar punto y coma al final de `break` o `continue`
-* No debo colocar el incremento dentro de un bloque `else`
-
-### 3. Explicación simple (Técnica Feynman):
-* `while` es un portero preguntando a la entrada de una discoteca: "mientras tengas entrada (`True`), puedes volver a pasar".
-* `break` es un botón de emergencia: al presionarlo, rompe el ciclo y salimos del lugar inmediatamente.
-* `continue` es un "pase al siguiente": ignora lo que falta por hacer en la vuelta actual y vuelve a la fila para la siguiente inspección.
-
-### 4. ¿Cómo lo rompí y qué error dio?
-* **Puse el incremento dentro de un bloque `else`:** Escribí `if i == 3: break; else: print(i); i += 1`. Al evaluarse `i == 3`, el bloque `else` no se ejecutaba y la variable no incrementaba.
-  * *Solución:* Ubicar el incremento de la variable de forma estratégica dentro del flujo para asegurar que cambie en cada vuelta.
-* **Uso de punto y coma `;`:** Escribí `break;` por costumbre de otros lenguajes.
-  * *Solución:* Eliminar el punto y coma `;` para mantener la sintaxis estándar de Python.
+### 2. ⚠️ Tropezones, errores y cómo los solucioné
+1. **Bucle infinito al usar `continue` antes de incrementar la variable:**
+   * *Por qué pasó:* Colocar el incremento `i += 1` después de la sentencia `continue`.
+   * *Resultado:* El programa saltaba el incremento, la variable no cambiaba y se quedaba atrapado en un bucle infinito.
+   * *Solución:* En bucles `while` con `continue`, la variable de control **siempre debe incrementarse antes** de activar el salto.
+2. **Incremento aislado dentro de un bloque `else`:** Escribir el incremento únicamente dentro del `else` en un `if/else`.
+   * *Resultado:* Al cumplirse la condición del `if`, el bloque `else` se omitía, la variable dejaba de actualizarse y el ciclo colapsaba.
+   * *Solución:* Colocar el incremento en una posición estratégica donde se garantice su ejecución en cada vuelta.
+3. **Uso de punto y coma `;` por inercia de otros lenguajes (`break;`):**
+   * *Solución:* Eliminar el `;` para respetar la sintaxis idiomática de Python (PEP 8).
