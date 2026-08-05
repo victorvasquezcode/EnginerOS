@@ -1,10 +1,5 @@
-# Bitácora de Aprendizaje - Lógica de Programación
-## Concepto del día: []
+# Bitácora de Aprendizaje: Reto 00 - Variables, Tipos de Datos Básicos y Comentarios
 
-### 1. ¿Qué problema resuelve exactamente?
+### 1. 🎯 Lo que dominé hoy (El clic mental)
 
-### 2. ¿Cuáles son sus límites o cuándo NO debo usarlo?
-
-### 3. Explicación simple (Técnica Feynman):
-
-### 4. ¿Cómo lo rompí y qué error dio?
+### 2. ⚠️ Tropezones, errores y cómo los solucioné

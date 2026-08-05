@@ -155,3 +155,65 @@ while True:
     if es_valido(dato):
         break  # Se rompe el bucle únicamente cuando el dato es correcto
     print("Dato inválido, intente de nuevo.")
+```
+
+---
+
+# Control de Excepciones y Manejo de Errores
+
+Mecanismo para prevenir que el programa colapse ante fallos en tiempo de ejecución (entradas de usuario inválidas, conexiones fallidas, operaciones matemáticas imposibles).
+
+## La Estructura Defensiva (`try / except / else / finally`)
+
+```python
+try:
+    # Código "peligroso" susceptible a fallar
+    numero = int(input("Ingrese un número: "))
+    resultado = 10 / numero
+except ValueError:
+    # Se ejecuta si el usuario ingresa texto en lugar de número
+    print("Error: Debe ingresar un número entero válido.")
+except ZeroDivisionError as error:
+    # Captura la falla específica y guarda la explicación en la variable 'error'
+    print(f"Error matemático: {error}")
+else:
+    # Opcional: Se ejecuta ÚNICAMENTE si NO hubo ningún error en el 'try'
+    print(f"Operación exitosa. Resultado: {resultado}")
+finally:
+    # Opcional: Se ejecuta SIEMPRE, haya habido error o no (ideal para limpiar/cerrar recursos)
+    print("Finalizando verificación de seguridad.")
+```
+
+---
+
+# Funciones y Modularidad de Código
+
+Permiten encapsular bloques de código reusables bajo un nombre específico para evitar duplicación de lógica (Principio DRY: *Don't Repeat Yourself*).
+
+## Anatomía de una Función (`def`)
+
+```python
+def calcular_total(precio: float, impuesto: float = 0.18) -> float:
+    # Código o lógica de procesamiento
+    total = precio + (precio * impuesto)
+    return total  # Entrega el valor operable a quien invocó la función
+```
+
+---
+
+### 🛠️ Ajuste menor en "Patrones de Interacción y UX Defensiva":
+
+Añade este segundo patrón debajo del `while True` que ya tienes:
+
+### 2. Bucles Aislados por Campo (UX Profesional)
+En lugar de pedir todos los datos en un solo `while`, se asigna un bucle `while True` **independiente para cada campo**. Esto evita que si el usuario comete un error en el segundo dato (ej. teléfono), tenga que volver a ingresar el primero (ej. nombre).
+
+---
+
+* **Comparación de desigualdad (`!=` vs `not ==`):** Para evaluar si dos valores son distintos, el estándar en Python es usar el operador de desigualdad `!=` en lugar de negar una igualdad con `not ==`.
+  * *No idiomático:* `if not numero == 16:`
+  * *Idiomático (PEP 8):* `if numero != 16:`
+
+# Atajos
+* **`ctr+k` luego `ctr+c` para comentar**
+* **`ctr+k` luego `ctr+u` para descomentar**

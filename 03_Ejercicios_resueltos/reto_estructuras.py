@@ -6,13 +6,9 @@
 # =============================================================================
 # Pista: Usa un bucle (for o while), un rango de números, y combina condiciones
 # con operadores aritméticos (%) y lógicos (and, not, !=).
-
-for numero in range (10, 56 , 2):
-    if numero == 16 or numero % 3 == 0:
-        continue
-    else:
-        print (numero)
-    
+# for numero in range (10 , 56 , 2):
+#     if numero != 16 and numero % 3 != 0:
+#         print(numero)
 
 # =============================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
@@ -25,20 +21,26 @@ for numero in range (10, 56 , 2):
 #   - La función retorna el número de veces que se ha impreso el número en lugar
 #     de los textos.
 # =============================================================================
-def dificicultad_extra (nombre,apellido):
-    contador = 0
-    for numero in range (1, 101):
-        if numero % 3 == 0 and numero % 5 == 0:
-            print(f"{nombre}y{apellido}")
-        elif numero % 3 == 0:
-            print(nombre)
-        elif numero % 5 == 0:
-            print (apellido)
-        else:
-            print(numero)
-            contador += 1
-    return contador
-print(f"El numero de veces que se a impreso el numero es: {dificicultad_extra('Victor', 'Javier')}")
+# def dificultad_extra (nombre, apellido):
+#     contador = 0
+#     for numero in range(1, 101):
+#         texto = ""
+
+#         if numero % 3 == 0:
+#             texto += nombre
+#         if numero % 5 == 0:
+#             texto += apellido
+
+#         if texto:
+#             print(texto)
+#         else:
+#             print(numero)
+#             contador += 1
+            
+#     return contador
+
+# resultado = dificultad_extra ("Victor","Vasquez")
+# print(f"El numero de veces que se imprimio los numeros fue {resultado}")
 
 # =============================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
@@ -48,163 +50,189 @@ print(f"El numero de veces que se a impreso el numero es: {dificicultad_extra('V
 # - Validaciones: El teléfono debe ser numérico (.isdigit()) y tener máximo 11 dígitos (len() <= 11).
 ### - Incluye opción para salir/finalizar el programa. 
 # =============================================================================
-agenda={
-    "victor" : "916487419"
-}
 
+agenda = {
+    "Victor" : "916487419",
+    "Javier" : "916487420",
+    "Trauco" : "916487421"
+}
 while True:
-    print("\nAgenda de Contactos:")
+    print("Bienvenido a la agenda de contactos")
     print("1. Buscar contacto")
     print("2. Insertar contacto")
     print("3. Actualizar contacto")
     print("4. Eliminar contacto")
-    print("5. Salir del programa")
-    opcion_usuario = input("Selecciona un numero del (1-5): ")
+    print("5. Salir del menu de agenda")
+    opcion = input("Ingrese un numero del (1-5): ")
 
-    if opcion_usuario == "1":
-        print("Desea buscar por nombre o por numero (1.Nombre , 2.Numero)")
+    if opcion == "1":
         while True:
+            opcion_buscar = input("Desea buscar por nombre o numero de contacto (Nombre - 1 o Numero - 2): ")
 
-            buscar_contacto = input ("Seleccione una opcion (1-2): ")
+            if opcion_buscar == "1":
+                opcion_buscar_nombre = input("El nombre del contacto que desea buscar: ")
 
-            if buscar_contacto == "1":
-                
-                buscar_contacto_nombre = input("Cual es el nombre de la persona que deseas buscar: ")
-
-                if buscar_contacto_nombre in agenda:
-                    print(f"La persona es {buscar_contacto_nombre} con el numero {agenda[buscar_contacto_nombre]}")
+                if not opcion_buscar_nombre.strip():
+                    print("No se ingreso un nombre esta vacio")
+                    continue
+                    
+                if opcion_buscar_nombre.capitalize() in agenda:
+                    print(f"Se encontro el contacto '{opcion_buscar_nombre.capitalize()}' con el numero '{agenda[opcion_buscar_nombre.capitalize()]}'")
                 else:
-                    print("No existe en la agenda")
-                break
+                    print("No se encontro el contacto")
+                    
+            if opcion_buscar == "2":
+                opcion_buscar_numero = input("El numero del contacto que desea buscar: ")
 
-            elif buscar_contacto == "2":
-
-                buscar_contacto_numero = input("Cual es el numero de la persona que deseas buscar: ")
-
-                if not (buscar_contacto_numero.isdigit() and len(buscar_contacto_numero) <= 11):
-                    print("El numero debe ser digito y tener 11 digitos o menos")
+                if not opcion_buscar_numero.strip():
+                    print("No se ingreso un numero esta vacio")
                     continue
 
                 encontrado = False
-                for nombre,numero in agenda.items():
-                    if numero == buscar_contacto_numero:
-                        print(f"El numero pertenece a: {nombre}")
+                for clave , valor in agenda.items():
+                
+                    if valor == opcion_buscar_numero:
+                        print(f"El numero {opcion_buscar_numero} es del contacto {clave}")
                         encontrado = True
                         break
-
+                    
                 if not encontrado:
-                        print("No hay ninguna contacto registrado con ese numero")
-                break
+                    print("No se encontro el numero del contacto.")
+                    continue
             else:
-                print("Debe seleccionar una opcion valida (1-2)")
+                print("Seleecione un valor valido")
+            opcion_salida_buscar = input("Desea buscar otro contacto ? (1 - Si o 2 - No): ")
+
+            if opcion_salida_buscar == "1":
                 continue
 
-    elif opcion_usuario == "2":
+            if opcion_salida_buscar == "2":
+                break
+
+    if opcion == "2":
         while True:
             while True:
+                opcion_ingresar_nombre = input("Nombre del contacto que desea agregar: ")
 
-                insertar_nombre = input ("Inserte el nombre del contacto: ")
-                
-                if not insertar_nombre.strip():
-                    print("El nombre no debe estar vacio")
+                if not opcion_ingresar_nombre.strip():
+                    print("Ingrese el nombre del contacto no puede estar vacio")
                     continue
 
-                if insertar_nombre in agenda:
-                    print("El contacto ya existe puedes cambiarlo en la opcion 3 (Actualizar)")
+                if opcion_ingresar_nombre.capitalize() in agenda:
+                    print("Contacto ya existe en la agenda")
                     continue
 
                 break
 
-            while True:
-                insertar_numero = input ("Inserte el numero del contacto: ")
+            while True:    
+                opcion_ingresar_numero = input("Numero del contacto que desea agregar: ")
 
-                if insertar_numero in agenda.values():
-                    print("Este numero ya pertenece a otro contacto.")
+                if not opcion_ingresar_numero.strip():
+                    print("Ingrese el numero del contacto no puede estar vacio")
                     continue
 
-                if insertar_numero.isdigit() and len(insertar_numero) <= 11:
-                    agenda[insertar_nombre] = insertar_numero
-                    print(f"Contacto {insertar_nombre.capitalize()} guardado correctamente con el numero {insertar_numero}")
-                    break
-                else:
-                    print("El numero debe ser numero y tener maximo de 11 digitos")
+                if opcion_ingresar_numero in agenda.values():
+                    print("Numero ya existe en la agenda")
                     continue
 
-            while True:
-                ingresar_otro_numero = input ("Desea ingresar otro numero ?(1-Si , 2-No): ")
+                if opcion_ingresar_numero.isdigit() and len(opcion_ingresar_numero) <= 11:
+                    agenda[opcion_ingresar_nombre.capitalize()] = opcion_ingresar_numero
+                    print(f"Contacto agregado exitosamente '{opcion_ingresar_nombre}' con el numero '{opcion_ingresar_numero}'")
 
-                if ingresar_otro_numero == "1":
-                    break
-                elif ingresar_otro_numero == "2":
-                    break
-                else:
-                    print("Ingrese un numero entre 1 y 2")
-
-            if ingresar_otro_numero == "2":
                 break
 
-    elif opcion_usuario == "3":
+            opcion_salida_insertar = input("Desea agregar otro contacto? (Si-1,No-2): ")
+
+            if opcion_salida_insertar == "1":
+                continue
+
+            elif opcion_salida_insertar == "2":
+                break
+
+            else:
+                print("Seleccione una opcion valida")
+
+    if opcion == "3":
+
         if not agenda:
-            print(" La agenda esta vacia. No hay contactos para actualizar.")
-        else:
-            print("\n¿Que deseas actualizar?")
+            print("La agenda esta vacia no hay nada para actualizar")
+
+        while True:
+            print("\n¿Que desea Actualizar?")
             print("1. Nombre del contacto")
-            print("2. Telefono del contacto")
+            print("2. Numero del contacto")
+
+            opcion_actualizar = input("Seleccion una opcion (1-2): ")
 
             while True:
-                buscar_contacto_actualizar = input ("Selecciona una opcion (1-2): ")
+                if opcion_actualizar == "1":
+                    actualizar_nombre = input ("Cual es el nombre del contacto: ")
 
-                if buscar_contacto_actualizar == "1":
-                    buscar_nombre_actualizar = input("Cual es el nombre del contacto: ")
+                    if actualizar_nombre in agenda:
+                        print(f"Se encontro el contacto {actualizar_nombre}")
+                        nuevo_nombre = input("Cual es el nuevo nombre del contacto: ")
 
-                    if buscar_nombre_actualizar in agenda:
-                        print(f"Se encontro el nombre '{buscar_nombre_actualizar}' en los contactos")
-                        nuevo_nombre_actualizar = input(f"Cual es el nuevo nombre para '{buscar_nombre_actualizar}': ")
-
-                        if not nuevo_nombre_actualizar.strip():
-                            print("El nombre no puede estar vacio.")
-                        elif nuevo_nombre_actualizar in agenda:
-                            print("Ya existe otro contacto con ese nombre.")
+                        if not nuevo_nombre.strip():
+                            print("El nuevo nombre esta vacio")
+                            continue
+                        elif nuevo_nombre in agenda:
+                            print("Ya existe un nombre registrado en la agenda")
+                            continue
                         else:
-                            agenda [nuevo_nombre_actualizar] = agenda.pop(buscar_nombre_actualizar)
-                            print(f"El contacto '{buscar_nombre_actualizar}' ahora se llama '{nuevo_nombre_actualizar}'")
+                            agenda [nuevo_nombre] = agenda.pop(actualizar_nombre)
+                            print(f"El contacto {actualizar_nombre} ahora se llama {nuevo_nombre}")
                             break
-
                     else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
-                        break
+                        print(f"El contacto {actualizar_nombre} no existe en la agenda")
 
-                elif buscar_contacto_actualizar == "2":
-                    buscar_nombre_actualizar = input("Ingresa el nombre del contacto cuyo numero deseas que se cambie: ")
+                elif opcion_actualizar == "2":
+                    actualizar_nombre_numero = input ("Cual es el nombre del contacto: ")
 
-                    if buscar_nombre_actualizar in agenda:
+                    if actualizar_nombre_numero in agenda:
                         while True:
-                            nuevo_numero_actualizar = input(f"Ingrese el nuevo numero para el contacto '{buscar_nombre_actualizar}' : ")
+                            actualizar_numero = input(f"Ingrese el nuevo numero para el contacto {actualizar_nombre_numero}: ")
 
-                            if nuevo_numero_actualizar in agenda.values():
-                                print("Este numero ya pertenece a otro contacto.")
-                            elif nuevo_numero_actualizar.isdigit() and len(nuevo_numero_actualizar) <= 11:
-                                agenda[buscar_nombre_actualizar] = nuevo_numero_actualizar
-                                print(f"Numero de '{buscar_nombre_actualizar}' actualizado a '{nuevo_numero_actualizar}'")
+                            if actualizar_numero in agenda.values():
+                                print("Este numero ya pertence a otro contacto")
+                            elif actualizar_numero.isdigit() and len(actualizar_numero) <= 11:
+                                agenda[actualizar_nombre_numero] = actualizar_numero
+                                print(f"Numero de {actualizar_nombre_numero} actualizado a {actualizar_numero}")
                                 break
                             else:
-                                print("El numero debe contener solo digitos y maximo 11 caracteres.")
+                                print("El numero debe tener solo digitos y maximo de 11 carateres")
                         break
                     else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
+                        print("El contacto {actualizar_nombre_numero} no exite en la agenda")
                         break
-                else:
-                    print("Debe seleccionar una opcion valida (1 - 2)")
+            else:
+                print("Debe seleccionar una opcion valida (1-2)")
 
-    elif opcion_usuario == "4":
-        buscar_contacto_eliminar= input("Que contacto desea eliminar: ")
+        opcion_salida_actualizar = input("Desea actualizar otro contacto ? (1-Si o 2-No)")
 
-        if buscar_contacto_eliminar in agenda:
-            agenda.pop(buscar_contacto_eliminar)
-            print(f"El contacto {buscar_contacto_eliminar} a sido eliminado con exito.")
+        if opcion_salida_actualizar == "1":
+            continue
+        elif opcion_salida_actualizar == "2":
+            break
+        else:
+            print("Seleccione una opcion valida (1-2)")
 
-    elif opcion_usuario == "5":
+    if opcion == "4":
+        while True:
+            opcion_eliminar = input("Que contacto desea eliminar: ")
+
+            if opcion_eliminar.capitalize() in agenda:
+                agenda.pop(opcion_eliminar.capitalize())
+                print("Se elimino el contacto exitosamente.")
+            else:
+                print("No se encontro el contacto.")
+
+            opcion_salida_eliminar = input("Desea eliminar otro contacto? (1-Si,2-No): ")
+
+            if opcion_salida_eliminar == "1":
+                continue
+
+            if opcion_salida_eliminar == "2":
+                break
+
+    if opcion == "5":
         break
-    else:
-        print("No se selecciono ninguna opcion selecciones una opcion valida (1-5)")
-        continue
