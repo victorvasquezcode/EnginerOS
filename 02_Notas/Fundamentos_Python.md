@@ -217,3 +217,25 @@ En lugar de pedir todos los datos en un solo `while`, se asigna un bucle `while 
 # Atajos
 * **`ctr+k` luego `ctr+c` para comentar**
 * **`ctr+k` luego `ctr+u` para descomentar**
+
+---
+
+## Conceptos Generales y Arquitectura
+* **Method Chaining (Encadenamiento de Métodos):** Aplicar múltiples métodos consecutivamente de izquierda a derecha en una sola línea de código (ej. `texto.strip().lower()`).
+* **Diseño Defensivo en Funciones:** Principio de arquitectura donde una función se encarga de sanear y limpiar sus propios parámetros de entrada (`.strip()`, `.lower()`, `.replace()`) para ser autosuficiente y no depender de cómo le envíen los datos desde fuera.
+
+---
+
+## Métodos de Cadenas (String Methods)
+* **`.title()`:** Convierte en mayúscula la primera letra de **cada palabra** en el texto (a diferencia de `.capitalize()`, que solo afecta a la primera letra de toda la cadena).
+* **`.replace(viejo, nuevo)`:** Reemplaza subcadenas. A diferencia de `.strip()`, este método sí elimina o cambia caracteres que están en medio del texto (ej. `.replace(" ", "")` quita todos los espacios internos).
+* **`.split(separador)`:** Divide una cadena en una **lista de elementos** utilizando el delimitador indicado (ej. `"a,b,c".split(",")` -> `['a', 'b', 'c']`).
+* **`.join(iterable)`:** Une los elementos de una lista en una sola cadena usando la cadena sobre la que se llama como pegamento/separador (ej. `", ".join(lista)`).
+* **`.startswith(texto)` / `.endswith(texto)`:** Verifican si una cadena inicia o termina con determinado carácter o subcadena, retornando un booleano (`True`/`False`).
+* **`.isalpha()`:** Evalúa si el 100% de los caracteres son letras del alfabeto. Retorna `False` si contiene espacios, comas o números.
+* **Slicing de Cadenas (`[::-1]`):** Extracción de subcadenas por índices. La sintaxis `cadena[::-1]` invierte el texto por completo (ideal para verificar palíndromos).
+
+---
+
+## Reglas de Sintaxis y Buenas Prácticas (PEP 8)
+* **Técnica del Flag (Bandera):** Uso de una variable booleana para monitorear estados durante el recorrido de un bucle y tomar decisiones o realizar impresiones **después** de completar la iteración.
