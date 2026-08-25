@@ -272,3 +272,30 @@ a, b = b, a
 
 # Desempaquetado del retorno de una función
 nueva_var1, nueva_var2 = intercambiar(var1, var2)
+
+---
+
+# Recursividad (Funciones Recursivas)
+
+Técnica de programación donde una función se invoca a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños del mismo tipo.
+
+## Los Dos Pilares Obligatorios
+Para evitar bucles infinitos y errores de desbordamiento de memoria (*Stack Overflow* / `RecursionError`), toda función recursiva requiere:
+
+1. **Caso Base (Condición de Parada):** El escenario más simple con un valor conocido. Detiene la recursión y devuelve un resultado directamente sin hacer más llamadas.
+2. **Caso Recursivo:** La llamada a la misma función pero enviando un parámetro reducido o simplificado (acercándose progresivamente al caso base).
+
+## Flujo de Ejecución en Memoria (Pila de Llamadas)
+1. **Fase de Descenso (Empilar):** Cada llamada recursiva queda "en pausa" acumulándose en la memoria (*Call Stack*) hasta alcanzar el caso base.
+2. **Fase de Ascenso (Desempilar):** Al activarse el caso base, los valores devueltos se resuelven en orden inverso (de abajo hacia arriba) calculando y combinando los resultados.
+
+## Sintaxis Básica y Ejemplo Clásico (Factorial)
+
+```python
+def factorial(n: int) -> int:
+    # 1. Caso Base: Detiene la recursión cuando n llega a 1 o 0
+    if n <= 1:
+        return 1
+    
+    # 2. Caso Recursivo: El valor actual multiplicado por la función con (n - 1)
+    return n * factorial(n - 1)
