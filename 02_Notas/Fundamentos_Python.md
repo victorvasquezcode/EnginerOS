@@ -239,3 +239,36 @@ En lugar de pedir todos los datos en un solo `while`, se asigna un bucle `while 
 
 ## Reglas de Sintaxis y Buenas Prácticas (PEP 8)
 * **Técnica del Flag (Bandera):** Uso de una variable booleana para monitorear estados durante el recorrido de un bucle y tomar decisiones o realizar impresiones **después** de completar la iteración.
+  
+---
+
+# Manejo de Memoria: Asignación por Valor vs. Referencia
+
+## 1. Paso por Valor (Tipos Inmutables)
+Aplica a tipos de datos inmutables: `int`, `float`, `str`, `bool`, `tuple`.
+* **Comportamiento:** Al pasar una variable inmutable a una función o asignarla a otra variable, se crea una copia independiente del valor.
+* **Ámbito (Scope):** Las modificaciones dentro de una función solo afectan a las variables locales. Las variables originales globales permanecen intactas.
+* **Para conservar cambios:** Se debe capturar el retorno de la función en nuevas variables (`nueva_var1, nueva_var2 = funcion(a, b)`).
+
+## 2. Paso por Referencia (Tipos Mutables)
+Aplica a tipos de datos mutables: `list`, `dict`, `set`.
+* **Comportamiento:** Al asignar o pasar una colección mutable a una función, ambas variables apuntan a la **misma posición de memoria RAM**.
+* **Efectos Secundarios:** Las modificaciones hechas sobre el contenido (ej. `.append()`, `.pop()`, modificación por llave o índice) afectan directamente al objeto original, incluso fuera de la función.
+* **Reasignación local vs. Mutación:** 
+  * Reasignar una variable local (`lista = [1, 2]`) rompe el enlace con el objeto original.
+  * Mutar su contenido (`lista.append(1)`) altera el objeto original.
+  * Para evitar modificar la lista original dentro de una función, se debe pasar una copia explícita (`lista.copy()`).
+
+---
+
+# Trucos de Sintaxis e Intercambio de Variables
+
+## Desempaquetado de Tuplas (Swap de Variables)
+Permite intercambiar el valor de dos o más variables en una sola línea de forma elegante e idiomática, sin necesidad de usar variables temporales.
+
+```python
+# Intercambio simple de valores (Swap)
+a, b = b, a
+
+# Desempaquetado del retorno de una función
+nueva_var1, nueva_var2 = intercambiar(var1, var2)

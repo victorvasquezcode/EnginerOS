@@ -64,3 +64,24 @@ Guía rápida de comandos esenciales para la gestión de archivos, directorios y
 * **Tecla `Tab` (Autocompletado):** Presiona `Tab` mientras escribes el nombre de una carpeta o archivo para que la terminal lo complete automáticamente.
 * **Flecha Arriba (`↑`) / Flecha Abajo (`↓`):** Navega por el historial de comandos ejecutados recientemente para reusarlos sin tipear de nuevo.
 * **`clear` (o `Ctrl + L`):** Limpia el texto de la pantalla de la consola para dejar la vista despejada.
+
+---
+
+## 7. Mantenimiento y Actualizacion del Sistema (Fedora Linux)
+
+* **`sudo dnf upgrade --refresh`:** Fuerza la sincronizacion de las listas de los repositorios e instala las actualizaciones mas recientes de todos los paquetes y aplicaciones instaladas.
+* **`flatpak update`:** Actualiza todas las aplicaciones instaladas en formato Flatpak a su version mas reciente.
+* **`sudo dnf clean all`:** Limpia el cache de paquetes descargados y metadatos para liberar espacio en disco o resolver errores de descarga.
+* **`dnf check-update`:** Muestra la lista de paquetes que tienen actualizaciones disponibles sin instalarlas inmediatamente.
+* **`sudo reboot`:** Reinicia el equipo desde la terminal (recomendado tras actualizaciones Kernel).
+
+### Actualicacion de Version Mayor de Fedora (System Upgrade)
+```bash
+  # 1. Instalar el plugin oficial de actualización
+  sudo dnf install dnf-plugin-system-upgrade
+
+  # 2. Descargar paquetes de la nueva versión (ejemplo: Fedora 40/41)
+  sudo dnf system-upgrade download --releasever=40
+
+  # 3. Iniciar el proceso de reinicio e instalación del SO
+  sudo dnf system-upgrade reboot
