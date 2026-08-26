@@ -272,6 +272,7 @@ a, b = b, a
 
 # Desempaquetado del retorno de una función
 nueva_var1, nueva_var2 = intercambiar(var1, var2)
+```
 
 ---
 
@@ -299,3 +300,36 @@ def factorial(n: int) -> int:
     
     # 2. Caso Recursivo: El valor actual multiplicado por la función con (n - 1)
     return n * factorial(n - 1)
+```
+
+---
+
+# Estructuras de Datos Lineales: Pilas (Stacks) y Colas (Queues)
+
+Estructuras de datos organizadas que restringen la forma en que se insertan y extraen los elementos en una secuencia.
+
+## 1. Pilas (`Stacks` - Principio LIFO)
+* **Principio:** **LIFO** (*Last In, First Out* — El último elemento en entrar es el primero en salir).
+* **Analogía:** Pila de platos o historial de navegación (atrás/adelante).
+* **Implementación en Python:** Se utiliza una lista común (`list`).
+  * **Inserción (Push):** `lista.append(elemento)` (agrega al final).
+  * **Extracción (Pop):** `elemento = lista.pop()` (extrae y retorna el último elemento).
+
+## 2. Colas (`Queues` - Principio FIFO)
+* **Principio:** **FIFO** (*First In, First Out* — El primer elemento en entrar es el primero en salir).
+* **Analogía:** Fila del banco o cola de impresión de documentos.
+* **Implementación en Python:** Se utiliza una lista común (`list`).
+  * **Encolar (Enqueue):** `lista.append(elemento)` (agrega al final).
+  * **Desencolar (Dequeue):** `elemento = lista.pop(0)` (extrae y retorna el primer elemento).
+
+## Comportamiento del Método `.pop()` y Asignación Directa
+El método `.pop()` o `.pop(0)` realiza **dos acciones en simultáneo**:
+1. Modifica la lista original eliminando el elemento del índice especificado.
+2. Devuelve ese mismo valor extraído.
+
+```python
+# Para conservar y usar el elemento removido, se asigna directamente
+elemento_extraido = pila.pop()
+```
+
+---
