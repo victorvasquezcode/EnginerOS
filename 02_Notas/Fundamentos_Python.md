@@ -360,3 +360,29 @@ class Persona:
 # Instanciación y uso
 usuario = Persona("Víctor", 26)
 usuario.mostrar_datos()
+```
+
+---
+
+# Herencia, Polimorfismo e Introspección
+
+Mecanismos de la Programación Orientada a Objetos que permiten construir jerarquías de clases y reutilizar código.
+
+## 1. Herencia y Reutilización
+Mecanismo por el cual una subclase adquiere todos los atributos y métodos de una superclase.
+
+* **Superclase (Clase Padre):** Define la estructura general compartida.
+* **Subclase (Clase Hija):** Especializa el comportamiento agregando sus propios atributos o métodos.
+* **Inicialización con `super()`:** Permite invocar métodos de la clase padre. Todos los parámetros obligatorios del `__init__` padre deben enviarse en la misma llamada.
+
+```python
+class Empleado:
+    def __init__(self, id_empleado: int, nombre: str):
+        self.id_empleado = id_empleado
+        self.nombre = nombre
+
+class Programador(Empleado):
+    def __init__(self, id_empleado: int, nombre: str, lenguaje: str):
+        # Llama al constructor de Empleado pasando todos sus argumentos obligatorios
+        super().__init__(id_empleado, nombre)
+        self.lenguaje = lenguaje
