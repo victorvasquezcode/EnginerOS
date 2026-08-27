@@ -333,3 +333,30 @@ elemento_extraido = pila.pop()
 ```
 
 ---
+
+# Programación Orientada a Objetos (POO)
+
+Paradigma de programación que organiza el código en torno a "objetos" en lugar de solo funciones y lógica. Representa entidades del mundo real combinando estado (atributos) y comportamiento (métodos).
+
+## Conceptos Clave
+* **Clase:** Plantilla o molde que define la estructura y capacidades de un objeto.
+* **Objeto (Instancia):** Ejemplar concreto creado a partir de una clase.
+* **Atributos:** Variables asociadas al objeto que almacenan su estado.
+* **Métodos:** Funciones definidas dentro de una clase que operan sobre sus atributos.
+* **`self`:** Referencia explícita al objeto actual dentro de la clase. Es obligatorio como primer parámetro en todos los métodos de instancia.
+
+## Anatomía de una Clase Básica (`__init__`)
+
+```python
+class Persona:
+    # Método Constructor: Se ejecuta automáticamente al crear el objeto
+    def __init__(self, nombre: str, edad: int):
+        self.nombre = nombre  # Atributo de instancia
+        self.edad = edad      # Atributo de instancia
+
+    def mostrar_datos(self) -> None:
+        print(f"Nombre: {self.nombre} | Edad: {self.edad}")
+
+# Instanciación y uso
+usuario = Persona("Víctor", 26)
+usuario.mostrar_datos()
