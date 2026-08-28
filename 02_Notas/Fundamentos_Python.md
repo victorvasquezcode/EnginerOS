@@ -386,3 +386,27 @@ class Programador(Empleado):
         # Llama al constructor de Empleado pasando todos sus argumentos obligatorios
         super().__init__(id_empleado, nombre)
         self.lenguaje = lenguaje
+```
+
+---
+
+# Manejo de Excepciones y Errores
+
+Mecanismo para gestionar fallos en tiempo de ejecución de forma limpia, evitando que el programa colapse (*crash*) ante entradas inesperadas o errores de cómputo.
+
+## 1. Bloque `try / except / else / finally`
+
+```python
+try:
+    # Código de riesgo susceptible a fallos
+    resultado = 10 / divisor
+except ZeroDivisionError as e:
+    # Se ejecuta solo si ocurre la excepción específica
+    print(f"Error capturado [{type(e).__name__}]: {e}")
+else:
+    # Se ejecuta ÚNICAMENTE si no ocurrió ningún error en el try
+    print(f"Operación exitosa: {resultado}")
+finally:
+    # Se ejecuta SIEMPRE, sin importar si hubo error o éxito
+    print("Finalizó la verificación de la operación.")
+```
