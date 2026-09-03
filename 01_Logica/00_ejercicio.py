@@ -59,7 +59,7 @@ lineas
 #   (Recuerda que en Python las constantes no se fuerzan a nivel de intérprete,
 #   sino por convención para los desarrolladores).
 
-variable_1 = 25
+variable_1 = "Python"
 VARIABLE_2 = "constante"
 
 
@@ -91,4 +91,4 @@ variable_vacia = None
 # - Usa la función integrada print() para mostrar en pantalla el mensaje
 #   "¡Hola, Python!" (puedes usar f-strings o concatenación simple).
 
-print(f"¡{cadena_caracteres}, Python!")
+print(f"¡{cadena_caracteres}, {variable_1}!")
