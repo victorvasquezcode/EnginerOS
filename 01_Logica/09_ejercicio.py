@@ -1,48 +1,67 @@
 # =============================================================================
-# RETO 08: CLASES Y OBJETOS (PROGRAMACIÓN ORIENTADA A OBJETOS - POO)
+# RETO 09: HERENCIA Y POLIMORFISMO
 #
 # CONCEPTOS CLAVE:
-# 1. Clase: Plantilla o molde para crear objetos (define atributos y métodos).
-# 2. Atributos: Variables asociadas al objeto (guardan su estado).
-# 3. Métodos: Funciones asociadas al objeto (definen su comportamiento).
-# 4. Constructor (__init__): Método especial que se ejecuta automáticamente
-#    al instanciar un objeto para inicializar sus atributos.
-# 5. Parámetro `self`: Referencia obligatoria dentro de la clase para acceder
-#    a las propiedades y métodos de la propia instancia.
+# 1. Herencia: Mecanismo que permite a una clase (subclase) heredar atributos 
+#    y métodos de otra clase (superclase), promoviendo la reutilización de código.
+# 2. Polimorfismo: Capacidad de diferentes objetos para responder al mismo 
+#    nombre de método de forma personalizada según su clase.
+# 3. `super().__init__()`: Llamada al constructor de la clase padre para 
+#    inicializar los atributos heredados antes de añadir los propios.
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: CREACIÓN Y MANIPULACIÓN DE UNA CLASE
+# 1. EJERCICIO PRINCIPAL: ANIMAL, PERRO Y GATO
 # -----------------------------------------------------------------------------
 
-class Persona:
+class Animal:
     """
-    Clase que representa a una persona básica con atributos y métodos de impresión.
+    Superclase abstracta/base de la cual heredarán las especies concretas.
     """
-    def __init__(self, nombre: str, edad: int):
-        # Inicializador de atributos de instancia
+    def __init__(self, nombre: str):
         self.nombre = nombre
-        self.edad = edad
 
-    def mostrar_datos(self):
-        # Método para imprimir la información del objeto
-        print(f"Nombre: {self.nombre} | Edad: {self.edad}")
+    def emitir_sonido(self) -> str:
+        # PISTA: Método base pensado para ser sobrescrito por las subclases
+        return "Sonido genérico de animal"
+
+
+class Perro(Animal):
+    def __init__(self, nombre: str, raza: str):
+        # PISTA: Llama al constructor de Animal pasando 'nombre' con super()
+        super().__init__(nombre)
+        self.raza = raza
+
+    def emitir_sonido(self) -> str:
+        # PISTA: Sobrescribe el método con el sonido específico del perro
+        return "¡Guau!"
+
+
+class Gato(Animal):
+    def __init__(self, nombre: str, color: str):
+        super().__init__(nombre)
+        self.color = color
+
+    def emitir_sonido(self) -> str:
+        # PISTA: Sobrescribe el método con el sonido específico del gato
+        return "¡Miau!"
+
+
+def imprimir_sonido_animal(animal: Animal):
+    """
+    Función polimórfica: recibe cualquier objeto que sea de tipo Animal 
+    e imprime su sonido sin importar la clase concreta.
+    """
+    print(f"{animal.nombre} dice: {animal.emitir_sonido()}")
 
 
 # --- PRUEBAS DEL EJERCICIO PRINCIPAL ---
-print("=== DEMOSTRACIÓN DE CLASE Y OBJETOS ===")
+print("=== DEMOSTRACIÓN DE HERENCIA Y POLIMORFISMO ===")
+mi_perro = Perro("Firulais", "Pastor Alemán")
+mi_gato = Gato("Garfield", "Naranja")
 
-# Instanciación y establecimiento de parámetros iniciales
-persona1 = Persona("Víctor", 26)
-print("Datos iniciales:")
-persona1.mostrar_datos()
-
-# Modificación de atributos directamente
-persona1.nombre = "Víctor Javier"
-persona1.edad = 27
-
-print("\nDatos modificados:")
-persona1.mostrar_datos()
+imprimir_sonido_animal(mi_perro)
+imprimir_sonido_animal(mi_gato)
 
 
 # =============================================================================
@@ -51,73 +70,86 @@ persona1.mostrar_datos()
 
 print("\n=== DIFICULTAD EXTRA ===")
 
-# --- 1. Clase Pila (Stack - LIFO) ---
-class Pila:
-    def __init__(self):
-        # PISTA: Inicializa una lista vacía para almacenar los elementos
-        self.elementos = []
+# --- Superclase Base ---
+class Empleado:
+    def __init__(self, id_empleado: int, nombre: str):
+        self.id_empleado = id_empleado
+        self.nombre = nombre
+        self.empleados_a_cargo = []  # Lista para almacenar empleados a su cargo
 
-    def push(self, elemento):
-        # PISTA: Añade un elemento al final de la lista
-        self.elementos.append(elemento)
+    def agregar_a_cargo(self, empleado):
+        # PISTA: Agrega un empleado a la lista de subordinados
+        self.empleados_a_cargo.append(empleado)
+        return empleado
 
-    def pop(self):
-        # PISTA: Valida si no está vacía antes de extraer el último elemento (.pop())
-        if not self.elementos:
-            print("La pila esta vacia")
-            return None
-        return self.elementos.pop()
-
-    def contar(self) -> int:
-        # PISTA: Retorna el número total de elementos (len())
-        return len(self.elementos)
-
-    def mostrar(self):
-        # PISTA: Imprime el contenido actual de la pila
-        print(f"Pila actual: {self.elementos}")
+    def mostrar_detalles(self):
+        # PISTA: Muestra el ID, nombre y rol básico del empleado
+        print(f"[{self.__class__.__name__}] ID: {self.id_empleado} | Nombre: {self.nombre}")
+        if self.empleados_a_cargo:
+                    print("Empleados a cargo")
+                    for emp in self.empleados_a_cargo:
+                        print(f" - {emp.nombre}")
 
 
-# --- 2. Clase Cola (Queue - FIFO) ---
-class Cola:
-    def __init__(self):
-        # PISTA: Inicializa una lista vacía para almacenar los elementos
-        self.elementos = []
+# --- Subclase Programador ---
+class Programador(Empleado):
+    def __init__(self, id_empleado: int, nombre: str, lenguaje_principal: str):
+        # PISTA: Usa super() para id y nombre, inicializa lenguaje_principal
+        super().__init__(id_empleado,nombre)
+        self.lenguaje_principal = lenguaje_principal
 
-    def enqueue(self, elemento):
-        # PISTA: Añade un elemento al final de la lista
-        self.elementos.append(elemento)
+    def programar(self):
+        # PISTA: Función exclusiva de su actividad
+        return f"{self.nombre} esta programando en {self.lenguaje_principal}."
 
-    def dequeue(self):
-        # PISTA: Valida si no está vacía antes de extraer el primer elemento (.pop(0))
-        if not self.elementos:
-            print("La cola esta vacia")
-            return None
-        return self.elementos.pop(0)
+    def mostrar_detalles(self):
+        super().mostrar_detalles()
+        print(f" Lenguaje principal: {self.lenguaje_principal}")
 
-    def contar(self) -> int:
-        # PISTA: Retorna el número total de elementos (len())
-        return len(self.elementos)
 
-    def mostrar(self):
-        # PISTA: Imprime el contenido actual de la cola
-        print(f"Cola actual: {self.elementos}")
+# --- Subclase Gerente de Proyecto ---
+class GerenteProyecto(Empleado):
+    def __init__(self, id_empleado: int, nombre: str, proyecto_actual: str):
+        # PISTA: Usa super() e inicializa el proyecto asignado
+        super().__init__(id_empleado,nombre)
+        self.proyecto_actual = proyecto_actual
+
+    def coordinar_proyecto(self):
+        # PISTA: Función exclusiva de su actividad
+        return f"{self.nombre} esta coordinando el proyecto {self.proyecto_actual}."
+
+    def mostrar_detalles(self):
+        super().mostrar_detalles()
+        print(f" Proyecto asignado: {self.proyecto_actual}")
+
+
+# --- Subclase Gerente General ---
+class Gerente(Empleado):
+    def __init__(self, id_empleado: int, nombre: str, departamento: str):
+        # PISTA: Usa super() e inicializa departamento
+        super().__init__(id_empleado,nombre)
+        self.departamento = departamento
+
+    def tomar_decision_ejecutiva(self):
+        # PISTA: Función exclusiva de su actividad
+        return f"{self.nombre} tomo una decision para el area de {self.departamento}"
+
+    def mostrar_detalles(self):
+        super().mostrar_detalles()
+        print(f" Departamento: {self.departamento}")
 
 
 # --- Pruebas de la Dificultad Extra ---
-mi_pila = Pila()
-mi_pila.push("Documento 1")
-mi_pila.push("Documento 2")
-mi_pila.push("Documento 3")
-extraido_pila = mi_pila.pop()
-print(f"Elemento retirado de la pila: {extraido_pila}")
-print(f"Total de elementos en pila: {mi_pila.contar()}")
-mi_pila.mostrar()
+print ("=== JERARQUIA DE LA EMPRESA ===")
+dev1 = Programador(1,"Victor","Python")
+pm1 = GerenteProyecto(2,"Ana","Migracion ERP")
+gerente1 = Gerente(3, "Carlos", "Sistemas")
 
-mi_cola = Cola()
-mi_cola.enqueue("Turno 1")
-mi_cola.enqueue("Turno 2")
-mi_cola.enqueue("Turno 3")
-extraido_cola = mi_cola.dequeue()
-print(f"Elemento retirado de la cola: {extraido_cola}")
-print(f"Total de elementos en cola: {mi_cola.contar()}")
-mi_cola.mostrar()
+gerente1.agregar_a_cargo(pm1)
+pm1.agregar_a_cargo(dev1)
+
+gerente1.mostrar_detalles()
+print()
+pm1.mostrar_detalles()
+print()
+dev1.mostrar_detalles()

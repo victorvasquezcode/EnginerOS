@@ -1,29 +1,50 @@
 # =============================================================================
-# RETO 06: RECURSIVIDAD
+# RETO 07: PILAS (STACKS) Y COLAS (QUEUES)
 #
 # CONCEPTOS CLAVE:
-# 1. Caso Base: La condición de parada que evita que la función se llame
-#    a sí misma infinitamente (evita el RecursionError / Stack Overflow).
-# 2. Caso Recursivo: La llamada a la misma función, pero acercándose 
-#    progresivamente al caso base.
+# 1. Pila (Stack - LIFO: Last In, First Out): El último elemento en entrar 
+#    es el primero en salir (ej. pila de platos, historial/deshacer).
+# 2. Cola (Queue - FIFO: First In, First Out): El primer elemento en entrar 
+#    es el primero en salir (ej. fila del banco, cola de impresión).
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: IMPRIMIR DEL 100 AL 0
+# 1. EJERCICIO PRINCIPAL: ESTRUCTURA Y MÉTODOS BÁSICOS
 # -----------------------------------------------------------------------------
 
-def cuenta_atras(numero: int):
-    # 1. Caso Base: ¿Cuándo debemos detener la recursividad?
-    if numero < 0:
-        return
-    # 2. Caso Recursivo: Imprimir el número actual y llamar a la función con numero - 1
-    print(numero)
-    
-    cuenta_atras(numero - 1)
+# --- PILA (STACK - LIFO) ---
+print("=== DEMOSTRACIÓN DE PILA (STACK) ===")
+pila = []
 
-# Prueba la función inicializando en 100
-# cuenta_atras(100)
-cuenta_atras(100)
+# Introducción de elementos (Push -> append)
+pila.append("Página 1")
+pila.append("Página 2")
+pila.append("Página 3")
+print(f"Pila actual: {pila}")
+
+# Recuperación/Extracción de elementos (Pop -> pop())
+# Extrae el ÚLTIMO elemento añadido
+elemento_pila = pila.pop()
+print(f"Elemento extraído (LIFO): {elemento_pila}")
+print(f"Pila tras extracción: {pila}\n")
+
+
+# --- COLA (QUEUE - FIFO) ---
+print("=== DEMOSTRACIÓN DE COLA (QUEUE) ===")
+cola = []
+
+# Introducción de elementos (Enqueue -> append)
+cola.append("Cliente 1")
+cola.append("Cliente 2")
+cola.append("Cliente 3")
+print(f"Cola actual: {cola}")
+
+# Recuperación/Extracción de elementos (Dequeue -> pop(0))
+# Extrae el PRIMER elemento añadido
+elemento_cola = cola.pop(0)
+print(f"Elemento extraído (FIFO): {elemento_cola}")
+print(f"Cola tras extracción: {cola}")
+
 
 # =============================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
@@ -31,36 +52,76 @@ cuenta_atras(100)
 
 print("\n=== DIFICULTAD EXTRA ===")
 
-# --- 1. Factorial de un Número ---
-# Enunciado: n! = n * (n - 1) * (n - 2) * ... * 1
-# Ejemplo: 5! = 5 * 4 * 3 * 2 * 1 = 120
-# Caso Base: Si n == 0 o n == 1, el factorial es 1.
+# --- 1. Simulador de Navegador Web (Uso de Pilas) ---
+def navegador_web():
+    # Pila para el historial hacia atrás y pila para el historial hacia adelante
+    historial_atras = []
+    historial_adelante = []
+    pagina_actual = "google"
 
-def factorial(n: int) -> int:
-    # Escribe la condición del caso base y el retorno recursivo
-    if n == 0 or n == 1:
-        return 1
-    
-    return n * factorial(n - 1)
+    while True:
+        # Pide la instrucción o nombre de la web
+        # Aplica .strip().lower() para sanear la entrada
+        # Lógica para "atrás", "adelante", "salir" y nuevas webs
+        print(f"\n[Pagina actual: {pagina_actual}]")
+        comando = input("Ingresa una URL o un comando (atras/adelante/salir): ").strip().lower()
 
-# Pruebas de Factorial:
-numero_factorial = 5
-print(f"El factorial de {numero_factorial} es: {factorial(numero_factorial)}")
+        if not comando:
+            print("El comando no puede estar vacio.")
+            continue
+
+        if comando == "atras":
+
+            if not historial_atras:
+                print("No existe una pagina buscada anteriormente.")
+            else:
+                historial_adelante.append(pagina_actual)
+                pagina_actual = historial_atras.pop()
+                print(f"Se volvio a la pagina anterior")
+            
+        elif comando == "adelante":
+            if not historial_adelante:
+                print("No existe una pagina buscada posterior")
+            else:
+                historial_atras.append(pagina_actual)
+                pagina_actual = historial_adelante.pop()
+                
+        elif comando == "salir":
+            break
+        else:
+            historial_atras.append(pagina_actual)
+            pagina_actual = comando
+            historial_adelante.clear()
+
+# Para probar:
+#navegador_web()
 
 
-# --- 2. Elemento en la Sucesión de Fibonacci ---
-# Enunciado: Posiciones: 0, 1, 2, 3, 4, 5, 6, 7...
-#            Valores:    0, 1, 1, 2, 3, 5, 8, 13...
-# Fórmula: Fib(n) = Fib(n - 1) + Fib(n - 2)
-# Casos Base: Fib(0) = 0, Fib(1) = 1.
+# --- 2. Simulador de Impresora Compartida (Uso de Colas) ---
+def impresora_compartida():
+    cola_impresion = []
 
-def fibonacci(posicion: int) -> int:
-    # Escribe los casos base para posición 0 y 1, y la suma recursiva para el resto
-    if posicion <=1:
-        return posicion
+    while True:
+        # Pide la instrucción o nombre del documento
+        # Lógica para "imprimir", "salir" y agregar documentos a la cola
+        instruccion = input("Ingrese el nombre del documento para imprimir o instruccion (imprimir / salir): ").strip().lower()
+        if not instruccion:
+            print("No puede estar vacia la instruccion.")
+            continue
+        
+        if instruccion == "salir":
+            break
+        elif instruccion == "imprimir":
+            if not cola_impresion:
+                print("No hay cola para imprimir")
+            else:
+             impresion = cola_impresion.pop(0)
+             print(f"Imprimiendo el documento '{impresion}'")
+             print(f"Se imprimio correctamente el documento '{impresion}'")
+        else:
+            cola_impresion.append(instruccion)
+            print(f"Se agrego correctamente a la cola de documentos '{instruccion}'")
+        pass
 
-    return fibonacci(posicion-1) + fibonacci(posicion-2)
-
-# Pruebas de Fibonacci:
-pos = 7  # Debería retornar 13
-print(f"El elemento en la posición {pos} de Fibonacci es: {fibonacci(pos)}")
+# Para probar:
+impresora_compartida()

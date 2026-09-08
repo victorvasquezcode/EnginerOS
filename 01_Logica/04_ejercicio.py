@@ -1,245 +1,171 @@
 # =============================================================================
-# RETO 03: ESTRUCTURAS DE DATOS
+# RETO 04: CADENAS DE CARACTERES (STRINGS)
 # Enunciado:
-# 1. Muestra ejemplos de creación de todas las estructuras soportadas por defecto en Python:
-#    - Listas (list)
-#    - Tuplas (tuple)
-#    - Diccionarios (dict)
-#    - Conjuntos (set)
-# 2. Operaciones principales: Inserción, Borrado, Actualización y Ordenación en cada una.
+# 1. Muestra ejemplos de todas las operaciones que puedes realizar con cadenas de
+#    caracteres en Python:
+#    - Acceso a caracteres específicos, subcadenas (slicing), longitud.
+#    - Concatenación, repetición, recorrido (iteración).
+#    - Conversión a mayúsculas, minúsculas, formato título.
+#    - Reemplazo, división (split), unión (join).
+#    - Interpolación/f-strings, verificación (start/endswith, isdigit, etc.).
+# 2. DIFICULTAD EXTRA (Opcional):
+#    Crea un programa que analice dos palabras y compruebe si son:
+#    - Palíndromos
+#    - Anagramas
+#    - Isogramas
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# 1. LISTAS (List) - Mutables, ordenadas y permiten duplicados
-# Pista: Usa append(), insert(), remove(), pop(), ordenación con sort() o sorted().
+# 1. OPERACIONES BÁSICAS: Acceso, Subcadenas, Longitud y Recorrido
+# Pistas: Usa índices [0], slicing [inicio:fin:paso], len() y bucles for.
 # -----------------------------------------------------------------------------
-print("--- 1. LISTAS ---")
-mercado = ['manzana','zanahoria','tomate','berengena']
-mercado.append('pera')
-mercado.insert(1,'uva')
-mercado.remove('manzana')
-elemento_eliminado = mercado.pop()
-mercado[2] = 'lechuga'
-mercado.sort()
-mercado_ordenado = sorted(mercado, reverse=True)
-print(f"Lista modificada: {mercado}")
-print(f"Lista modificada al revez: {mercado_ordenado}")
-print(f"Elemento sacado con pop: {elemento_eliminado}")
+print("--- 1. OPERACIONES BÁSICAS Y ACCESO ---")
+texto_ejemplo = "Pythonista"
 
+# TODO:
+# - Obtén el primer y el último carácter usando índices.
+primer_caracter = texto_ejemplo[0]
+ultimo_caracter = texto_ejemplo[-1]
+print(f"Primer caracter: {primer_caracter}\nSegundo Caracter: {ultimo_caracter}")
 
+# - Extrae una subcadena (por ejemplo, "Python") usando slicing.
+palabra_python = texto_ejemplo[0:6:1]
+print(f"Subcadena: {palabra_python}")
 
-# -----------------------------------------------------------------------------
-# 2. TUPLAS (Tuple) - Inmutables, ordenadas y permiten duplicados
-# Pista: No se pueden modificar directamente. ¿Qué pasa si intentas alterar un valor?
-# -----------------------------------------------------------------------------
-print("\n--- 2. TUPLAS ---")
-componentes = ("memoria","gpu","cpu")
-print (f"Primer componenete: {componentes[0]}")
+# - Invierte la cadena usando slicing [::-1].
+palabra_invertida = texto_ejemplo[::-1]
+print(f"Texto invertido: {palabra_invertida}")
 
-#componentes[0] = "fuente"
-# Tener en cuenta que una tupla es inmutable no se puede cambiar el valor
+# - Imprime la longitud del texto con len().
+longitud_texto = len(texto_ejemplo)
+print(f"Longitud: {longitud_texto}")
 
-ram , grafica , procesador = componentes
-print(f"Tengo una GPU: {grafica} y una CPU: {procesador}")
+# - Recorre la cadena imprimiendo carácter por carácter.
+for letra in texto_ejemplo:
+    print(f"{letra}")
 
 
 # -----------------------------------------------------------------------------
-# 3. DICCIONARIOS (Dict) - Mutables, mapeo Clave-Valor, claves únicas
-# Pista: Usa dict[clave] = valor, pop(), del, keys(), values(), items().
+# 2. CONCATENACIÓN, REPETICIÓN E INTERPOLACIÓN
+# Pistas: Usa +, *, f"{variable}", format() o %.
 # -----------------------------------------------------------------------------
-print("\n--- 3. DICCIONARIOS ---")
-perfil = {
-    "nombre" :"victor", 
-    "apellido" : "Vasquez",
-    "edad" : 26
-    } 
-print(f"Nombre de usuario: {perfil['nombre']}")
-perfil["cargo"] = "Asistente"
-perfil["edad"] = 27
-perfil.pop("apellido")
-print("\nDatos actuales del perfil:")
-for clave, valor in perfil.items():
-    print(f"- {clave.capitalize()}: {valor}")
+print("\n--- 2. CONCATENACIÓN Y FORMATO ---")
+saludo = "Hola"
+nombre = "Víctor"
 
+# TODO:
+# - Une dos cadenas usando +.
+print(saludo + " " + nombre)
 
+# - Repite una cadena varias veces usando *.
+print(saludo * 3) 
+
+# - Muestra un mensaje interpolado usando f-strings (f"{saludo} {nombre}").
+print(f"{saludo} {nombre}")
+print(f"{saludo * 3}")
 
 # -----------------------------------------------------------------------------
-# 4. CONJUNTOS (Set) - Mutables, no ordenados, NO permiten duplicados
-# Pista: Usa add(), remove(), discard(). Útil para eliminar duplicados de listas.
+# 3. TRANSFORMACIÓN Y LIMPIEZA
+# Pistas: Usa .upper(), .lower(), .title(), .capitalize(), .strip(), .replace()
 # -----------------------------------------------------------------------------
-print("\n--- 4. CONJUNTOS (SETS) ---")
-numeros = {1,2,3,4,4,4,4,4,4}
-numeros.add(5)
-numeros.remove(2)
-numeros.discard(1)
-print(list(numeros))
+print("\n--- 3. TRANSFORMACIÓN Y LIMPIEZA ---")
+cadena_desordenada = "  hola MUNDO desde Python hola   "
+
+# TODO:
+# - Convierte todo a mayúsculas (.upper()).
+print(cadena_desordenada.upper())
+# - Convierte todo a minúsculas (.lower()).
+print(cadena_desordenada.lower())
+# - Quita los espacios al inicio y al final (.strip()).
+print(cadena_desordenada.strip())
+# - Reemplaza una palabra por otra (.replace()).
+print(cadena_desordenada.replace("hola","como"))
+# - Capitalizar.
+print(cadena_desordenada.strip().capitalize())
+# - Title.
+print(cadena_desordenada.title())
+
+# -----------------------------------------------------------------------------
+# 4. DIVISIÓN, UNIÓN Y VERIFICACIÓN
+# Pistas: Usa .split(), .join(), .startswith(), .endswith(), .isdigit(), .isalpha()
+# -----------------------------------------------------------------------------
+print("\n--- 4. DIVISIÓN, UNIÓN Y COMPROBACIONES ---")
+lenguajes = "Python,JavaScript,SQL,HTML"
+
+# TODO:
+# - Separa la cadena en una lista de palabras usando .split(",").
+lista_lenguajes = lenguajes.split(",")
+print(f"{lista_lenguajes}")
+
+# - Une una lista de palabras en una cadena usando ", ".join(lista).
+cadena_unida = ", ".join(lista_lenguajes)
+print(cadena_unida)
+
+# - Comprueba si una cadena empieza o termina con cierta letra.
+print(lenguajes.startswith("P"))
+print(lenguajes.endswith("L"))
+
+# - Verifica si una cadena contiene solo números (.isdigit()) o solo letras (.isalpha()).
+print(lenguajes.isdigit())
+print(lenguajes.isalpha())
 
 
 # =============================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
-# Enunciado: Crea una agenda de contactos por terminal.
-# - Funcionalidades: Búsqueda, inserción, actualización y eliminación de contactos.
-# - Datos: Cada contacto tiene Nombre y Teléfono.
-# - Validaciones: El teléfono debe ser numérico (.isdigit()) y tener máximo 11 dígitos (len() <= 11).
-### - Incluye opción para salir/finalizar el programa. 
+# Enunciado: Crea un programa que analice dos palabras diferentes y determine si:
+# 1. Palíndromo: Se lee igual de izquierda a derecha que de derecha a izquierda.
+#    (Ejemplo: "ana", "radar", "reconocer").
+# 2. Anagrama: Tienen exactamente las mismas letras pero en diferente orden.
+#    (Ejemplo: "roma" y "amor", "frase" y "fresa").
+# 3. Isograma: Una palabra donde ninguna letra se repite.
+#    (Ejemplo: "centrifugado", "murciélago").
+#
+# Pistas:
+# - Normaliza los textos a minúsculas y elimina espacios antes de comparar.
+# - Para anagramas: ¿Qué pasa si ordenas las letras con sorted()?
+# - Para isogramas: ¿Qué pasa si comparas len(palabra) con len(set(palabra))?
 # =============================================================================
-agenda={
-    "victor" : "916487419"
-}
 
+print("\n=== DIFICULTAD EXTRA: ANALIZADOR DE PALABRAS ===")
+
+def analizar_palabras(palabra1: str, palabra2: str):
+        palabra1_limpia = palabra1.strip().lower().replace(" ","")
+        palabra2_limpia = palabra2.strip().lower().replace(" ","")
+
+        print(f"\n---Analisis para '{palabra1_limpia}' y '{palabra2_limpia}' ---'")
+        # TODO: Implementa la lógica para verificar:
+        # 1. ¿Es palabra1 o palabra2 un palíndromo?
+        print(f"- '{palabra1_limpia}' : {'Es palíndromo' if palabra1_limpia == palabra1_limpia[::-1] else 'No es palíndromo'}")
+        print(f"- '{palabra2_limpia}' : {'Es palíndromo' if palabra2_limpia == palabra2_limpia[::-1] else 'No es palíndromo'}")
+
+        # 2. ¿Son palabra1 y palabra2 anagramas entre sí?
+        print(f"- '{palabra1_limpia}' y '{palabra2_limpia}' : {'Son anagramas' if sorted(palabra1_limpia) == sorted(palabra2) else 'No son anagramas'}")
+
+        # 3. ¿Es palabra1 o palabra2 un isograma?
+        print(f"- '{palabra1_limpia}'  : {'Es Isograma' if len(palabra1_limpia) == len(set(palabra1_limpia)) else 'No es un Isograma'}")
+        print(f"- '{palabra2_limpia}'  : {'Es Isograma' if len(palabra2_limpia) == len(set(palabra2_limpia)) else 'No es un Isograma'}")
+        
+        pass
+
+# Bloque interactivo para probar el analizador
 while True:
-    print("\nAgenda de Contactos:")
-    print("1. Buscar contacto")
-    print("2. Insertar contacto")
-    print("3. Actualizar contacto")
-    print("4. Eliminar contacto")
-    print("5. Salir del programa")
-    opcion_usuario = input("Selecciona un numero del (1-5): ")
+    word1 = input("Ingresa la primera palabra: ")
+    word2 = input("Ingresa la segunda palabra: ")
 
-    if opcion_usuario == "1":
-        print("Desea buscar por nombre o por numero (1.Nombre , 2.Numero)")
-        while True:
-
-            buscar_contacto = input ("Seleccione una opcion (1-2): ")
-
-            if buscar_contacto == "1":
-                
-                buscar_contacto_nombre = input("Cual es el nombre de la persona que deseas buscar: ")
-
-                if buscar_contacto_nombre in agenda:
-                    print(f"La persona es {buscar_contacto_nombre} con el numero {agenda[buscar_contacto_nombre]}")
-                else:
-                    print("No existe en la agenda")
-                break
-
-            elif buscar_contacto == "2":
-
-                buscar_contacto_numero = input("Cual es el numero de la persona que deseas buscar: ")
-
-                if not (buscar_contacto_numero.isdigit() and len(buscar_contacto_numero) <= 11):
-                    print("El numero debe ser digito y tener 11 digitos o menos")
-                    continue
-
-                encontrado = False
-                for nombre,numero in agenda.items():
-                    if numero == buscar_contacto_numero:
-                        print(f"El numero pertenece a: {nombre}")
-                        encontrado = True
-                        break
-
-                if not encontrado:
-                        print("No hay ninguna contacto registrado con ese numero")
-                break
-            else:
-                print("Debe seleccionar una opcion valida (1-2)")
-                continue
-
-    elif opcion_usuario == "2":
-        while True:
-            while True:
-
-                insertar_nombre = input ("Inserte el nombre del contacto: ")
-                
-                if not insertar_nombre.strip():
-                    print("El nombre no debe estar vacio")
-                    continue
-
-                if insertar_nombre in agenda:
-                    print("El contacto ya existe puedes cambiarlo en la opcion 3 (Actualizar)")
-                    continue
-
-                break
-
-            while True:
-                insertar_numero = input ("Inserte el numero del contacto: ")
-
-                if insertar_numero in agenda.values():
-                    print("Este numero ya pertenece a otro contacto.")
-                    continue
-
-                if insertar_numero.isdigit() and len(insertar_numero) <= 11:
-                    agenda[insertar_nombre] = insertar_numero
-                    print(f"Contacto {insertar_nombre.capitalize()} guardado correctamente con el numero {insertar_numero}")
-                    break
-                else:
-                    print("El numero debe ser numero y tener maximo de 11 digitos")
-                    continue
-
-            while True:
-                ingresar_otro_numero = input ("Desea ingresar otro numero ?(1-Si , 2-No): ")
-
-                if ingresar_otro_numero == "1":
-                    break
-                elif ingresar_otro_numero == "2":
-                    break
-                else:
-                    print("Ingrese un numero entre 1 y 2")
-
-            if ingresar_otro_numero == "2":
-                break
-
-    elif opcion_usuario == "3":
-        if not agenda:
-            print(" La agenda esta vacia. No hay contactos para actualizar.")
-        else:
-            print("\n¿Que deseas actualizar?")
-            print("1. Nombre del contacto")
-            print("2. Telefono del contacto")
-
-            while True:
-                buscar_contacto_actualizar = input ("Selecciona una opcion (1-2): ")
-
-                if buscar_contacto_actualizar == "1":
-                    buscar_nombre_actualizar = input("Cual es el nombre del contacto: ")
-
-                    if buscar_nombre_actualizar in agenda:
-                        print(f"Se encontro el nombre '{buscar_nombre_actualizar}' en los contactos")
-                        nuevo_nombre_actualizar = input(f"Cual es el nuevo nombre para '{buscar_nombre_actualizar}': ")
-
-                        if not nuevo_nombre_actualizar.strip():
-                            print("El nombre no puede estar vacio.")
-                        elif nuevo_nombre_actualizar in agenda:
-                            print("Ya existe otro contacto con ese nombre.")
-                        else:
-                            agenda [nuevo_nombre_actualizar] = agenda.pop(buscar_nombre_actualizar)
-                            print(f"El contacto '{buscar_nombre_actualizar}' ahora se llama '{nuevo_nombre_actualizar}'")
-                            break
-
-                    else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
-                        break
-
-                elif buscar_contacto_actualizar == "2":
-                    buscar_nombre_actualizar = input("Ingresa el nombre del contacto cuyo numero deseas que se cambie: ")
-
-                    if buscar_nombre_actualizar in agenda:
-                        while True:
-                            nuevo_numero_actualizar = input(f"Ingrese el nuevo numero para el contacto '{buscar_nombre_actualizar}' : ")
-
-                            if nuevo_numero_actualizar in agenda.values():
-                                print("Este numero ya pertenece a otro contacto.")
-                            elif nuevo_numero_actualizar.isdigit() and len(nuevo_numero_actualizar) <= 11:
-                                agenda[buscar_nombre_actualizar] = nuevo_numero_actualizar
-                                print(f"Numero de '{buscar_nombre_actualizar}' actualizado a '{nuevo_numero_actualizar}'")
-                                break
-                            else:
-                                print("El numero debe contener solo digitos y maximo 11 caracteres.")
-                        break
-                    else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
-                        break
-                else:
-                    print("Debe seleccionar una opcion valida (1 - 2)")
-
-    elif opcion_usuario == "4":
-        buscar_contacto_eliminar= input("Que contacto desea eliminar: ")
-
-        if buscar_contacto_eliminar in agenda:
-            agenda.pop(buscar_contacto_eliminar)
-            print(f"El contacto {buscar_contacto_eliminar} a sido eliminado con exito.")
-
-    elif opcion_usuario == "5":
-        break
-    else:
-        print("No se selecciono ninguna opcion selecciones una opcion valida (1-5)")
+    if not word1 or not word2:
+        print("Las palabras no pueden estar vacias")
         continue
+
+    analizar_palabras(word1, word2)
+
+    opcion_salida = input("Desea comparar otras dos palabras? (1-Si 2-No): ").strip()
+
+    if opcion_salida == "1":
+        continue
+
+    if opcion_salida == "2":
+        print("Hasta luego")
+        break
+        
+    else:
+        print("Seleccione una opcion valida (1 o 2)")

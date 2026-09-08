@@ -1,171 +1,118 @@
 # =============================================================================
-# RETO 04: CADENAS DE CARACTERES (STRINGS)
-# Enunciado:
-# 1. Muestra ejemplos de todas las operaciones que puedes realizar con cadenas de
-#    caracteres en Python:
-#    - Acceso a caracteres específicos, subcadenas (slicing), longitud.
-#    - Concatenación, repetición, recorrido (iteración).
-#    - Conversión a mayúsculas, minúsculas, formato título.
-#    - Reemplazo, división (split), unión (join).
-#    - Interpolación/f-strings, verificación (start/endswith, isdigit, etc.).
-# 2. DIFICULTAD EXTRA (Opcional):
-#    Crea un programa que analice dos palabras y compruebe si son:
-#    - Palíndromos
-#    - Anagramas
-#    - Isogramas
+# RETO 05: ASIGNACIÓN POR VALOR Y POR REFERENCIA
+#
+# CONCEPTOS CLAVE EN PYTHON:
+# 1. Tipos Inmutables (Por Valor): int, float, str, bool, tuple.
+#    - Al reasignar o modificar la variable, Python crea un nuevo objeto en memoria.
+# 2. Tipos Mutables (Por Referencia): list, dict, set.
+#    - Múltiples variables apuntan al mismo espacio de memoria (dirección).
+#    - Modificar la estructura afecta a todas las variables que la refieren.
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# 1. OPERACIONES BÁSICAS: Acceso, Subcadenas, Longitud y Recorrido
-# Pistas: Usa índices [0], slicing [inicio:fin:paso], len() y bucles for.
+# 1. ASIGNACIÓN DE VARIABLES
 # -----------------------------------------------------------------------------
-print("--- 1. OPERACIONES BÁSICAS Y ACCESO ---")
-texto_ejemplo = "Pythonista"
 
-# TODO:
-# - Obtén el primer y el último carácter usando índices.
-primer_caracter = texto_ejemplo[0]
-ultimo_caracter = texto_ejemplo[-1]
-print(f"Primer caracter: {primer_caracter}\nSegundo Caracter: {ultimo_caracter}")
+# --- Asignación "Por Valor" (Tipos Inmutables) ---
+# Demuestra qué pasa al asignar una variable a otra y luego modificar la segunda
+# (ej. enteros o cadenas de texto).
 
-# - Extrae una subcadena (por ejemplo, "Python") usando slicing.
-palabra_python = texto_ejemplo[0:6:1]
-print(f"Subcadena: {palabra_python}")
+variable = 20
+variable_2 = variable
+variable_2 = 40
+print(variable_2)
 
-# - Invierte la cadena usando slicing [::-1].
-palabra_invertida = texto_ejemplo[::-1]
-print(f"Texto invertido: {palabra_invertida}")
 
-# - Imprime la longitud del texto con len().
-longitud_texto = len(texto_ejemplo)
-print(f"Longitud: {longitud_texto}")
+# --- Asignación "Por Referencia" (Tipos Mutables) ---
+# Demuestra qué pasa al asignar una lista o diccionario a otra variable y modificarla.
 
-# - Recorre la cadena imprimiendo carácter por carácter.
-for letra in texto_ejemplo:
-    print(f"{letra}")
+lista_1 = ["platano","manzana","pera"]
+lista_2 = lista_1
+
+lista_2.append("zanahoria")
+
+print(lista_1)
+print(lista_2)
 
 
 # -----------------------------------------------------------------------------
-# 2. CONCATENACIÓN, REPETICIÓN E INTERPOLACIÓN
-# Pistas: Usa +, *, f"{variable}", format() o %.
+# 2. COMPORTAMIENTO EN FUNCIONES
 # -----------------------------------------------------------------------------
-print("\n--- 2. CONCATENACIÓN Y FORMATO ---")
-saludo = "Hola"
-nombre = "Víctor"
 
-# TODO:
-# - Une dos cadenas usando +.
-print(saludo + " " + nombre)
+# --- Función con parámetro "Por Valor" (Inmutable) ---
+def modificar_valor(parametro):
+    # Modifica el parámetro aquí dentro e imprime su estado interno
+    parametro = 40
+    print(f"Dentro de la funcion: {parametro}")
 
-# - Repite una cadena varias veces usando *.
-print(saludo * 3) 
+# Prueba llamando a la función con una variable original e imprime ambas
+variable_original = 20
 
-# - Muestra un mensaje interpolado usando f-strings (f"{saludo} {nombre}").
-print(f"{saludo} {nombre}")
-print(f"{saludo * 3}")
+print(f"Antes de la funcion: {variable_original}")
+modificar_valor(variable_original)
+print(f"Despues de la funcion: {variable_original}")
 
-# -----------------------------------------------------------------------------
-# 3. TRANSFORMACIÓN Y LIMPIEZA
-# Pistas: Usa .upper(), .lower(), .title(), .capitalize(), .strip(), .replace()
-# -----------------------------------------------------------------------------
-print("\n--- 3. TRANSFORMACIÓN Y LIMPIEZA ---")
-cadena_desordenada = "  hola MUNDO desde Python hola   "
 
-# TODO:
-# - Convierte todo a mayúsculas (.upper()).
-print(cadena_desordenada.upper())
-# - Convierte todo a minúsculas (.lower()).
-print(cadena_desordenada.lower())
-# - Quita los espacios al inicio y al final (.strip()).
-print(cadena_desordenada.strip())
-# - Reemplaza una palabra por otra (.replace()).
-print(cadena_desordenada.replace("hola","como"))
-# - Capitalizar.
-print(cadena_desordenada.strip().capitalize())
-# - Title.
-print(cadena_desordenada.title())
+# --- Función con parámetro "Por Referencia" (Mutable) ---
+def modificar_referencia(parametro):
+    # Modifica el contenido de la lista/diccionario (ej. .append() o modificación directa)
+    parametro.append("Cuaderno")
+    print(f"Dentro de la funcion: {parametro}")
+    pass
 
-# -----------------------------------------------------------------------------
-# 4. DIVISIÓN, UNIÓN Y VERIFICACIÓN
-# Pistas: Usa .split(), .join(), .startswith(), .endswith(), .isdigit(), .isalpha()
-# -----------------------------------------------------------------------------
-print("\n--- 4. DIVISIÓN, UNIÓN Y COMPROBACIONES ---")
-lenguajes = "Python,JavaScript,SQL,HTML"
+# Prueba llamando a la función con una lista original e imprime ambas
+lista_utiles = ["Lapiz","Mochila"]
 
-# TODO:
-# - Separa la cadena en una lista de palabras usando .split(",").
-lista_lenguajes = lenguajes.split(",")
-print(f"{lista_lenguajes}")
+print(f"Antes de la funcion: {lista_utiles}")
+modificar_referencia(lista_utiles)
+print(f"Despues de la funcion: {lista_utiles}")
 
-# - Une una lista de palabras en una cadena usando ", ".join(lista).
-cadena_unida = ", ".join(lista_lenguajes)
-print(cadena_unida)
-
-# - Comprueba si una cadena empieza o termina con cierta letra.
-print(lenguajes.startswith("P"))
-print(lenguajes.endswith("L"))
-
-# - Verifica si una cadena contiene solo números (.isdigit()) o solo letras (.isalpha()).
-print(lenguajes.isdigit())
-print(lenguajes.isalpha())
 
 
 # =============================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
-# Enunciado: Crea un programa que analice dos palabras diferentes y determine si:
-# 1. Palíndromo: Se lee igual de izquierda a derecha que de derecha a izquierda.
-#    (Ejemplo: "ana", "radar", "reconocer").
-# 2. Anagrama: Tienen exactamente las mismas letras pero en diferente orden.
-#    (Ejemplo: "roma" y "amor", "frase" y "fresa").
-# 3. Isograma: Una palabra donde ninguna letra se repite.
-#    (Ejemplo: "centrifugado", "murciélago").
 #
-# Pistas:
-# - Normaliza los textos a minúsculas y elimina espacios antes de comparar.
-# - Para anagramas: ¿Qué pasa si ordenas las letras con sorted()?
-# - Para isogramas: ¿Qué pasa si comparas len(palabra) con len(set(palabra))?
+# Enunciado: Crea dos funciones/programas que reciban dos parámetros cada uno
+# (definidos como variables anteriormente).
+# - En un caso, pasa dos parámetros por valor. En el otro, por referencia.
+# - Intercambia sus valores en el interior de la función y retórnalos.
+# - Asigna el retorno a dos variables nuevas.
+# - Imprime las variables originales y las nuevas para verificar:
+#   1. Que en las nuevas se invirtió el valor.
+#   2. Que en las originales se conservó el valor original (¡ojo con las referencias!).
 # =============================================================================
 
-print("\n=== DIFICULTAD EXTRA: ANALIZADOR DE PALABRAS ===")
+print("\n=== DIFICULTAD EXTRA ===")
 
-def analizar_palabras(palabra1: str, palabra2: str):
-        palabra1_limpia = palabra1.strip().lower().replace(" ","")
-        palabra2_limpia = palabra2.strip().lower().replace(" ","")
+# --- 1. Intercambio Por Valor ---
+def intercambiar_por_valor(a, b):
+    # Intercambia los valores y retórnalos
+    a , b = b , a
+    return a , b
 
-        print(f"\n---Analisis para '{palabra1_limpia}' y '{palabra2_limpia}' ---'")
-        # TODO: Implementa la lógica para verificar:
-        # 1. ¿Es palabra1 o palabra2 un palíndromo?
-        print(f"- '{palabra1_limpia}' : {'Es palíndromo' if palabra1_limpia == palabra1_limpia[::-1] else 'No es palíndromo'}")
-        print(f"- '{palabra2_limpia}' : {'Es palíndromo' if palabra2_limpia == palabra2_limpia[::-1] else 'No es palíndromo'}")
+# Declarar variables originales (inmutables)
+variable_1 = 50
+variable_2 = 40
 
-        # 2. ¿Son palabra1 y palabra2 anagramas entre sí?
-        print(f"- '{palabra1_limpia}' y '{palabra2_limpia}' : {'Son anagramas' if sorted(palabra1_limpia) == sorted(palabra2) else 'No son anagramas'}")
+# Llamar a la función, asignar retornos y comprobar resultados
+nueva_var1, nueva_var2 = intercambiar_por_valor(variable_1, variable_2)
+print(f"Originales : variable 1 = {variable_1} variable 2 = {variable_2}")
+print(f"Nuevos : nueva variable = {nueva_var1} nueva variable 2 = {nueva_var2}")
 
-        # 3. ¿Es palabra1 o palabra2 un isograma?
-        print(f"- '{palabra1_limpia}'  : {'Es Isograma' if len(palabra1_limpia) == len(set(palabra1_limpia)) else 'No es un Isograma'}")
-        print(f"- '{palabra2_limpia}'  : {'Es Isograma' if len(palabra2_limpia) == len(set(palabra2_limpia)) else 'No es un Isograma'}")
-        
-        pass
 
-# Bloque interactivo para probar el analizador
-while True:
-    word1 = input("Ingresa la primera palabra: ")
-    word2 = input("Ingresa la segunda palabra: ")
 
-    if not word1 or not word2:
-        print("Las palabras no pueden estar vacias")
-        continue
+# --- 2. Intercambio Por Referencia ---
+def intercambiar_por_referencia(lista_a, lista_b):
+    # Intercambia el contenido de las listas sin romper las referencias originales
+    # o retorna copias/intercambios según la prueba
+    lista_a , lista_b = lista_b , lista_a
+    return lista_a, lista_b
 
-    analizar_palabras(word1, word2)
+# Declarar variables originales (mutables)
+lista_a = ["Pera","Manzana"]
+lista_b = ["Zanahoria","Zapallo"]
 
-    opcion_salida = input("Desea comparar otras dos palabras? (1-Si 2-No): ").strip()
-
-    if opcion_salida == "1":
-        continue
-
-    if opcion_salida == "2":
-        print("Hasta luego")
-        break
-        
-    else:
-        print("Seleccione una opcion valida (1 o 2)")
+# Llamar a la función, asignar retornos y comprobar resultados
+nueva_lista_a , nueva_lista_b = intercambiar_por_referencia(lista_a, lista_b)
+print(f"Originales : lista 1 = {lista_a} lista 2 = {lista_b}")
+print(f"Nuevas : lista nueva 1 = {nueva_lista_a} lista nueva 2 = {nueva_lista_b}")
