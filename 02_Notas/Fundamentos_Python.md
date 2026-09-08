@@ -1,379 +1,1394 @@
-# Glosario de Conceptos Generales de Software
+# 🐍 Glosario y Guía de Fundamentos de Python
 
-* **REFACTORIZACIÓN:** Proceso de modificar el código existente para hacerlo más limpio, eficiente o legible sin alterar su comportamiento o funcionalidad externa.
-* **MODULARIZAR:** Dividir un programa complejo en partes pequeñas, independientes y reutilizables (módulos o funciones) para facilitar su mantenimiento.
-
----
-
-# Glosario de Tipos de Datos en Python
-
-* **String (`str`):** Cadena de texto plano delimitada entre comillas (`"hola"` o `'hola'`).
-* **Integer (`int`):** Números enteros, ya sean positivos o negativos (`10`, `-5`).
-* **Float (`float`):** Números con punto decimal (`3.14`, `-0.5`).
-* **Boolean (`bool`):** Valores lógicos de verdad: solo pueden ser `True` o `False` (siempre con la primera letra en mayúscula).
+> **Propósito:** reunir los conceptos aprendidos en una referencia única, ordenada y fácil de consultar.
+>
+> **Criterio:** cada tema sigue, cuando corresponde, este orden: **qué es → sintaxis → ejemplo → idea clave**.
 
 ---
 
-# Sintaxis y Conceptos Generales
+## 📚 Índice
 
-## Formato y Salida de Texto
-* **Salto de línea (`\n`):** Carácter de escape especial que inserta una nueva línea dentro de un string.
-* **Separación con coma en `print()`:** Permite imprimir múltiples variables y textos. Python agrega automáticamente un espacio entre cada elemento.
-* **f-Strings (Formato de Cadenas):** Cadenas antepuestas por `f` (ej. `f"Hola {variable}"`) que permiten incrustar expresiones y variables directamente entre llaves.
-* **Mapeo / Personalización de Respuestas:** Uso de diccionarios `{True: "Mensaje True", False: "Mensaje False"}` para traducir evaluadores booleanos a texto personalizado sin necesidad de condicionales.
-
----
-
-# Tipos de Operadores
-
-* **Operadores de Asignación Abreviada (`+=`, `-=`, `*=`, `/=`):** Modifican el valor de una variable aplicando una operación sobre sí misma. Requieren que la variable haya sido declarada previamente.
-* **Operadores Lógicos (`and`, `or`, `not`):**
-  * `and`: Devuelve `True` solo si **ambas** condiciones son verdaderas.
-  * `or`: Devuelve `True` si **al menos una** condición es verdadera.
-  * `not`: Invierte el valor lógico (`True` se vuelve `False` y viceversa).
-* **Operadores de Pertenencia (`in`, `not in`):**
-  * `in`: Busca si un elemento o subcadena existe dentro de una secuencia (string, lista, tupla). Es sensible a mayúsculas/minúsculas.
-  * `not in`: Verifica que un elemento NO exista dentro de la secuencia.
-* **Operadores de Identidad (`is`, `is not`):** Evalúan si dos variables apuntan exactamente a la misma posición en la memoria RAM o si una variable es `None`. No deben usarse para comparar valores numéricos o texto (para eso se usa `==`).
-* **Operadores a Nivel de Bits (Bitwise):**
-  * `<<` (Izquierda): Desplaza bits a la izquierda (multiplica el número por 2).
-  * `>>` (Derecha): Desplaza bits a la derecha (divide el número entre 2 de forma entera).
-  * `&` (AND): Devuelve `1` solo si ambos bits son `1`.
-  * `|` (OR): Devuelve `1` si al menos uno de los bits es `1`.
-  * `^` (XOR): Devuelve `1` si los bits comparados son diferentes.
-  * `~` (NOT): Invierte los bits (fórmula en decimal: `-(n + 1)`).
+1. [Conceptos generales de software](#1-conceptos-generales-de-software)
+2. [Tipos de datos básicos](#2-tipos-de-datos-básicos)
+3. [Sintaxis y salida de texto](#3-sintaxis-y-salida-de-texto)
+4. [Operadores](#4-operadores)
+5. [Estructuras de control de flujo](#5-estructuras-de-control-de-flujo)
+6. [Estructuras de datos](#6-estructuras-de-datos)
+7. [Métodos de cadenas](#7-métodos-de-cadenas)
+8. [Control de bucles](#8-control-de-bucles)
+9. [Validación y UX defensiva](#9-validación-y-ux-defensiva)
+10. [Manejo de excepciones](#10-manejo-de-excepciones)
+11. [Funciones y modularidad](#11-funciones-y-modularidad)
+12. [Buenas prácticas de diseño](#12-buenas-prácticas-de-diseño)
+13. [Variables, objetos y mutabilidad](#13-variables-objetos-y-mutabilidad)
+14. [Desempaquetado e intercambio de variables](#14-desempaquetado-e-intercambio-de-variables)
+15. [Recursividad](#15-recursividad)
+16. [Pilas y colas](#16-pilas-y-colas)
+17. [Programación orientada a objetos](#17-programación-orientada-a-objetos)
+18. [Herencia y polimorfismo](#18-herencia-y-polimorfismo)
+19. [Atajos de teclado](#19-atajos-de-teclado)
+20. [Chuleta rápida](#20-chuleta-rápida)
 
 ---
 
-# Estructuras de Control de Flujo
+# 1. Conceptos generales de software
 
-## Condicionales (`if`, `elif`, `else`)
-Evalúan expresiones booleanas para decidir qué bloque de código ejecutar.
+## Refactorización
 
-* **`if`:** Evalúa la primera condición. Si es `True`, ejecuta su bloque identado.
-* **`elif` (Else If):** Evalúa una nueva condición únicamente si las condiciones anteriores resultaron `False`. Se pueden usar múltiples `elif`.
-* **`else`:** Es el camino de respaldo; se ejecuta únicamente cuando ninguna condición anterior se cumplió.
+La **refactorización** consiste en modificar la estructura interna del código para hacerlo más limpio, legible, mantenible o eficiente **sin cambiar su comportamiento observable**.
 
-### Reglas de Sintaxis y Buenas Prácticas (PEP 8)
-1. **Sin paréntesis:** En Python no se encierran las condiciones entre paréntesis `()`.
-   * *Correcto:* `if edad >= 18:`
-   * *Incorrecto:* `if (edad >= 18):`
-2. **Uso de operadores lógicos:** Utilizar siempre `and` / `or` dentro del `if`, nunca operadores bitwise (`&` / `|`).
-3. **Encadenamiento de rangos:** Se pueden simplificar rangos de manera matemática:
-   * `if 16 <= edad < 18:` (equivale a `16 <= edad and edad < 18`).
-4. **Prioridad de evaluación:** En cadenas `if/elif`, las condiciones compuestas o más restrictivas (ej. `múltiplo de 3 y 5`) deben evaluarse **primero** que las condiciones simples.
+**Idea clave:** mejorar cómo está construido el programa sin cambiar lo que hace.
+
+## Modularización
+
+**Modularizar** significa dividir un programa complejo en partes pequeñas y reutilizables, como funciones, módulos o clases.
+
+**Beneficios principales:**
+
+- Menor duplicación de código.
+- Mantenimiento más sencillo.
+- Mejor organización.
+- Reutilización de lógica.
+- Pruebas más fáciles.
 
 ---
 
-## Bucles de Iteración (`for`)
-Permiten ejecutar un bloque de código de forma repetitiva para cada elemento de una secuencia o rango.
+# 2. Tipos de datos básicos
 
-* **Sintaxis básica:** `for variable in secuencia:`
-* **Iteración sobre cadenas de texto (Strings):** Recorre el texto carácter por carácter (`for letra in "Texto":`).
-* **Desempaquetado de Variables (Unpacking):** Permite asignar múltiples variables en cada vuelta si el elemento recorrido contiene sub-elementos agrupados (ej. `for clave, valor in diccionario.items():`).
+Python proporciona distintos tipos para representar información.
 
-### La Función `range(inicio, fin, paso)`
-Genera una secuencia de números enteros. El valor de `fin` nunca se incluye en el resultado.
+| Tipo | Ejemplo | Descripción |
+|---|---|---|
+| `str` | `"hola"` | Texto |
+| `int` | `10`, `-5` | Número entero |
+| `float` | `3.14`, `-0.5` | Número decimal |
+| `bool` | `True`, `False` | Valor lógico |
 
-* `range(8)` $\rightarrow$ Genera del `0` al `7` (8 elementos en total).
-* `range(1, 10)` $\rightarrow$ Genera del `1` al `9` (especifica inicio y fin).
-* `range(1, 10, 2)` $\rightarrow$ Genera `1, 3, 5, 7, 9` (el tercer parámetro indica el incremento o paso).
+## `str` — String
 
-## Bucle Indefinido (`while`)
-Ejecuta un bloque de código repetidamente **mientras** una condición lógica devuelva `True`.
+Cadena de texto delimitada normalmente por comillas simples o dobles.
+
+```python
+nombre = "Víctor"
+mensaje = 'Hola'
+```
+
+## `int` — Integer
+
+Números enteros positivos, negativos o cero.
+
+```python
+edad = 26
+saldo = -5
+```
+
+## `float` — Float
+
+Números que representan valores decimales.
+
+```python
+precio = 3.14
+peso = 95.5
+```
+
+## `bool` — Boolean
+
+Solo admite dos valores:
+
+```python
+True
+False
+```
+
+Se utiliza principalmente para representar resultados lógicos y condiciones.
+
+---
+
+# 3. Sintaxis y salida de texto
+
+## 3.1 Salto de línea: `\n`
+
+Es un carácter especial que introduce una nueva línea dentro de un string.
+
+```python
+print("Hola\nVíctor")
+```
+
+Resultado:
+
+```text
+Hola
+Víctor
+```
+
+## 3.2 `print()` con varios argumentos
+
+`print()` puede recibir varios valores separados por comas.
+
+```python
+nombre = "Víctor"
+edad = 26
+
+print(nombre, edad)
+```
+
+Python separa automáticamente los argumentos con un espacio, salvo que se especifique otro separador mediante `sep`.
+
+## 3.3 f-Strings
+
+Permiten insertar variables y expresiones directamente dentro de una cadena.
+
+```python
+nombre = "Víctor"
+edad = 26
+
+print(f"Mi nombre es {nombre} y tengo {edad} años.")
+```
+
+**Idea clave:** cuando necesitas construir texto con variables, las f-Strings suelen ser la opción más clara.
+
+## 3.4 Mapeo de valores booleanos a mensajes
+
+Un diccionario puede utilizarse para traducir un resultado booleano a un texto personalizado.
+
+```python
+mensajes = {
+    True: "Operación correcta",
+    False: "Operación incorrecta"
+}
+
+resultado = True
+print(mensajes[resultado])
+```
+
+Esto puede ser útil cuando existen pocos estados conocidos y no se necesita un `if/else` completo.
+
+---
+
+# 4. Operadores
+
+## 4.1 Asignación abreviada
+
+Permiten modificar una variable utilizando su valor actual.
+
+| Operador | Equivale a |
+|---|---|
+| `+=` | `x = x + valor` |
+| `-=` | `x = x - valor` |
+| `*=` | `x = x * valor` |
+| `/=` | `x = x / valor` |
+
+Ejemplo:
+
+```python
+contador = 5
+contador += 1
+print(contador)  # 6
+```
+
+La variable debe existir antes de aplicar estas operaciones.
+
+## 4.2 Operadores lógicos
+
+### `and`
+
+Devuelve `True` solamente cuando **todas** las condiciones son verdaderas.
+
+```python
+edad >= 18 and tiene_documento
+```
+
+### `or`
+
+Devuelve `True` cuando **al menos una** condición es verdadera.
+
+```python
+es_admin or es_supervisor
+```
+
+### `not`
+
+Invierte un valor booleano.
+
+```python
+not True   # False
+not False  # True
+```
+
+## 4.3 Operadores de pertenencia
+
+### `in`
+
+Comprueba si un elemento o subcadena existe dentro de una colección o secuencia.
+
+```python
+"a" in "casa"       # True
+3 in [1, 2, 3]       # True
+```
+
+En strings la comparación distingue mayúsculas y minúsculas.
+
+### `not in`
+
+Comprueba que un elemento **no** pertenezca a una colección o secuencia.
+
+```python
+"z" not in "casa"   # True
+```
+
+## 4.4 Operadores de identidad
+
+### `is` / `is not`
+
+Comprueban identidad de objeto, no igualdad de valor.
+
+Su uso más habitual en código cotidiano es comparar con `None`:
+
+```python
+resultado is None
+resultado is not None
+```
+
+Para comparar valores se utiliza normalmente `==` o `!=`.
+
+```python
+nombre == "Víctor"
+numero != 16
+```
+
+> **Regla práctica:** `is` → identidad. `==` → igualdad de valores.
+
+## 4.5 Operadores a nivel de bits
+
+Estos operadores trabajan sobre la representación binaria de los enteros.
+
+| Operador | Función |
+|---|---|
+| `<<` | Desplazamiento de bits a la izquierda |
+| `>>` | Desplazamiento de bits a la derecha |
+| `&` | AND bit a bit |
+| `\|` | OR bit a bit |
+| `^` | XOR bit a bit |
+| `~` | NOT bit a bit |
+
+Ejemplos conceptuales:
+
+```python
+8 << 1   # 16
+8 >> 1   # 4
+```
+
+> **Importante:** no confundir operadores bitwise (`&`, `|`) con operadores lógicos (`and`, `or`).
+
+---
+
+# 5. Estructuras de control de flujo
+
+## 5.1 Condicionales: `if`, `elif`, `else`
+
+Permiten decidir qué bloque de código se ejecuta según una condición.
+
+```python
+if edad >= 18:
+    print("Mayor de edad")
+elif edad >= 16:
+    print("Menor de edad, pero dentro del segundo rango")
+else:
+    print("Menor de edad")
+```
+
+### `if`
+
+Evalúa la primera condición.
+
+### `elif`
+
+Evalúa otra condición solamente cuando las anteriores fueron `False`.
+
+### `else`
+
+Se ejecuta cuando ninguna condición anterior se cumple.
+
+## 5.2 Buenas prácticas para condiciones
+
+### Evitar paréntesis innecesarios
+
+```python
+if edad >= 18:
+    print("Puede ingresar")
+```
+
+Los paréntesis pueden utilizarse cuando aportan claridad a una expresión compleja, pero no son necesarios para la sintaxis básica de `if`.
+
+### Utilizar operadores apropiados
+
+Para condiciones lógicas utiliza:
+
+```python
+and
+or
+not
+```
+
+No los sustituyas por sus equivalentes bitwise en expresiones booleanas comunes.
+
+### Encadenamiento de comparaciones
+
+Python permite escribir rangos de forma natural:
+
+```python
+if 16 <= edad < 18:
+    print("Dentro del rango")
+```
+
+Equivale conceptualmente a:
+
+```python
+if 16 <= edad and edad < 18:
+    print("Dentro del rango")
+```
+
+### Orden de las condiciones
+
+En una cadena `if/elif`, evalúa primero las condiciones más específicas cuando unas condiciones puedan incluir a otras.
+
+Ejemplo:
+
+```python
+if numero % 3 == 0 and numero % 5 == 0:
+    print("Múltiplo de 3 y 5")
+elif numero % 3 == 0:
+    print("Múltiplo de 3")
+elif numero % 5 == 0:
+    print("Múltiplo de 5")
+```
+
+---
+
+## 5.3 Bucle `for`
+
+`for` permite recorrer los elementos de una secuencia o rango.
+
+```python
+for letra in "Python":
+    print(letra)
+```
+
+## Desempaquetado durante un `for`
+
+Cuando cada elemento contiene varios valores, pueden asignarse directamente a variables.
+
+```python
+perfil = {
+    "nombre": "Víctor",
+    "edad": 26
+}
+
+for clave, valor in perfil.items():
+    print(clave, valor)
+```
+
+## `range(inicio, fin, paso)`
+
+Genera una secuencia de números enteros. El valor de `fin` **no se incluye**.
+
+```python
+range(8)
+```
+
+Genera conceptualmente:
+
+```text
+0 1 2 3 4 5 6 7
+```
+
+```python
+range(1, 10)
+```
+
+Genera:
+
+```text
+1 2 3 4 5 6 7 8 9
+```
+
+Con un paso:
+
+```python
+range(1, 10, 2)
+```
+
+Genera:
+
+```text
+1 3 5 7 9
+```
+
+---
+
+## 5.4 Bucle `while`
+
+`while` repite un bloque mientras una condición sea `True`.
 
 ```python
 contador = 0
+
 while contador < 5:
     contador += 1
     print(contador)
 ```
 
----
+### Idea clave
 
-# Estructuras de Datos
+`for` suele utilizarse cuando sabes qué colección o rango vas a recorrer.
 
-Python cuenta con cuatro tipos de datos integrados para almacenar colecciones de elementos:
-
-## 1. Listas (`list`)
-Colecciones mutables, ordenadas y que permiten elementos duplicados.
-* **Creación:** `frutas = ["manzana", "pera"]`
-* **Inserción:** `lista.append("uva")` (al final) | `lista.insert(1, "platano")` (en índice)
-* **Borrado:** `lista.remove("pera")` (por valor) | `lista.pop(0)` (por índice, retorna valor)
-* **Ordenación:** `lista.sort()` (modifica original) | `sorted(lista)` (retorna copia ordenada)
-
-## 2. Tuplas (`tuple`)
-Colecciones inmutables, ordenadas y que permiten elementos duplicados. Ideal para proteger datos.
-* **Creación:** `coordenadas = (10, 20)`
-* **Inmutabilidad:** Intentar `tupla[0] = 5` lanza un `TypeError`.
-* **Desempaquetado (Unpacking):** `x, y = coordenadas`
-
-## 3. Diccionarios (`dict`)
-Colecciones mutables, estructuradas mediante pares `Clave: Valor`. Las claves deben ser únicas.
-* **Creación:** `perfil = {"nombre": "Victor", "edad": 26}`
-* **Inserción / Actualización:** `perfil["cargo"] = "Admin"`
-* **Borrado:** `perfil.pop("edad")` o `del perfil["edad"]`
-* **Métodos de Iteración:**
-  * `perfil.keys()` $\rightarrow$ Retorna solo las claves.
-  * `perfil.values()` $\rightarrow$ Retorna solo los valores.
-  * `perfil.items()` $\rightarrow$ Retorna tuplas `(clave, valor)` para desempaquetar en bucles `for`.
-
-## 4. Conjuntos (`set`)
-Colecciones mutables, no ordenadas y de elementos únicos (filtra duplicados automáticamente).
-* **Creación:** `numeros = {1, 2, 2, 3}` $\rightarrow$ Resultado: `{1, 2, 3}`
-* **Inserción:** `conjunto.add(5)`
-* **Borrado:** `conjunto.remove(2)` (lanza error si no existe) | `conjunto.discard(2)` (seguro)
-* **Eliminación de duplicados en listas:** `lista_limpia = list(set(lista_con_duplicados))`
+`while` suele utilizarse cuando la repetición depende de una condición y no sabes de antemano cuántas iteraciones serán necesarias.
 
 ---
 
-# Métodos de Cadenas (String Methods)
+# 6. Estructuras de datos
 
-Métodos nativos para inspeccionar, transformar y validar texto:
+Python incluye varias estructuras fundamentales para almacenar colecciones.
 
-* **`.strip()`:** Elimina los espacios en blanco sobrantes al inicio y al final de un texto. Ideal para detectar si un `input()` se envió en blanco (`if not texto.strip():`).
-* **`.isdigit()`:** Evalúa si la cadena está compuesta **exclusivamente por dígitos numéricos**. Retorna `True` o `False`.
-* **`.capitalize()`:** Retorna el texto convirtiendo la primera letra en mayúscula y el resto en minúsculas.
-* **`.lower()` / `.upper()`:** Convierte todo el texto a minúsculas o mayúsculas, respectivamente.
+| Estructura | Orden | Mutable | Duplicados | Acceso principal |
+|---|---|---|---|---|
+| `list` | Sí | Sí | Sí | Índice |
+| `tuple` | Sí | No | Sí | Índice |
+| `dict` | Mantiene orden de inserción | Sí | Claves únicas | Clave |
+| `set` | No indexado | Sí | No | Pertenencia |
+
+> La tabla resume el uso conceptual. Cada estructura tiene características y casos de uso más amplios.
 
 ---
 
-# Control Avanzado de Bucle y Patrones de Interacción
+## 6.1 Listas — `list`
 
-## Control de Ejecución (`break` y `continue`)
-* **`break`:** Interrumpe y rompe inmediatamente el bucle en el que está contenido, transfiriendo el control de ejecución a la línea posterior al bucle.
-* **`continue`:** Salta el resto de las instrucciones de la vuelta actual y regresa de inmediato al inicio del bucle para evaluar la siguiente iteración.
+Colecciones ordenadas, mutables y que permiten elementos duplicados.
 
-## Patrones de Interacción y UX Defensiva
+### Crear
 
-### 1. El Bucle Infinito de Validación (`while True`)
-Estructura que fuerza al programa a solicitar un dato repetidamente hasta que el usuario ingrese un formato válido.
+```python
+frutas = ["manzana", "pera"]
+```
+
+### Insertar
+
+```python
+frutas.append("uva")
+frutas.insert(1, "plátano")
+```
+
+- `append()` → agrega al final.
+- `insert()` → agrega en el índice indicado.
+
+### Eliminar
+
+```python
+frutas.remove("pera")
+fruta = frutas.pop(0)
+```
+
+- `remove(valor)` → elimina por valor.
+- `pop(indice)` → elimina por posición y **devuelve** el elemento eliminado.
+
+### Ordenar
+
+```python
+lista.sort()
+```
+
+Modifica la lista original.
+
+```python
+nueva_lista = sorted(lista)
+```
+
+Devuelve una nueva lista ordenada.
+
+---
+
+## 6.2 Tuplas — `tuple`
+
+Colecciones ordenadas e inmutables que permiten elementos duplicados.
+
+### Crear
+
+```python
+coordenadas = (10, 20)
+```
+
+### Inmutabilidad
+
+No puedes modificar directamente uno de sus elementos:
+
+```python
+coordenadas[0] = 5
+```
+
+Esto produce `TypeError`.
+
+### Desempaquetado
+
+```python
+x, y = coordenadas
+```
+
+---
+
+## 6.3 Diccionarios — `dict`
+
+Almacenan información mediante pares `clave: valor`.
+
+```python
+perfil = {
+    "nombre": "Víctor",
+    "edad": 26
+}
+```
+
+Las claves deben ser únicas.
+
+### Insertar o actualizar
+
+```python
+perfil["cargo"] = "Admin"
+```
+
+Si la clave existe, se actualiza. Si no existe, se crea.
+
+### Eliminar
+
+```python
+perfil.pop("edad")
+del perfil["edad"]
+```
+
+### Recorrer un diccionario
+
+```python
+perfil.keys()
+```
+
+Obtiene las claves.
+
+```python
+perfil.values()
+```
+
+Obtiene los valores.
+
+```python
+perfil.items()
+```
+
+Obtiene pares `(clave, valor)`.
+
+Ejemplo:
+
+```python
+for clave, valor in perfil.items():
+    print(clave, valor)
+```
+
+---
+
+## 6.4 Conjuntos — `set`
+
+Colecciones de elementos únicos. Son útiles para eliminar duplicados y realizar operaciones de conjuntos.
+
+### Crear
+
+```python
+numeros = {1, 2, 2, 3}
+```
+
+El conjunto resultante contiene conceptualmente:
+
+```text
+{1, 2, 3}
+```
+
+### Insertar
+
+```python
+numeros.add(5)
+```
+
+### Eliminar
+
+```python
+numeros.remove(2)
+```
+
+`remove()` produce un error si el elemento no existe.
+
+```python
+numeros.discard(2)
+```
+
+`discard()` no produce error si el elemento no existe.
+
+### Eliminar duplicados de una lista
+
+```python
+lista_limpia = list(set(lista_con_duplicados))
+```
+
+> **Advertencia:** convertir una lista a `set` no conserva necesariamente el orden original. Usa otra estrategia cuando el orden sea importante.
+
+---
+
+# 7. Métodos de cadenas
+
+Los strings tienen numerosos métodos para validar, limpiar y transformar texto.
+
+## 7.1 `.strip()`
+
+Elimina espacios en blanco al principio y al final.
+
+```python
+texto = "   hola   "
+print(texto.strip())
+```
+
+Muy útil para validar `input()`:
+
+```python
+if not texto.strip():
+    print("El campo no puede estar vacío")
+```
+
+## 7.2 `.isdigit()`
+
+Devuelve `True` si todos los caracteres de la cadena son dígitos según las reglas del método.
+
+```python
+"12345".isdigit()  # True
+"12a45".isdigit()  # False
+```
+
+## 7.3 `.capitalize()`
+
+Convierte la primera letra de la cadena en mayúscula y el resto a minúsculas.
+
+```python
+"vÍCTOR".capitalize()
+```
+
+## 7.4 `.lower()` y `.upper()`
+
+```python
+texto.lower()
+texto.upper()
+```
+
+Convierten el texto a minúsculas o mayúsculas.
+
+## 7.5 `.title()`
+
+Convierte a mayúscula inicial cada palabra.
+
+```python
+"hola mundo".title()
+# "Hola Mundo"
+```
+
+### Diferencia importante
+
+```text
+capitalize() → primera letra de toda la cadena
+ title()     → primera letra de cada palabra
+```
+
+## 7.6 `.replace(viejo, nuevo)`
+
+Reemplaza una subcadena por otra.
+
+```python
+texto = "hola mundo"
+texto = texto.replace(" ", "-")
+```
+
+Resultado:
+
+```text
+hola-mundo
+```
+
+A diferencia de `strip()`, `replace()` puede modificar caracteres que se encuentran en medio del texto.
+
+## 7.7 `.split(separador)`
+
+Divide una cadena y devuelve una lista.
+
+```python
+"a,b,c".split(",")
+```
+
+Resultado:
+
+```python
+['a', 'b', 'c']
+```
+
+## 7.8 `.join(iterable)`
+
+Une varios strings utilizando como separador el string sobre el que se llama.
+
+```python
+lista = ["a", "b", "c"]
+resultado = ", ".join(lista)
+```
+
+Resultado:
+
+```text
+a, b, c
+```
+
+## 7.9 `.startswith()` y `.endswith()`
+
+Comprueban el inicio o final de una cadena.
+
+```python
+nombre.startswith("Vi")
+nombre.endswith("z")
+```
+
+Devuelven `True` o `False`.
+
+## 7.10 `.isalpha()`
+
+Comprueba si todos los caracteres de la cadena son letras.
+
+```python
+"Hola".isalpha()      # True
+"Hola Mundo".isalpha()  # False
+"Hola123".isalpha()   # False
+```
+
+Los espacios y números hacen que el resultado sea `False`.
+
+## 7.11 Slicing
+
+Permite extraer partes de una secuencia.
+
+```python
+texto[inicio:fin:paso]
+```
+
+### Invertir una cadena
+
+```python
+cadena[::-1]
+```
+
+Ejemplo:
+
+```python
+palabra = "radar"
+invertida = palabra[::-1]
+```
+
+Esto puede utilizarse como parte de una solución para comprobar palíndromos.
+
+---
+
+# 8. Control de bucles
+
+## 8.1 `break`
+
+Interrumpe inmediatamente el bucle actual.
+
+```python
+while True:
+    dato = input("Dato: ")
+
+    if dato == "salir":
+        break
+```
+
+La ejecución continúa después del bucle.
+
+## 8.2 `continue`
+
+Salta el resto de la iteración actual y pasa a la siguiente iteración.
+
+```python
+for numero in range(10):
+    if numero % 2 == 0:
+        continue
+
+    print(numero)
+```
+
+Aquí se imprimen los números impares.
+
+---
+
+# 9. Validación y UX defensiva
+
+La validación evita que el programa continúe con datos incorrectos.
+
+## 9.1 Patrón `while True` + validación + `break`
+
+Este patrón permite insistir hasta obtener un dato válido.
 
 ```python
 while True:
     dato = input("Ingrese dato: ")
+
     if es_valido(dato):
-        break  # Se rompe el bucle únicamente cuando el dato es correcto
-    print("Dato inválido, intente de nuevo.")
+        break
+
+    print("Dato inválido. Intente nuevamente.")
 ```
+
+### Flujo mental
+
+```text
+Pedir dato
+   ↓
+¿Es válido?
+   ├── Sí → break → continuar
+   └── No → mostrar error → volver a pedir
+```
+
+## 9.2 Bucles aislados por campo
+
+Cuando un formulario tiene varios datos, puede utilizarse un `while True` independiente para cada campo.
+
+Esto evita que, si el usuario comete un error en un campo posterior, tenga que volver a ingresar los datos anteriores.
+
+Ejemplo conceptual:
+
+```python
+while True:
+    nombre = input("Nombre: ")
+
+    if nombre.strip():
+        break
+
+    print("El nombre no puede estar vacío.")
+
+while True:
+    telefono = input("Teléfono: ")
+
+    if telefono.isdigit() and len(telefono) <= 11:
+        break
+
+    print("Teléfono inválido.")
+```
+
+### Idea clave
+
+**Un campo → una validación → un estado válido.**
+
+Esto hace que la interacción sea más resistente a errores y más cómoda para el usuario.
 
 ---
 
-# Control de Excepciones y Manejo de Errores
+# 10. Manejo de excepciones
 
-Mecanismo para prevenir que el programa colapse ante fallos en tiempo de ejecución (entradas de usuario inválidas, conexiones fallidas, operaciones matemáticas imposibles).
+Las excepciones permiten gestionar errores que ocurren durante la ejecución sin dejar que el programa termine de forma inesperada.
 
-## La Estructura Defensiva (`try / except / else / finally`)
+## 10.1 `try / except / else / finally`
 
 ```python
 try:
-    # Código "peligroso" susceptible a fallar
     numero = int(input("Ingrese un número: "))
     resultado = 10 / numero
+
 except ValueError:
-    # Se ejecuta si el usuario ingresa texto en lugar de número
-    print("Error: Debe ingresar un número entero válido.")
+    print("Error: debe ingresar un número entero válido.")
+
 except ZeroDivisionError as error:
-    # Captura la falla específica y guarda la explicación en la variable 'error'
     print(f"Error matemático: {error}")
+
 else:
-    # Opcional: Se ejecuta ÚNICAMENTE si NO hubo ningún error en el 'try'
     print(f"Operación exitosa. Resultado: {resultado}")
+
 finally:
-    # Opcional: Se ejecuta SIEMPRE, haya habido error o no (ideal para limpiar/cerrar recursos)
-    print("Finalizando verificación de seguridad.")
+    print("Finalizando verificación.")
 ```
+
+## `try`
+
+Contiene el código que puede producir una excepción.
+
+## `except`
+
+Captura y gestiona una excepción concreta.
+
+```python
+except ValueError:
+    ...
+```
+
+También puedes conservar la excepción en una variable:
+
+```python
+except ZeroDivisionError as error:
+    print(error)
+```
+
+## `else`
+
+Se ejecuta únicamente cuando el bloque `try` termina sin lanzar una excepción.
+
+## `finally`
+
+Se ejecuta siempre, haya ocurrido un error o no. Es especialmente útil para tareas de limpieza o liberación de recursos.
+
+### Regla práctica
+
+Captura excepciones **específicas** cuando conozcas qué errores esperas manejar.
 
 ---
 
-# Funciones y Modularidad de Código
+# 11. Funciones y modularidad
 
-Permiten encapsular bloques de código reusables bajo un nombre específico para evitar duplicación de lógica (Principio DRY: *Don't Repeat Yourself*).
+Una función encapsula una tarea concreta bajo un nombre reutilizable.
 
-## Anatomía de una Función (`def`)
+Esto ayuda a reducir duplicación de código y facilita la organización.
+
+## 11.1 Anatomía básica de una función
 
 ```python
 def calcular_total(precio: float, impuesto: float = 0.18) -> float:
-    # Código o lógica de procesamiento
     total = precio + (precio * impuesto)
-    return total  # Entrega el valor operable a quien invocó la función
+    return total
 ```
 
----
+### Partes principales
 
-### 🛠️ Ajuste menor en "Patrones de Interacción y UX Defensiva":
+| Elemento | Función |
+|---|---|
+| `def` | Declara la función |
+| `calcular_total` | Nombre de la función |
+| `precio` | Parámetro |
+| `float` | Anotación de tipo |
+| `impuesto = 0.18` | Valor por defecto |
+| `-> float` | Tipo esperado del retorno |
+| `return` | Devuelve el resultado |
 
-Añade este segundo patrón debajo del `while True` que ya tienes:
+### Principio DRY
 
-### 2. Bucles Aislados por Campo (UX Profesional)
-En lugar de pedir todos los datos en un solo `while`, se asigna un bucle `while True` **independiente para cada campo**. Esto evita que si el usuario comete un error en el segundo dato (ej. teléfono), tenga que volver a ingresar el primero (ej. nombre).
+**DRY — Don't Repeat Yourself** significa evitar duplicar la misma lógica en diferentes lugares.
 
----
-
-* **Comparación de desigualdad (`!=` vs `not ==`):** Para evaluar si dos valores son distintos, el estándar en Python es usar el operador de desigualdad `!=` en lugar de negar una igualdad con `not ==`.
-  * *No idiomático:* `if not numero == 16:`
-  * *Idiomático (PEP 8):* `if numero != 16:`
-
-# Atajos
-* **`ctr+k` luego `ctr+c` para comentar**
-* **`ctr+k` luego `ctr+u` para descomentar**
-
----
-
-## Conceptos Generales y Arquitectura
-* **Method Chaining (Encadenamiento de Métodos):** Aplicar múltiples métodos consecutivamente de izquierda a derecha en una sola línea de código (ej. `texto.strip().lower()`).
-* **Diseño Defensivo en Funciones:** Principio de arquitectura donde una función se encarga de sanear y limpiar sus propios parámetros de entrada (`.strip()`, `.lower()`, `.replace()`) para ser autosuficiente y no depender de cómo le envíen los datos desde fuera.
+> Una buena función debería tener una responsabilidad clara y reutilizable.
 
 ---
 
-## Métodos de Cadenas (String Methods)
-* **`.title()`:** Convierte en mayúscula la primera letra de **cada palabra** en el texto (a diferencia de `.capitalize()`, que solo afecta a la primera letra de toda la cadena).
-* **`.replace(viejo, nuevo)`:** Reemplaza subcadenas. A diferencia de `.strip()`, este método sí elimina o cambia caracteres que están en medio del texto (ej. `.replace(" ", "")` quita todos los espacios internos).
-* **`.split(separador)`:** Divide una cadena en una **lista de elementos** utilizando el delimitador indicado (ej. `"a,b,c".split(",")` -> `['a', 'b', 'c']`).
-* **`.join(iterable)`:** Une los elementos de una lista en una sola cadena usando la cadena sobre la que se llama como pegamento/separador (ej. `", ".join(lista)`).
-* **`.startswith(texto)` / `.endswith(texto)`:** Verifican si una cadena inicia o termina con determinado carácter o subcadena, retornando un booleano (`True`/`False`).
-* **`.isalpha()`:** Evalúa si el 100% de los caracteres son letras del alfabeto. Retorna `False` si contiene espacios, comas o números.
-* **Slicing de Cadenas (`[::-1]`):** Extracción de subcadenas por índices. La sintaxis `cadena[::-1]` invierte el texto por completo (ideal para verificar palíndromos).
+# 12. Buenas prácticas de diseño
 
----
+## 12.1 Comparar desigualdad
 
-## Reglas de Sintaxis y Buenas Prácticas (PEP 8)
-* **Técnica del Flag (Bandera):** Uso de una variable booleana para monitorear estados durante el recorrido de un bucle y tomar decisiones o realizar impresiones **después** de completar la iteración.
-  
----
-
-# Manejo de Memoria: Asignación por Valor vs. Referencia
-
-## 1. Paso por Valor (Tipos Inmutables)
-Aplica a tipos de datos inmutables: `int`, `float`, `str`, `bool`, `tuple`.
-* **Comportamiento:** Al pasar una variable inmutable a una función o asignarla a otra variable, se crea una copia independiente del valor.
-* **Ámbito (Scope):** Las modificaciones dentro de una función solo afectan a las variables locales. Las variables originales globales permanecen intactas.
-* **Para conservar cambios:** Se debe capturar el retorno de la función en nuevas variables (`nueva_var1, nueva_var2 = funcion(a, b)`).
-
-## 2. Paso por Referencia (Tipos Mutables)
-Aplica a tipos de datos mutables: `list`, `dict`, `set`.
-* **Comportamiento:** Al asignar o pasar una colección mutable a una función, ambas variables apuntan a la **misma posición de memoria RAM**.
-* **Efectos Secundarios:** Las modificaciones hechas sobre el contenido (ej. `.append()`, `.pop()`, modificación por llave o índice) afectan directamente al objeto original, incluso fuera de la función.
-* **Reasignación local vs. Mutación:** 
-  * Reasignar una variable local (`lista = [1, 2]`) rompe el enlace con el objeto original.
-  * Mutar su contenido (`lista.append(1)`) altera el objeto original.
-  * Para evitar modificar la lista original dentro de una función, se debe pasar una copia explícita (`lista.copy()`).
-
----
-
-# Trucos de Sintaxis e Intercambio de Variables
-
-## Desempaquetado de Tuplas (Swap de Variables)
-Permite intercambiar el valor de dos o más variables en una sola línea de forma elegante e idiomática, sin necesidad de usar variables temporales.
+Para comprobar que dos valores son diferentes, utiliza `!=`.
 
 ```python
-# Intercambio simple de valores (Swap)
-a, b = b, a
+if numero != 16:
+    print("Es diferente")
+```
 
-# Desempaquetado del retorno de una función
-nueva_var1, nueva_var2 = intercambiar(var1, var2)
+Aunque `not numero == 16` puede expresar una negación, `!=` es más directo y legible.
+
+## 12.2 Encadenamiento de métodos
+
+El **method chaining** consiste en aplicar varios métodos consecutivamente.
+
+```python
+texto.strip().lower()
+```
+
+El resultado de un método se convierte en la entrada del siguiente.
+
+## 12.3 Diseño defensivo en funciones
+
+Una función puede normalizar sus entradas para reducir errores y hacer explícito qué formato espera.
+
+```python
+def normalizar_nombre(nombre: str) -> str:
+    return nombre.strip().lower()
+```
+
+Esto evita depender por completo de que el código externo ya haya limpiado el dato.
+
+## 12.4 Técnica del flag
+
+Un **flag** es una variable, normalmente booleana, utilizada para recordar un estado mientras se recorre una colección o se ejecuta un proceso.
+
+```python
+encontrado = False
+
+for numero in numeros:
+    if numero == objetivo:
+        encontrado = True
+        break
+
+if encontrado:
+    print("Encontrado")
+else:
+    print("No encontrado")
+```
+
+### Idea clave
+
+El flag permite guardar una decisión tomada durante el recorrido para utilizarla posteriormente.
+
+---
+
+# 13. Variables, objetos y mutabilidad
+
+> **Nota conceptual:** en Python es más preciso pensar en que las variables son nombres que hacen referencia a objetos. Al pasar un objeto a una función, se comparte esa referencia al objeto. El comportamiento observable depende de si el objeto es mutable o inmutable.
+
+## 13.1 Tipos inmutables
+
+Entre los tipos inmutables habituales se encuentran:
+
+```text
+int
+float
+str
+bool
+tuple
+```
+
+Su contenido no puede modificarse después de crear el objeto.
+
+Ejemplo:
+
+```python
+def cambiar(numero):
+    numero = 100
+
+valor = 10
+cambiar(valor)
+
+print(valor)  # 10
+```
+
+La reasignación local no modifica el objeto original al que apuntaba `valor`.
+
+### Para conservar un resultado
+
+Se captura el valor devuelto:
+
+```python
+def cambiar(a, b):
+    return a + 1, b + 1
+
+nueva_a, nueva_b = cambiar(a, b)
+```
+
+## 13.2 Tipos mutables
+
+Entre los tipos mutables habituales están:
+
+```text
+list
+dict
+set
+```
+
+Su contenido puede modificarse.
+
+```python
+def agregar_elemento(lista):
+    lista.append(10)
+
+numeros = [1, 2, 3]
+agregar_elemento(numeros)
+
+print(numeros)
+# [1, 2, 3, 10]
+```
+
+La función modificó el mismo objeto lista.
+
+## 13.3 Reasignación vs. mutación
+
+Estas dos operaciones no son equivalentes.
+
+### Reasignar
+
+```python
+lista = [1, 2]
+```
+
+Hace que el nombre `lista` pase a apuntar a otro objeto.
+
+### Mutar
+
+```python
+lista.append(3)
+```
+
+Modifica el contenido del objeto existente.
+
+## 13.4 Copiar para evitar mutaciones externas
+
+Si necesitas trabajar con una copia independiente de una lista:
+
+```python
+copia = lista.copy()
 ```
 
 ---
 
-# Recursividad (Funciones Recursivas)
+# 14. Desempaquetado e intercambio de variables
 
-Técnica de programación donde una función se invoca a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños del mismo tipo.
+Python permite asignar varios valores en una sola instrucción.
 
-## Los Dos Pilares Obligatorios
-Para evitar bucles infinitos y errores de desbordamiento de memoria (*Stack Overflow* / `RecursionError`), toda función recursiva requiere:
+## 14.1 Swap de variables
 
-1. **Caso Base (Condición de Parada):** El escenario más simple con un valor conocido. Detiene la recursión y devuelve un resultado directamente sin hacer más llamadas.
-2. **Caso Recursivo:** La llamada a la misma función pero enviando un parámetro reducido o simplificado (acercándose progresivamente al caso base).
+```python
+a, b = b, a
+```
 
-## Flujo de Ejecución en Memoria (Pila de Llamadas)
-1. **Fase de Descenso (Empilar):** Cada llamada recursiva queda "en pausa" acumulándose en la memoria (*Call Stack*) hasta alcanzar el caso base.
-2. **Fase de Ascenso (Desempilar):** Al activarse el caso base, los valores devueltos se resuelven en orden inverso (de abajo hacia arriba) calculando y combinando los resultados.
+Intercambia los valores sin necesidad de una variable temporal explícita.
 
-## Sintaxis Básica y Ejemplo Clásico (Factorial)
+## 14.2 Desempaquetado del retorno de una función
+
+```python
+def intercambiar(a, b):
+    return b, a
+
+nueva_a, nueva_b = intercambiar(var1, var2)
+```
+
+### Idea clave
+
+El mismo mecanismo permite trabajar con tuplas y otros iterables de manera compacta.
+
+---
+
+# 15. Recursividad
+
+La **recursividad** ocurre cuando una función se llama a sí misma para resolver un problema dividiéndolo en subproblemas del mismo tipo.
+
+## 15.1 Los dos pilares
+
+Una función recursiva necesita una estructura que permita detenerse.
+
+### Caso base
+
+Es la condición que detiene la recursión.
+
+### Caso recursivo
+
+Es la llamada a la misma función con un problema reducido o más cercano al caso base.
+
+## 15.2 Pila de llamadas
+
+Las llamadas recursivas se almacenan en la **call stack**.
+
+### Descenso
+
+Las llamadas se van acumulando hasta llegar al caso base.
+
+### Ascenso
+
+Una vez alcanzado el caso base, las llamadas pendientes se resuelven en sentido inverso.
+
+## 15.3 Ejemplo: factorial
 
 ```python
 def factorial(n: int) -> int:
-    # 1. Caso Base: Detiene la recursión cuando n llega a 1 o 0
+    # Caso base
     if n <= 1:
         return 1
-    
-    # 2. Caso Recursivo: El valor actual multiplicado por la función con (n - 1)
+
+    # Caso recursivo
     return n * factorial(n - 1)
+```
+
+Flujo conceptual para `factorial(4)`:
+
+```text
+factorial(4)
+    ↓
+4 * factorial(3)
+    ↓
+4 * 3 * factorial(2)
+    ↓
+4 * 3 * 2 * factorial(1)
+    ↓
+4 * 3 * 2 * 1
+    ↓
+24
+```
+
+> Una recursión mal definida puede provocar llamadas infinitas y terminar en `RecursionError`.
+
+---
+
+# 16. Pilas y colas
+
+Son estructuras lineales que establecen reglas específicas para insertar y extraer elementos.
+
+## 16.1 Pila — Stack — LIFO
+
+**LIFO: Last In, First Out**
+
+El último elemento que entra es el primero que sale.
+
+### Analogías
+
+- Pila de platos.
+- Historial de navegación.
+- Operaciones de deshacer.
+
+### Implementación sencilla con `list`
+
+```python
+pila = []
+
+pila.append("A")
+pila.append("B")
+pila.append("C")
+```
+
+Extraer:
+
+```python
+elemento = pila.pop()
+```
+
+Resultado conceptual:
+
+```text
+entra: A → B → C
+sale : C
 ```
 
 ---
 
-# Estructuras de Datos Lineales: Pilas (Stacks) y Colas (Queues)
+## 16.2 Cola — Queue — FIFO
 
-Estructuras de datos organizadas que restringen la forma en que se insertan y extraen los elementos en una secuencia.
+**FIFO: First In, First Out**
 
-## 1. Pilas (`Stacks` - Principio LIFO)
-* **Principio:** **LIFO** (*Last In, First Out* — El último elemento en entrar es el primero en salir).
-* **Analogía:** Pila de platos o historial de navegación (atrás/adelante).
-* **Implementación en Python:** Se utiliza una lista común (`list`).
-  * **Inserción (Push):** `lista.append(elemento)` (agrega al final).
-  * **Extracción (Pop):** `elemento = lista.pop()` (extrae y retorna el último elemento).
+El primer elemento que entra es el primero que sale.
 
-## 2. Colas (`Queues` - Principio FIFO)
-* **Principio:** **FIFO** (*First In, First Out* — El primer elemento en entrar es el primero en salir).
-* **Analogía:** Fila del banco o cola de impresión de documentos.
-* **Implementación en Python:** Se utiliza una lista común (`list`).
-  * **Encolar (Enqueue):** `lista.append(elemento)` (agrega al final).
-  * **Desencolar (Dequeue):** `elemento = lista.pop(0)` (extrae y retorna el primer elemento).
+### Analogías
 
-## Comportamiento del Método `.pop()` y Asignación Directa
-El método `.pop()` o `.pop(0)` realiza **dos acciones en simultáneo**:
-1. Modifica la lista original eliminando el elemento del índice especificado.
-2. Devuelve ese mismo valor extraído.
+- Fila de un banco.
+- Cola de impresión.
+- Personas esperando atención.
+
+### Implementación educativa con `list`
 
 ```python
-# Para conservar y usar el elemento removido, se asigna directamente
+cola = []
+
+cola.append("A")
+cola.append("B")
+cola.append("C")
+```
+
+Extraer el primero:
+
+```python
+elemento = cola.pop(0)
+```
+
+### Nota de eficiencia
+
+Para colas reales y operaciones frecuentes en ambos extremos, suele ser más apropiado utilizar `collections.deque`:
+
+```python
+from collections import deque
+
+cola = deque()
+cola.append("A")
+cola.append("B")
+
+elemento = cola.popleft()
+```
+
+---
+
+## 16.3 `pop()` y asignación directa
+
+`pop()` realiza dos acciones:
+
+1. Elimina el elemento de la colección.
+2. Devuelve el elemento eliminado.
+
+Por eso puedes conservarlo:
+
+```python
 elemento_extraido = pila.pop()
 ```
 
 ---
 
-# Programación Orientada a Objetos (POO)
+# 17. Programación orientada a objetos
 
-Paradigma de programación que organiza el código en torno a "objetos" en lugar de solo funciones y lógica. Representa entidades del mundo real combinando estado (atributos) y comportamiento (métodos).
+La **Programación Orientada a Objetos (POO)** organiza el código alrededor de objetos que combinan estado y comportamiento.
 
-## Conceptos Clave
-* **Clase:** Plantilla o molde que define la estructura y capacidades de un objeto.
-* **Objeto (Instancia):** Ejemplar concreto creado a partir de una clase.
-* **Atributos:** Variables asociadas al objeto que almacenan su estado.
-* **Métodos:** Funciones definidas dentro de una clase que operan sobre sus atributos.
-* **`self`:** Referencia explícita al objeto actual dentro de la clase. Es obligatorio como primer parámetro en todos los métodos de instancia.
+## 17.1 Conceptos fundamentales
 
-## Anatomía de una Clase Básica (`__init__`)
+### Clase
+
+Plantilla o molde que define las características y comportamiento de un tipo de objeto.
+
+### Objeto / instancia
+
+Un elemento concreto creado a partir de una clase.
+
+### Atributo
+
+Dato asociado al estado de un objeto.
+
+### Método
+
+Función definida dentro de una clase que representa un comportamiento.
+
+### `self`
+
+Referencia al objeto actual en los métodos de instancia.
+
+---
+
+## 17.2 Anatomía de una clase
 
 ```python
 class Persona:
-    # Método Constructor: Se ejecuta automáticamente al crear el objeto
     def __init__(self, nombre: str, edad: int):
-        self.nombre = nombre  # Atributo de instancia
-        self.edad = edad      # Atributo de instancia
+        self.nombre = nombre
+        self.edad = edad
 
     def mostrar_datos(self) -> None:
         print(f"Nombre: {self.nombre} | Edad: {self.edad}")
 
-# Instanciación y uso
+
 usuario = Persona("Víctor", 26)
 usuario.mostrar_datos()
 ```
 
+## 17.3 `__init__`
+
+Es el inicializador que normalmente se ejecuta cuando se crea una instancia.
+
+```python
+usuario = Persona("Víctor", 26)
+```
+
+Durante la creación se ejecuta el inicializador definido en la clase.
+
 ---
 
-# Herencia, Polimorfismo e Introspección
+# 18. Herencia y polimorfismo
 
-Mecanismos de la Programación Orientada a Objetos que permiten construir jerarquías de clases y reutilizar código.
+La herencia permite crear clases especializadas a partir de otras clases.
 
-## 1. Herencia y Reutilización
-Mecanismo por el cual una subclase adquiere todos los atributos y métodos de una superclase.
+## 18.1 Superclase y subclase
 
-* **Superclase (Clase Padre):** Define la estructura general compartida.
-* **Subclase (Clase Hija):** Especializa el comportamiento agregando sus propios atributos o métodos.
-* **Inicialización con `super()`:** Permite invocar métodos de la clase padre. Todos los parámetros obligatorios del `__init__` padre deben enviarse en la misma llamada.
+- **Superclase / clase padre:** define características generales.
+- **Subclase / clase hija:** hereda y puede ampliar o especializar el comportamiento.
+
+## 18.2 Ejemplo de herencia
 
 ```python
 class Empleado:
@@ -381,32 +1396,295 @@ class Empleado:
         self.id_empleado = id_empleado
         self.nombre = nombre
 
+
 class Programador(Empleado):
     def __init__(self, id_empleado: int, nombre: str, lenguaje: str):
-        # Llama al constructor de Empleado pasando todos sus argumentos obligatorios
         super().__init__(id_empleado, nombre)
         self.lenguaje = lenguaje
 ```
 
+## 18.3 `super()`
+
+Permite acceder a métodos de la clase padre desde la subclase.
+
+En el ejemplo:
+
+```python
+super().__init__(id_empleado, nombre)
+```
+
+se ejecuta el inicializador de `Empleado` para reutilizar la lógica que crea `id_empleado` y `nombre`.
+
+## 18.4 Polimorfismo
+
+El **polimorfismo** permite que diferentes objetos respondan al mismo mensaje o llamada de acuerdo con su propia implementación.
+
+Ejemplo conceptual:
+
+```python
+class Perro:
+    def hablar(self):
+        return "Guau"
+
+
+class Gato:
+    def hablar(self):
+        return "Miau"
+
+
+animales = [Perro(), Gato()]
+
+for animal in animales:
+    print(animal.hablar())
+```
+
+Ambos objetos responden a `hablar()`, pero cada uno produce un resultado diferente.
+
 ---
 
-# Manejo de Excepciones y Errores
+# 19. Atajos de teclado
 
-Mecanismo para gestionar fallos en tiempo de ejecución de forma limpia, evitando que el programa colapse (*crash*) ante entradas inesperadas o errores de cómputo.
+> Estos atajos corresponden al flujo indicado en el material original y pueden variar según editor, sistema operativo o configuración.
 
-## 1. Bloque `try / except / else / finally`
+### Comentar
+
+```text
+Ctrl + K
+luego
+Ctrl + C
+```
+
+### Descomentar
+
+```text
+Ctrl + K
+luego
+Ctrl + U
+```
+
+---
+
+# 20. Chuleta rápida
+
+## Tipos
+
+```python
+str
+int
+float
+bool
+list
+tuple
+dict
+set
+```
+
+## Condiciones
+
+```python
+if condicion:
+    ...
+elif otra_condicion:
+    ...
+else:
+    ...
+```
+
+## Bucles
+
+```python
+for elemento in coleccion:
+    ...
+```
+
+```python
+while condicion:
+    ...
+```
+
+## Control de bucles
+
+```python
+break
+continue
+```
+
+## Validación
+
+```python
+while True:
+    dato = input("Dato: ")
+
+    if valido(dato):
+        break
+```
+
+## Excepciones
 
 ```python
 try:
-    # Código de riesgo susceptible a fallos
-    resultado = 10 / divisor
-except ZeroDivisionError as e:
-    # Se ejecuta solo si ocurre la excepción específica
-    print(f"Error capturado [{type(e).__name__}]: {e}")
+    ...
+except ValueError:
+    ...
 else:
-    # Se ejecuta ÚNICAMENTE si no ocurrió ningún error en el try
-    print(f"Operación exitosa: {resultado}")
+    ...
 finally:
-    # Se ejecuta SIEMPRE, sin importar si hubo error o éxito
-    print("Finalizó la verificación de la operación.")
+    ...
+```
+
+## Funciones
+
+```python
+def funcion(parametro: str) -> None:
+    ...
+    return ...
+```
+
+## Métodos de strings frecuentes
+
+```python
+.strip()
+.lower()
+.upper()
+.capitalize()
+.title()
+.replace()
+.split()
+.join()
+.startswith()
+.endswith()
+.isalpha()
+.isdigit()
+```
+
+## Colecciones
+
+```python
+lista.append(x)
+lista.pop()
+lista.sort()
+
+clave in diccionario
+
+conjunto.add(x)
+conjunto.discard(x)
+```
+
+## Identidad y comparación
+
+```python
+x == y       # igualdad de valores
+x != y       # desigualdad
+x is None    # identidad
+x is not None
+```
+
+## Recursividad
+
+```python
+def funcion(n):
+    if caso_base:
+        return resultado
+
+    return funcion(problema_mas_pequeno)
+```
+
+## Pila
+
+```python
+pila.append(x)
+pila.pop()
+```
+
+## Cola
+
+```python
+from collections import deque
+
+cola.append(x)
+cola.popleft()
+```
+
+## POO
+
+```python
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def saludar(self):
+        print(f"Hola, soy {self.nombre}")
+```
+
+---
+
+# 🧠 Mapa mental de lo aprendido
+
+```text
+PYTHON
+│
+├── Datos
+│   ├── str
+│   ├── int
+│   ├── float
+│   └── bool
+│
+├── Operadores
+│   ├── Asignación
+│   ├── Lógicos
+│   ├── Pertenencia
+│   ├── Identidad
+│   └── Bitwise
+│
+├── Flujo
+│   ├── if / elif / else
+│   ├── for
+│   └── while
+│
+├── Colecciones
+│   ├── list
+│   ├── tuple
+│   ├── dict
+│   └── set
+│
+├── Strings
+│   ├── strip
+│   ├── split / join
+│   ├── replace
+│   ├── lower / upper
+│   └── validaciones
+│
+├── Control
+│   ├── break
+│   ├── continue
+│   └── flags
+│
+├── Robustez
+│   ├── validación
+│   ├── while True
+│   └── try / except
+│
+├── Diseño
+│   ├── funciones
+│   ├── modularización
+│   ├── DRY
+│   ├── chaining
+│   └── diseño defensivo
+│
+├── Estructuras
+│   ├── Stack → LIFO
+│   └── Queue → FIFO
+│
+├── Recursividad
+│   ├── caso base
+│   └── caso recursivo
+│
+└── POO
+    ├── clase
+    ├── objeto
+    ├── atributo
+    ├── método
+    ├── herencia
+    ├── super()
+    └── polimorfismo
 ```
