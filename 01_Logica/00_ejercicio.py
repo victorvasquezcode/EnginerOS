@@ -81,6 +81,7 @@ numero_2 = 20.5
 booleano = True
 cadena_caracteres = "Hola"
 variable_vacia = None
+variable_1 = "Python"
 
 # =============================================================================
 # 5. SALIDA POR TERMINAL (IMPRESIÓN)

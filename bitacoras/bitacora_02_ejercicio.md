@@ -2,7 +2,7 @@
 
 ### 1. 🎯 Lo que dominé hoy (El clic mental)
 * **Tipos de Parámetros y Flexibilidad:** Aprendí a declarar funciones desde lo más básico hasta variantes avanzadas con valores predeterminados, orden posicional y retorno múltiple (que Python maneja implícitamente como tuplas).
-* **Empaquetamiento con `*args` y `**kwargs`:** Hice clic mental en cómo recibir argumentos de cantidad variable. `*args` empaqueta valores posicionales en una tupla, mientras que `**kwargs` empaqueta pares clave-valor en un diccionario.
+* **Empaquetamiento con `*args` y `**kwargs`:** Hice clic **mental** en cómo recibir argumentos de cantidad variable. `*args` empaqueta valores posicionales en una tupla, mientras que `**kwargs` empaqueta pares clave-valor en un diccionario.
 * **Manejo del Scope (Local vs. Global):** Comprendí cómo Python busca variables en memoria (regla LEGB). Entendí que para **leer** una variable global no se requiere sintaxis extra, pero para **modificarla** dentro de una función es obligatorio declarar `global`, aunque la buena práctica dicta retornar nuevos valores.
 * **Lógica del FizzBuzz Personalizado:** Logré resolver la Dificultad Extra estructurando correctamente la prioridad condicional (evaluar primero el caso compuesto `numero % 15 == 0` o `múltiplo de 3 Y 5`) y aislando el contador únicamente dentro de la cláusula `else`.
 

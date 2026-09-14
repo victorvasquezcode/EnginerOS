@@ -162,19 +162,20 @@ print(f"Contador global modificado: {contador_global}")
 # - En el caso base de la condición (else), imprime el número e incrementa el contador.
 # - Retorna el contador final y muestra el resultado del retorno en consola.
 
-def fizz_buzz_custom(texto1:str , texto2:str) -> int:
+def fizz_buzz (texto1: str = "Fizz", texto2: str = "Buzz") -> int:
     contador = 0
-    for numero in range(1, 101):
+    for numero in range(1,101):
         if numero % 15 == 0:
             print(f"{texto1}{texto2}")
-        elif numero % 5 == 0:
-            print(f"{texto2}")
         elif numero % 3 == 0:
             print(f"{texto1}")
+        elif numero % 5 == 0:
+            print(f"{texto2}")
         else:
-            print(f"{numero}")
             contador += 1
-
+            print(f"{numero}")
     return contador
-    
-print(f"El numero de veces que se ha impreso el numero es : {fizz_buzz_custom('Hola','Que tal')}")
+
+total_numeros = fizz_buzz()
+print(f"El numero de veces que se ha impreso el numero es: {total_numeros}")
+        

@@ -1,245 +1,240 @@
 # =============================================================================
-# RETO 03: ESTRUCTURAS DE DATOS
-# Enunciado:
-# 1. Muestra ejemplos de creación de todas las estructuras soportadas por defecto en Python:
-#    - Listas (list)
-#    - Tuplas (tuple)
-#    - Diccionarios (dict)
-#    - Conjuntos (set)
-# 2. Operaciones principales: Inserción, Borrado, Actualización y Ordenación en cada una.
+# PARTE 1: ESTRUCTURAS DE DATOS NATIVAS (REPASO)
 # =============================================================================
 
-# -----------------------------------------------------------------------------
-# 1. LISTAS (List) - Mutables, ordenadas y permiten duplicados
-# Pista: Usa append(), insert(), remove(), pop(), ordenación con sort() o sorted().
-# -----------------------------------------------------------------------------
-print("--- 1. LISTAS ---")
-mercado = ['manzana','zanahoria','tomate','berengena']
-mercado.append('pera')
-mercado.insert(1,'uva')
-mercado.remove('manzana')
-elemento_eliminado = mercado.pop()
-mercado[2] = 'lechuga'
-mercado.sort()
-mercado_ordenado = sorted(mercado, reverse=True)
-print(f"Lista modificada: {mercado}")
-print(f"Lista modificada al revez: {mercado_ordenado}")
-print(f"Elemento sacado con pop: {elemento_eliminado}")
+# LISTAS (Ordenadas, mutables, duplicados)
+# 1. Creación: Inicializar lista.
+# 2. Inserción: Agregar elementos al final y en posición específica.
+# 3. Borrado: Eliminar por valor y por índice/posición.
+# 4. Actualización: Modificar el valor de una posición específica.
+# 5. Ordenación: Ordenar de forma ascendente, descendente y sin modificar la original.
+lista = ["Manzana", "Pera", "Platano"]
+lista.append("Mandarina")
+lista.insert(1,"Arandano")
+
+lista.remove("Manzana")
+fruta_eliminada = lista.pop(1)
+
+lista[1] = ("Tomate")
+
+lista.sort(key=str.lower)
+lista.sort(reverse=True)
+nueva_lista = sorted(lista)
+
+print(lista,nueva_lista)
 
 
+# TUPLAS (Ordenadas, inmutables, duplicados)
+# 1. Creación: Inicializar tupla.
+# 2. Inserción/Borrado/Actualización: Explicar o probar qué ocurre si se intenta modificar.
+# 3. Ordenación: Convertir a una estructura mutable o usar funciones globales que devuelvan listas.
+tupla = ("Borrador","Lapiz","Cuaderno")
 
-# -----------------------------------------------------------------------------
-# 2. TUPLAS (Tuple) - Inmutables, ordenadas y permiten duplicados
-# Pista: No se pueden modificar directamente. ¿Qué pasa si intentas alterar un valor?
-# -----------------------------------------------------------------------------
-print("\n--- 2. TUPLAS ---")
-componentes = ("memoria","gpu","cpu")
-print (f"Primer componenete: {componentes[0]}")
+try:
+    tupla[0] = "Tajador"
+except TypeError as e:
+    print(f"Error al intentar modificar la tupla: {e}")
 
-#componentes[0] = "fuente"
-# Tener en cuenta que una tupla es inmutable no se puede cambiar el valor
+tupla_ordenada = sorted(tupla)
+print(f"Ordenada con sorted() (devuelve lista): {tupla_ordenada}")
 
-ram , grafica , procesador = componentes
-print(f"Tengo una GPU: {grafica} y una CPU: {procesador}")
+lista_desde_tupla = list(tupla)
+lista_desde_tupla.append("Regla")
+tupla_actualizada = tuple(lista_desde_tupla)
+print(f"Tupla reconstruida: {tupla_actualizada}")
 
+# CONJUNTOS / SETS (Desordenados, mutables, NO duplicados)
+# 1. Creación: Inicializar conjunto.
+# 2. Inserción: Agregar elementos individuales y múltiples.
+# 3. Borrado: Eliminar elementos (manejo de error si no existe vs borrado seguro).
+# 4. Actualización: Explicar por qué no hay acceso por índice (remover e insertar).
+# 5. Ordenación: Convertir a lista si se requiere un orden visual temporal.
+conjuntos = {"Manzana", "Pera", "Platano"}
+set_vacio = set()
 
-# -----------------------------------------------------------------------------
-# 3. DICCIONARIOS (Dict) - Mutables, mapeo Clave-Valor, claves únicas
-# Pista: Usa dict[clave] = valor, pop(), del, keys(), values(), items().
-# -----------------------------------------------------------------------------
-print("\n--- 3. DICCIONARIOS ---")
-perfil = {
-    "nombre" :"victor", 
-    "apellido" : "Vasquez",
-    "edad" : 26
-    } 
-print(f"Nombre de usuario: {perfil['nombre']}")
-perfil["cargo"] = "Asistente"
-perfil["edad"] = 27
-perfil.pop("apellido")
-print("\nDatos actuales del perfil:")
-for clave, valor in perfil.items():
-    print(f"- {clave.capitalize()}: {valor}")
+conjuntos.add("Mandarina")
+conjuntos.update(["Uva", "Ciruela", "Pera"])
 
+try:
+    conjuntos.remove("Platano")
+except KeyError:
+    print("El elemento no existe en el conjunto.")
 
+conjuntos.discard("Manzana")
 
-# -----------------------------------------------------------------------------
-# 4. CONJUNTOS (Set) - Mutables, no ordenados, NO permiten duplicados
-# Pista: Usa add(), remove(), discard(). Útil para eliminar duplicados de listas.
-# -----------------------------------------------------------------------------
-print("\n--- 4. CONJUNTOS (SETS) ---")
-numeros = {1,2,3,4,4,4,4,4,4}
-numeros.add(5)
-numeros.remove(2)
-numeros.discard(1)
-print(list(numeros))
+if "Pera" in conjuntos:
+    conjuntos.remove("Pera")
+    conjuntos.add("Mango")
 
+conjuntos_ordenados = sorted(conjuntos)
 
-# =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
-# Enunciado: Crea una agenda de contactos por terminal.
-# - Funcionalidades: Búsqueda, inserción, actualización y eliminación de contactos.
-# - Datos: Cada contacto tiene Nombre y Teléfono.
-# - Validaciones: El teléfono debe ser numérico (.isdigit()) y tener máximo 11 dígitos (len() <= 11).
-### - Incluye opción para salir/finalizar el programa. 
-# =============================================================================
-agenda={
-    "victor" : "916487419"
+print(f"Conjunto final (sin duplicados): {conjuntos}")
+print(f"Lista ordenada generada desde el set: {conjuntos_ordenados}")
+
+# DICCIONARIOS (Pares Clave-Valor, mutables, claves únicas)
+# 1. Creación: Inicializar diccionario.
+# 2. Inserción: Añadir nueva clave con su valor.
+# 3. Borrado: Eliminar por clave.
+# 4. Actualización: Cambiar el valor asociado a una clave existente.
+# 5. Ordenación: Ordenar por claves o por valores (devuelve vistas o listas).
+usuarios = {
+    "nombre": "Javier",
+    "edad"  : 26,
+    "carrera" : "Sistemas"
 }
 
-while True:
-    print("\nAgenda de Contactos:")
-    print("1. Buscar contacto")
-    print("2. Insertar contacto")
-    print("3. Actualizar contacto")
-    print("4. Eliminar contacto")
-    print("5. Salir del programa")
-    opcion_usuario = input("Selecciona un numero del (1-5): ")
+usuarios["cargo"] = "Admin"
 
-    if opcion_usuario == "1":
-        print("Desea buscar por nombre o por numero (1.Nombre , 2.Numero)")
-        while True:
+usuarios.pop("edad")
+del usuarios["carrera"]
 
-            buscar_contacto = input ("Seleccione una opcion (1-2): ")
+usuarios["nombre"] = "Victor"
 
-            if buscar_contacto == "1":
-                
-                buscar_contacto_nombre = input("Cual es el nombre de la persona que deseas buscar: ")
+claves_ordenadas = sorted(usuarios.keys())
+print(f"Claves ordenadas: {claves_ordenadas}")
 
-                if buscar_contacto_nombre in agenda:
-                    print(f"La persona es {buscar_contacto_nombre} con el numero {agenda[buscar_contacto_nombre]}")
-                else:
-                    print("No existe en la agenda")
-                break
+valor_ordenados = sorted(usuarios.values())
+print(f"Valores ordenados: {valor_ordenados}")
 
-            elif buscar_contacto == "2":
+diccionario_ordenado = dict(sorted(usuarios.items()))
+print(f"Diccionario ordenado: {diccionario_ordenado}")
 
-                buscar_contacto_numero = input("Cual es el numero de la persona que deseas buscar: ")
 
-                if not (buscar_contacto_numero.isdigit() and len(buscar_contacto_numero) <= 11):
-                    print("El numero debe ser digito y tener 11 digitos o menos")
-                    continue
+# =============================================================================
+# PARTE 2: DIFICULTAD EXTRA - AGENDA DE CONTACTOS
+# =============================================================================
 
-                encontrado = False
-                for nombre,numero in agenda.items():
-                    if numero == buscar_contacto_numero:
-                        print(f"El numero pertenece a: {nombre}")
-                        encontrado = True
-                        break
+# --- 1. ESTRUCTURA DE DATOS PRINCIPAL ---
+# Razonar: ¿Qué estructura native es ideal para buscar rápido un contacto por su NOMBRE?
+# Pista: Un diccionario donde la "clave" sea el nombre y el "valor" sea el teléfono.
+agenda = {}
 
-                if not encontrado:
-                        print("No hay ninguna contacto registrado con ese numero")
-                break
-            else:
-                print("Debe seleccionar una opcion valida (1-2)")
-                continue
+# --- 2. FUNCIONES DE VALIDACIÓN ---
+# Crear una función para validar el teléfono según las reglas:
+# - ¿El valor ingresado contiene solo dígitos numéricos?
+# - ¿La longitud está dentro del límite permitido (ej. mayor a 0 y menor o igual a 11)?
+# - Retornar un booleano (True/False) para saber si pasa la prueba.
+def es_telefono_valido (telefono: str) -> bool:
+    paso_prueba = False
+    if telefono.isdigit() and 0 < len(telefono) <= 11:
+        paso_prueba = True
+    return paso_prueba
 
-    elif opcion_usuario == "2":
-        while True:
-            while True:
 
-                insertar_nombre = input ("Inserte el nombre del contacto: ")
-                
-                if not insertar_nombre.strip():
-                    print("El nombre no debe estar vacio")
-                    continue
+# --- 3. FUNCIONES DE OPERACIONES DE LA AGENDA ---
 
-                if insertar_nombre in agenda:
-                    print("El contacto ya existe puedes cambiarlo en la opcion 3 (Actualizar)")
-                    continue
-
-                break
-
-            while True:
-                insertar_numero = input ("Inserte el numero del contacto: ")
-
-                if insertar_numero in agenda.values():
-                    print("Este numero ya pertenece a otro contacto.")
-                    continue
-
-                if insertar_numero.isdigit() and len(insertar_numero) <= 11:
-                    agenda[insertar_nombre] = insertar_numero
-                    print(f"Contacto {insertar_nombre.capitalize()} guardado correctamente con el numero {insertar_numero}")
-                    break
-                else:
-                    print("El numero debe ser numero y tener maximo de 11 digitos")
-                    continue
-
-            while True:
-                ingresar_otro_numero = input ("Desea ingresar otro numero ?(1-Si , 2-No): ")
-
-                if ingresar_otro_numero == "1":
-                    break
-                elif ingresar_otro_numero == "2":
-                    break
-                else:
-                    print("Ingrese un numero entre 1 y 2")
-
-            if ingresar_otro_numero == "2":
-                break
-
-    elif opcion_usuario == "3":
-        if not agenda:
-            print(" La agenda esta vacia. No hay contactos para actualizar.")
-        else:
-            print("\n¿Que deseas actualizar?")
-            print("1. Nombre del contacto")
-            print("2. Telefono del contacto")
-
-            while True:
-                buscar_contacto_actualizar = input ("Selecciona una opcion (1-2): ")
-
-                if buscar_contacto_actualizar == "1":
-                    buscar_nombre_actualizar = input("Cual es el nombre del contacto: ")
-
-                    if buscar_nombre_actualizar in agenda:
-                        print(f"Se encontro el nombre '{buscar_nombre_actualizar}' en los contactos")
-                        nuevo_nombre_actualizar = input(f"Cual es el nuevo nombre para '{buscar_nombre_actualizar}': ")
-
-                        if not nuevo_nombre_actualizar.strip():
-                            print("El nombre no puede estar vacio.")
-                        elif nuevo_nombre_actualizar in agenda:
-                            print("Ya existe otro contacto con ese nombre.")
-                        else:
-                            agenda [nuevo_nombre_actualizar] = agenda.pop(buscar_nombre_actualizar)
-                            print(f"El contacto '{buscar_nombre_actualizar}' ahora se llama '{nuevo_nombre_actualizar}'")
-                            break
-
-                    else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
-                        break
-
-                elif buscar_contacto_actualizar == "2":
-                    buscar_nombre_actualizar = input("Ingresa el nombre del contacto cuyo numero deseas que se cambie: ")
-
-                    if buscar_nombre_actualizar in agenda:
-                        while True:
-                            nuevo_numero_actualizar = input(f"Ingrese el nuevo numero para el contacto '{buscar_nombre_actualizar}' : ")
-
-                            if nuevo_numero_actualizar in agenda.values():
-                                print("Este numero ya pertenece a otro contacto.")
-                            elif nuevo_numero_actualizar.isdigit() and len(nuevo_numero_actualizar) <= 11:
-                                agenda[buscar_nombre_actualizar] = nuevo_numero_actualizar
-                                print(f"Numero de '{buscar_nombre_actualizar}' actualizado a '{nuevo_numero_actualizar}'")
-                                break
-                            else:
-                                print("El numero debe contener solo digitos y maximo 11 caracteres.")
-                        break
-                    else:
-                        print(f"El contacto {buscar_nombre_actualizar} no existe en la agenda")
-                        break
-                else:
-                    print("Debe seleccionar una opcion valida (1 - 2)")
-
-    elif opcion_usuario == "4":
-        buscar_contacto_eliminar= input("Que contacto desea eliminar: ")
-
-        if buscar_contacto_eliminar in agenda:
-            agenda.pop(buscar_contacto_eliminar)
-            print(f"El contacto {buscar_contacto_eliminar} a sido eliminado con exito.")
-
-    elif opcion_usuario == "5":
-        break
+# Función: BÚSQUEDA
+# - Pedir el nombre a buscar.
+# - Verificar si existe en la estructura.
+# - Si existe: mostrar nombre y teléfono.
+# - Si no existe: mostrar mensaje de error.
+def buscar_contacto(nombre: str):
+    if nombre in agenda:
+        print(f"Contacto: {nombre} | Telefono: {agenda[nombre]}")
     else:
-        print("No se selecciono ninguna opcion selecciones una opcion valida (1-5)")
-        continue
+        print(f"El contacto '{nombre}' no existe en la agenda.")
+
+# Función: INSERCIÓN
+# - Pedir el nombre del nuevo contacto.
+# - Pedir el teléfono y usar la función de validación dentro de un bucle hasta que sea válido.
+# - Si el nombre ya existe, avisar al usuario o redirigir a actualización.
+# - Guardar la relación nombre -> teléfono.
+def insertar_contacto():
+    nombre = input("Ingresar el nombre del contacto: ").strip().capitalize()
+
+    if nombre in agenda:
+        print(f"El contacto {nombre} ya existe en la agenda")
+        opcion = input(f"Desea actualizar el contacto '{nombre}'? (si/no): ").strip().lower()
+
+        if opcion in ("si", "sí", "s"):
+            actualizar_contacto()
+            return
+        else:
+            print("Operacion cancelada.")
+            return
+    
+    while True:
+        telefono = input("Ingresar el numero del contacto (max. 11 digitos): ").strip()
+        if es_telefono_valido(telefono):
+            break
+        print("Numero invalido. Debe contener solo digitos y tenerhasta 11 caracteres.")
+
+    agenda[nombre] = telefono
+    print(f"Contacto '{nombre}' guardado exitosamente.")
+
+
+# Función: ACTUALIZACIÓN
+# - Pedir el nombre del contacto a actualizar.
+# - Verificar si existe.
+# - Si existe: pedir el nuevo teléfono (validándolo) y actualizar el valor.
+# - Si no existe: informar que no se encontró el contacto.
+
+def actualizar_contacto():
+    nombre = input("Ingresar el nombre del contacto para actualizar: ").strip().capitalize()
+    if nombre in agenda:
+        while True:
+            nuevo_telefono = input("Ingresar el nuevo telefono: ").strip()
+            if es_telefono_valido(nuevo_telefono):
+                break
+            print("Numero invalido.")
+        agenda[nombre] = nuevo_telefono
+        print("Telefono actualizado correctamente.")
+    else:
+        print(f"El contacto '{nombre}' no existe.")
+
+# Función: ELIMINACIÓN
+# - Pedir el nombre a eliminar.
+# - Verificar si existe.
+# - Si existe: borrar el registro de la estructura y confirmar al usuario.
+# - Si no existe: informar que no se encontró.
+def eliminar_contacto():
+    nombre = input("Ingresa el nombre del contacto para eliminar: ").strip().capitalize()
+    if nombre in agenda:
+        del agenda[nombre]
+        print(f"Contacto '{nombre}' eliminado.")
+    else:
+        print(f"El contacto '{nombre}' no existe.")
+
+
+# --- 4. BUCLE PRINCIPAL Y MENÚ DE INTERACCIÓN ---
+# - Definir una variable de control para mantener el programa activo (ej. ejecutable = True).
+# - Iniciar bucle while:
+#     - Mostrar las opciones del menú (1. Buscar, 2. Insertar, 3. Actualizar, 4. Eliminar, 5. Salir).
+#     - Leer la opción seleccionada por el usuario.
+#     - Evaluar la opción (usar estructuras condicionales if / elif / else o match/case):
+#         - Caso 1: Llamar función de Búsqueda.
+#         - Caso 2: Llamar función de Inserción.
+#         - Caso 3: Llamar función de Actualización.
+#         - Caso 4: Llamar función de Eliminación.
+#         - Caso 5: Cambiar variable de control para romper el bucle y despedir al usuario.
+#         - Caso Default: Notificar que la opción elegida no es válida.
+
+def menu_principal():
+    while True:
+        print("\n--- AGENDA DE CONTACTOS ---")
+        print("1. Buscar contacto")
+        print("2. Insertar contacto")
+        print("3. Actualizar contacto")
+        print("4. Eliminar contacto")
+        print("5. Salir")
+
+        opcion_seleccionada = input("Ingrese una opcion (1-5): ").strip()
+
+        match opcion_seleccionada:
+            case "1":
+                nombre = input("Ingrese el nombre de contacto a buscar: ").strip().capitalize()
+                buscar_contacto(nombre)
+            case "2":
+                insertar_contacto()
+            case "3":
+                actualizar_contacto()
+            case "4":
+                eliminar_contacto()
+            case "5":
+                print("¡Hasta Luego! Gracias por usar la agenda.")
+                break
+            case _:
+                print("Opcion no valida. Por favor, ingrese un numero del 1 al 5.")
+
+if __name__ == "__main__":
+    menu_principal()

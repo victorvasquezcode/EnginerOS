@@ -147,8 +147,8 @@ finally:
 #   2. Que sea diferente de 16 -> (numero != 16)
 #   3. Que NO sea múltiplo de 3 -> (numero % 3 != 0)
 # - Imprime únicamente los números que cumplan TODAS las condiciones simultáneamente.
-for numero in range(10 , 56 , 2):
+print("\n--- Dificultad Extra ---")
+for numero in range(10,56,2):
     if numero == 16 or numero % 3 == 0:
         continue
-    print(numero)
-     
+    print(f"numeros validos: {numero}")
