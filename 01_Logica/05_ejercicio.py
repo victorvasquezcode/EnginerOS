@@ -1,118 +1,66 @@
 # =============================================================================
-# RETO 05: ASIGNACIÓN POR VALOR Y POR REFERENCIA
-#
-# CONCEPTOS CLAVE EN PYTHON:
-# 1. Tipos Inmutables (Por Valor): int, float, str, bool, tuple.
-#    - Al reasignar o modificar la variable, Python crea un nuevo objeto en memoria.
-# 2. Tipos Mutables (Por Referencia): list, dict, set.
-#    - Múltiples variables apuntan al mismo espacio de memoria (dirección).
-#    - Modificar la estructura afecta a todas las variables que la refieren.
+# PARTE 1: ASIGNACIÓN Y PASO DE PARÁMETROS EN PYTHON (VALOR VS. REFERENCIA)
 # =============================================================================
-
-# -----------------------------------------------------------------------------
-# 1. ASIGNACIÓN DE VARIABLES
-# -----------------------------------------------------------------------------
-
-# --- Asignación "Por Valor" (Tipos Inmutables) ---
-# Demuestra qué pasa al asignar una variable a otra y luego modificar la segunda
-# (ej. enteros o cadenas de texto).
-
-variable = 20
-variable_2 = variable
-variable_2 = 40
-print(variable_2)
+# Nota conceptual previa para Python:
+# En Python todo es un objeto. No existe la asignación por valor o referencia tradicional,
+# sino el concepto de "Paso por Asignación de Objeto" (Pass-by-object-reference):
+# - Tipos Inmutables (se comportan como "por valor"): int, float, str, bool, tuple.
+# - Tipos Mutables (se comportan como "por referencia"): list, dict, set.
 
 
-# --- Asignación "Por Referencia" (Tipos Mutables) ---
-# Demuestra qué pasa al asignar una lista o diccionario a otra variable y modificarla.
+# 1. Asignación de Variables por Valor (Tipos Inmutables):
+# - Crear una variable original con un tipo inmutable (ej. entero o string).
+# - Asignar esa variable a una nueva variable (copia de valor).
+# - Modificar la segunda variable y comprobar que la primera permanece inalterada.
+variable_original = "Victor Javier Vasquez Trauco"
+variable_nueva = variable_original
+variable_nueva = "Victor Javier"
 
-lista_1 = ["platano","manzana","pera"]
-lista_2 = lista_1
+print(f"Variable original: {variable_original}")
+print(f"Variable nueva: {variable_nueva}")
 
-lista_2.append("zanahoria")
+# 2. Asignación de Variables por Referencia (Tipos Mutables):
+# - Crear una variable original con un tipo mutable (ej. una lista).
+# - Asignar esa variable a una nueva variable (comparten la misma posición en memoria).
+# - Modificar la segunda variable (ej. .append()) y comprobar que la primera también cambia.
 
-print(lista_1)
-print(lista_2)
+# 3. Funciones con Parámetros Inmutables ("Por Valor"):
+# - Definir una función que reciba un argumento inmutable (ej. int).
+# - Modificar el valor del parámetro dentro del cuerpo de la función.
+# - Demostrar que la variable original fuera de la función NO sufre ningún cambio.
 
-
-# -----------------------------------------------------------------------------
-# 2. COMPORTAMIENTO EN FUNCIONES
-# -----------------------------------------------------------------------------
-
-# --- Función con parámetro "Por Valor" (Inmutable) ---
-def modificar_valor(parametro):
-    # Modifica el parámetro aquí dentro e imprime su estado interno
-    parametro = 40
-    print(f"Dentro de la funcion: {parametro}")
-
-# Prueba llamando a la función con una variable original e imprime ambas
-variable_original = 20
-
-print(f"Antes de la funcion: {variable_original}")
-modificar_valor(variable_original)
-print(f"Despues de la funcion: {variable_original}")
-
-
-# --- Función con parámetro "Por Referencia" (Mutable) ---
-def modificar_referencia(parametro):
-    # Modifica el contenido de la lista/diccionario (ej. .append() o modificación directa)
-    parametro.append("Cuaderno")
-    print(f"Dentro de la funcion: {parametro}")
-    pass
-
-# Prueba llamando a la función con una lista original e imprime ambas
-lista_utiles = ["Lapiz","Mochila"]
-
-print(f"Antes de la funcion: {lista_utiles}")
-modificar_referencia(lista_utiles)
-print(f"Despues de la funcion: {lista_utiles}")
-
+# 4. Funciones con Parámetros Mutables ("Por Referencia"):
+# - Definir una función que reciba un argumento mutable (ej. list).
+# - Modificar la estructura directamente dentro de la función (ej. .append() o .clear()).
+# - Demostrar que la variable original fuera de la función SÍ se modifica.
+# - Mostrar la excepción: Reasignar la variable dentro de la función (`lista = [...]`) rompe la referencia.
 
 
 # =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
-#
-# Enunciado: Crea dos funciones/programas que reciban dos parámetros cada uno
-# (definidos como variables anteriormente).
-# - En un caso, pasa dos parámetros por valor. En el otro, por referencia.
-# - Intercambia sus valores en el interior de la función y retórnalos.
-# - Asigna el retorno a dos variables nuevas.
-# - Imprime las variables originales y las nuevas para verificar:
-#   1. Que en las nuevas se invirtió el valor.
-#   2. Que en las originales se conservó el valor original (¡ojo con las referencias!).
+# DIFICULTAD EXTRA: INTERCAMBIO DE VALORES (SWAP) Y RETORNO
 # =============================================================================
 
-print("\n=== DIFICULTAD EXTRA ===")
-
-# --- 1. Intercambio Por Valor ---
-def intercambiar_por_valor(a, b):
-    # Intercambia los valores y retórnalos
-    a , b = b , a
-    return a , b
-
-# Declarar variables originales (inmutables)
-variable_1 = 50
-variable_2 = 40
-
-# Llamar a la función, asignar retornos y comprobar resultados
-nueva_var1, nueva_var2 = intercambiar_por_valor(variable_1, variable_2)
-print(f"Originales : variable 1 = {variable_1} variable 2 = {variable_2}")
-print(f"Nuevos : nueva variable = {nueva_var1} nueva variable 2 = {nueva_var2}")
+# --- PROGRAMA 1: Intercambio con Tipos por Valor (Inmutables) ---
+# - Definir una función 'intercambiar_por_valor(a, b)':
+#     - Recibir dos variables inmutables (ej. dos números enteros).
+#     - Intercambiar sus valores internamente (ej. utilizando un 'swap' tradicional o tupla).
+#     - Retornar ambos valores intercambiados.
+# - Proceso de prueba:
+#     - Definir dos variables originales (ej. orig_a = 10, orig_b = 20).
+#     - Llamar a la función pasando las variables originales y asignar el retorno a dos variables nuevas.
+#     - Imprimir variables originales (deben conservar sus valores iniciales: 10 y 20).
+#     - Imprimir variables nuevas (deben tener los valores invertidos: 20 y 10).
 
 
-
-# --- 2. Intercambio Por Referencia ---
-def intercambiar_por_referencia(lista_a, lista_b):
-    # Intercambia el contenido de las listas sin romper las referencias originales
-    # o retorna copias/intercambios según la prueba
-    lista_a , lista_b = lista_b , lista_a
-    return lista_a, lista_b
-
-# Declarar variables originales (mutables)
-lista_a = ["Pera","Manzana"]
-lista_b = ["Zanahoria","Zapallo"]
-
-# Llamar a la función, asignar retornos y comprobar resultados
-nueva_lista_a , nueva_lista_b = intercambiar_por_referencia(lista_a, lista_b)
-print(f"Originales : lista 1 = {lista_a} lista 2 = {lista_b}")
-print(f"Nuevas : lista nueva 1 = {nueva_lista_a} lista nueva 2 = {nueva_lista_b}")
+# --- PROGRAMA 2: Intercambio con Tipos por Referencia (Mutables) ---
+# - Definir una función 'intercambiar_por_referencia(lista_a, lista_b)':
+#     - Recibir dos variables mutables (ej. dos listas).
+#     - Para conservar las listas originales intactas y evitar modificarlas por referencia:
+#         - Crear copias explícitas en el interior (.copy() o slicing [:]).
+#         - Intercambiar los contenidos entre las nuevas variables/copias.
+#     - Retornar ambas copias intercambiadas.
+# - Proceso de prueba:
+#     - Definir dos listas originales (ej. lista_orig_a = [1, 2], lista_orig_b = [3, 4]).
+#     - Llamar a la función pasando las listas originales y asignar el retorno a dos variables nuevas.
+#     - Imprimir listas originales (deben conservar sus elementos iniciales: [1, 2] y [3, 4]).
+#     - Imprimir listas nuevas (deben contener las estructuras invertidas: [3, 4] y [1, 2]).
