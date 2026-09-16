@@ -1,123 +1,131 @@
 # =============================================================================
-# RETO 08: CLASES Y OBJETOS (PROGRAMACIÓN ORIENTADA A OBJETOS - POO)
-#
-# CONCEPTOS CLAVE:
-# 1. Clase: Plantilla o molde para crear objetos (define atributos y métodos).
-# 2. Atributos: Variables asociadas al objeto (guardan su estado).
-# 3. Métodos: Funciones asociadas al objeto (definen su comportamiento).
-# 4. Constructor (__init__): Método especial que se ejecuta automáticamente
-#    al instanciar un objeto para inicializar sus atributos.
-# 5. Parámetro `self`: Referencia obligatoria dentro de la clase para acceder
-#    a las propiedades y métodos de la propia instancia.
+# PARTE 1: CONCEPTO DE CLASE Y POO (PROGRAMACIÓN ORIENTADA A OBJETOS)
 # =============================================================================
+# Una clase es una plantilla o molde para crear objetos. Agrupa datos (atributos)
+# y comportamientos (métodos).
 
-# -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: CREACIÓN Y MANIPULACIÓN DE UNA CLASE
-# -----------------------------------------------------------------------------
 
+# 1. Definición de la Clase Básica:
+# - Definir la clase con la sintaxis 'class NombreClase:' (usando PascalCase por convención).
+# - Método Constructor (__init__):
+#     - Recibir el parámetro obligatorio 'self' (referencia a la instancia actual).
+#     - Recibir los parámetros iniciales (ej. nombre: str, edad: int).
+#     - Asignar los valores a atributos de instancia (ej. self.nombre = nombre).
 class Persona:
-    """
-    Clase que representa a una persona básica con atributos y métodos de impresión.
-    """
     def __init__(self, nombre: str, edad: int):
-        # Inicializador de atributos de instancia
         self.nombre = nombre
         self.edad = edad
 
+# - Método de Impresión/Mostrado:
+#     - Definir una función dentro de la clase (ej. 'mostrar_datos(self)').
+#     - Imprimir el estado actual de todos los atributos de la instancia.
     def mostrar_datos(self):
-        # Método para imprimir la información del objeto
-        print(f"Nombre: {self.nombre} | Edad: {self.edad}")
+        print(f"Mi nombre es {self.nombre} y mi edad es {self.edad}")
 
 
-# --- PRUEBAS DEL EJERCICIO PRINCIPAL ---
-print("=== DEMOSTRACIÓN DE CLASE Y OBJETOS ===")
-
-# Instanciación y establecimiento de parámetros iniciales
-persona1 = Persona("Víctor", 26)
-print("Datos iniciales:")
+# 2. Proceso de Prueba (Instanciación y Mutación):
+# - Crear/Instanciar un objeto de la clase pasando los argumentos iniciales.
+# - Llamar al método de impresión para verificar el estado inicial.
+# - Modificar directamente un atributo de la instancia (ej. objeto.atributo = nuevo_valor).
+# - Volver a llamar al método de impresión para comprobar la actualización del estado.
+persona1 = Persona("Víctor", 25)
+persona1.mostrar_datos()
+persona1.nombre = "Javier"
 persona1.mostrar_datos()
 
-# Modificación de atributos directamente
-persona1.nombre = "Víctor Javier"
-persona1.edad = 27
-
-print("\nDatos modificados:")
-persona1.mostrar_datos()
-
-
 # =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
+# DIFICULTAD EXTRA: IMPLEMENTACIÓN DE PILA Y COLA MEDIANTE CLASES
 # =============================================================================
 
-print("\n=== DIFICULTAD EXTRA ===")
-
-# --- 1. Clase Pila (Stack - LIFO) ---
+# --- PROGRAMA 1: CLASE PILA (STACK - LIFO) ---
+# - Definir la clase 'Pila':
+#     - Método __init__(self):
+#         - Inicializar un atributo privado o de instancia como lista vacía (self.items = []).
+#     - Método push(self, elemento):
+#         - Agregar un nuevo elemento al final de 'self.items' (.append()).
+#     - Método pop(self):
+#         - Verificar si la pila no está vacía.
+#         - Extraer y retornar el último elemento (.pop()). Si está vacía, manejar el caso o retornar None.
+#     - Método contar(self) -> int:
+#         - Retornar la cantidad de elementos actuales (len(self.items)).
+#     - Método imprimir(self):
+#         - Mostrar en consola el contenido actual de la pila.
 class Pila:
     def __init__(self):
-        # PISTA: Inicializa una lista vacía para almacenar los elementos
-        self.elementos = []
+        self.items = []
 
-    def push(self, elemento):
-        # PISTA: Añade un elemento al final de la lista
-        self.elementos.append(elemento)
+    def push(self, elemento: str):
+        self.items.append(elemento)
 
     def pop(self):
-        # PISTA: Valida si no está vacía antes de extraer el último elemento (.pop())
-        if not self.elementos:
-            print("La pila esta vacia")
+        if self.items:
+            return self.items.pop()
+        else:
+            print("La pila esta vacia.")
             return None
-        return self.elementos.pop()
-
+        
     def contar(self) -> int:
-        # PISTA: Retorna el número total de elementos (len())
-        return len(self.elementos)
-
-    def mostrar(self):
-        # PISTA: Imprime el contenido actual de la pila
-        print(f"Pila actual: {self.elementos}")
+        return len(self.items)
+    
+    def imprimir(self):
+        print(f"Pila actual: {self.items}")
 
 
-# --- 2. Clase Cola (Queue - FIFO) ---
+# --- PROGRAMA 2: CLASE COLA (QUEUE - FIFO) ---
+# - Importar 'deque' desde 'collections'.
+# - Definir la clase 'Cola':
+#     - Método __init__(self):
+#         - Inicializar un atributo de instancia como un deque vacío (self.items = deque()).
+#     - Método enqueue(self, elemento):
+#         - Agregar un nuevo elemento al final del deque (.append()).
+#     - Método dequeue(self):
+#         - Verificar si la cola no está vacía.
+#         - Extraer y retornar el primer elemento ingresado (.popleft()). Si está vacía, retornar None.
+#     - Método contar(self) -> int:
+#         - Retornar la cantidad de elementos actuales (len(self.items)).
+#     - Método imprimir(self):
+#         - Mostrar en consola el contenido actual de la cola.
+from collections import deque
+
 class Cola:
     def __init__(self):
-        # PISTA: Inicializa una lista vacía para almacenar los elementos
-        self.elementos = []
+        self.items = deque()
 
-    def enqueue(self, elemento):
-        # PISTA: Añade un elemento al final de la lista
-        self.elementos.append(elemento)
+    def enqueue(self, elemento: str):
+        self.items.append(elemento)
 
     def dequeue(self):
-        # PISTA: Valida si no está vacía antes de extraer el primer elemento (.pop(0))
-        if not self.elementos:
-            print("La cola esta vacia")
+        if self.items:
+            return self.items.popleft()
+        else:
+            print("La Cola esta vacia")
             return None
-        return self.elementos.pop(0)
 
     def contar(self) -> int:
-        # PISTA: Retorna el número total de elementos (len())
-        return len(self.elementos)
+        return len(self.items)
 
-    def mostrar(self):
-        # PISTA: Imprime el contenido actual de la cola
-        print(f"Cola actual: {self.elementos}")
+    def imprimir(self):
+        print(f"Cola actual: {self.items}")
 
 
-# --- Pruebas de la Dificultad Extra ---
-mi_pila = Pila()
-mi_pila.push("Documento 1")
-mi_pila.push("Documento 2")
-mi_pila.push("Documento 3")
-extraido_pila = mi_pila.pop()
-print(f"Elemento retirado de la pila: {extraido_pila}")
-print(f"Total de elementos en pila: {mi_pila.contar()}")
-mi_pila.mostrar()
+# --- PROCESO DE PRUEBA DE DIFICULTAD EXTRA ---
+# 1. Instanciar un objeto de la clase 'Pila', realizar operaciones push, pop, contar e imprimir.
+# 2. Instanciar un objeto de la clase 'Cola', realizar operaciones enqueue, dequeue, contar e imprimir.
+print("\n--- DEMOSTRACION CLASE PILA (LIFO) ---")
+pila1 = Pila()
+pila1.push("Kiwi")
+pila1.push("Manzana")
+pila1.imprimir()
+print(f"Cantidad de elementos: {pila1.contar()}")
+print(f"Elemento Extraido: {pila1.pop()}")
+pila1.imprimir()
 
-mi_cola = Cola()
-mi_cola.enqueue("Turno 1")
-mi_cola.enqueue("Turno 2")
-mi_cola.enqueue("Turno 3")
-extraido_cola = mi_cola.dequeue()
-print(f"Elemento retirado de la cola: {extraido_cola}")
-print(f"Total de elementos en cola: {mi_cola.contar()}")
-mi_cola.mostrar()
+print("\n--- DEMOSTRACION CLASE COLA (FIFO) ---")
+cola1 = Cola()
+cola1.enqueue("Turno 1")
+cola1.enqueue("Turno 2")
+cola1.enqueue("Turno 3")
+cola1.imprimir()
+print(f"Cantidad de elementos: {cola1.contar()}")
+print(f"Atendido a: {cola1.dequeue()}")
+cola1.imprimir()

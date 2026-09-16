@@ -1,155 +1,177 @@
 # =============================================================================
-# RETO 09: HERENCIA Y POLIMORFISMO
-#
-# CONCEPTOS CLAVE:
-# 1. Herencia: Mecanismo que permite a una clase (subclase) heredar atributos 
-#    y métodos de otra clase (superclase), promoviendo la reutilización de código.
-# 2. Polimorfismo: Capacidad de diferentes objetos para responder al mismo 
-#    nombre de método de forma personalizada según su clase.
-# 3. `super().__init__()`: Llamada al constructor de la clase padre para 
-#    inicializar los atributos heredados antes de añadir los propios.
+# PARTE 1: CONCEPTO DE HERENCIA Y POLIMORFISMO
 # =============================================================================
+# La herencia permite que una clase hija (subclase) herede atributos y métodos
+# de una clase padre (superclase), promoviendo la reutilización de código.
 
-# -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: ANIMAL, PERRO Y GATO
-# -----------------------------------------------------------------------------
 
+# 1. Definición de la Superclase 'Animal':
+# - Crear la clase base 'Animal'.
+# - Método Constructor (__init__): Recibir e inicializar el parámetro 'nombre: str'.
+# - Método genérico 'emitir_sonido(self)': Definir la firma del método que será
+#   sobrescrito por las subclases (polimorfismo).
 class Animal:
-    """
-    Superclase abstracta/base de la cual heredarán las especies concretas.
-    """
     def __init__(self, nombre: str):
         self.nombre = nombre
 
-    def emitir_sonido(self) -> str:
-        # PISTA: Método base pensado para ser sobrescrito por las subclases
-        return "Sonido genérico de animal"
+    def emitir_sonido(self):
+        return "El animal emite un sonido generico"
 
 
+# 2. Definición de Subclases:
+# - Clase 'Perro(Animal)':
+#     - Heredar de 'Animal' usando la sintaxis 'class Perro(Animal):'.
+#     - Sobrescribir 'emitir_sonido(self)' para retornar/imprimir "¡Guau!".
+# - Clase 'Gato(Animal)':
+#     - Heredar de 'Animal'.
+#     - Sobrescribir 'emitir_sonido(self)' para retornar/imprimir "¡Miau!".
 class Perro(Animal):
-    def __init__(self, nombre: str, raza: str):
-        # PISTA: Llama al constructor de Animal pasando 'nombre' con super()
-        super().__init__(nombre)
-        self.raza = raza
-
-    def emitir_sonido(self) -> str:
-        # PISTA: Sobrescribe el método con el sonido específico del perro
-        return "¡Guau!"
-
+    def emitir_sonido(self):
+        return f"{self.nombre} dice: ¡Guau!"
 
 class Gato(Animal):
-    def __init__(self, nombre: str, color: str):
-        super().__init__(nombre)
-        self.color = color
-
-    def emitir_sonido(self) -> str:
-        # PISTA: Sobrescribe el método con el sonido específico del gato
-        return "¡Miau!"
+    def emitir_sonido(self):
+        return f"{self.nombre} dice: ¡Miau!"
 
 
-def imprimir_sonido_animal(animal: Animal):
-    """
-    Función polimórfica: recibe cualquier objeto que sea de tipo Animal 
-    e imprime su sonido sin importar la clase concreta.
-    """
-    print(f"{animal.nombre} dice: {animal.emitir_sonido()}")
+# 3. Función Polimórfica Independiente:
+# - Definir 'imprimir_sonido(animal: Animal)':
+#     - Recibir cualquier objeto que sea instancia de 'Animal' (o sus subclases).
+#     - Ejecutar el método 'animal.emitir_sonido()' independientemente del tipo concreto.
+def imprimir_sonido(animal: Animal):
+    print(animal.emitir_sonido())
 
 
-# --- PRUEBAS DEL EJERCICIO PRINCIPAL ---
-print("=== DEMOSTRACIÓN DE HERENCIA Y POLIMORFISMO ===")
-mi_perro = Perro("Firulais", "Pastor Alemán")
-mi_gato = Gato("Garfield", "Naranja")
+# 4. Proceso de Prueba:
+# - Instanciar un objeto 'Perro' y un objeto 'Gato'.
+# - Pasar cada instancia a 'imprimir_sonido()' para verificar el comportamiento dinámico.
+perro1 = Perro("Firulais")
+gato1 = Gato("Garfield")
 
-imprimir_sonido_animal(mi_perro)
-imprimir_sonido_animal(mi_gato)
+imprimir_sonido(perro1)
+imprimir_sonido(gato1)
 
 
 # =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
+# DIFICULTAD EXTRA: JERARQUÍA DE EMPRESA DE DESARROLLO DE SOFTWARE
 # =============================================================================
 
-print("\n=== DIFICULTAD EXTRA ===")
-
-# --- Superclase Base ---
+# --- 1. SUPERCLASE BASE: Empleado ---
+# - Definir clase 'Empleado':
+#     - __init__(self, id_empleado: int, nombre: str):
+#         - Inicializar atributos base: 'id_empleado' y 'nombre'.
+#         - Inicializar una lista para los empleados a su cargo (self.empleados_a_cargo = []).
+#     - Método 'agregar_subordinado(self, empleado)':
+#         - Añadir una instancia de 'Empleado' a la lista 'empleados_a_cargo'.
+#     - Método 'mostrar_informacion(self)':
+#         - Imprimir ID, Nombre y el rol o función del empleado.
+#     - Método 'mostrar_subordinados(self)':
+#         - Recorrer e imprimir la lista de empleados a su cargo.
 class Empleado:
     def __init__(self, id_empleado: int, nombre: str):
         self.id_empleado = id_empleado
         self.nombre = nombre
-        self.empleados_a_cargo = []  # Lista para almacenar empleados a su cargo
+        self.empleados_a_cargo = []
 
-    def agregar_a_cargo(self, empleado):
-        # PISTA: Agrega un empleado a la lista de subordinados
+    def agregar_subordinado(self, empleado):
         self.empleados_a_cargo.append(empleado)
-        return empleado
 
-    def mostrar_detalles(self):
-        # PISTA: Muestra el ID, nombre y rol básico del empleado
-        print(f"[{self.__class__.__name__}] ID: {self.id_empleado} | Nombre: {self.nombre}")
+    def mostrar_informacion(self):
+        rol = type(self).__name__
+        print(f"ID: {self.id_empleado} | Nombre: {self.nombre} | Rol: {rol}", end = "")
+
+    def mostrar_subordinados(self):
+        print(f"\nEmpleado(s) a cargo de {self.nombre}:")
         if self.empleados_a_cargo:
-                    print("Empleados a cargo")
-                    for emp in self.empleados_a_cargo:
-                        print(f" - {emp.nombre}")
+            for empleado in self.empleados_a_cargo:
+                print(f"- [ID: {empleado.id_empleado}] : {empleado.nombre}")
+        else:
+            print(" - No tiene empleados a cargo")
 
+# --- 2. SUBCLASES ESPECIALIZADAS ---
 
-# --- Subclase Programador ---
+# - Clase 'Programador(Empleado)':
+#     - __init__(self, id_empleado: int, nombre: str, lenguaje_principal: str):
+#         - Llamar al constructor padre con 'super().__init__(id_empleado, nombre)'.
+#         - Inicializar atributo exclusivo: 'lenguaje_principal'.
+#     - Método exclusivo 'escribir_codigo(self)':
+#         - Imprimir un mensaje indicando que está programando en su lenguaje.
 class Programador(Empleado):
     def __init__(self, id_empleado: int, nombre: str, lenguaje_principal: str):
-        # PISTA: Usa super() para id y nombre, inicializa lenguaje_principal
-        super().__init__(id_empleado,nombre)
+        super().__init__(id_empleado, nombre)
         self.lenguaje_principal = lenguaje_principal
 
-    def programar(self):
-        # PISTA: Función exclusiva de su actividad
-        return f"{self.nombre} esta programando en {self.lenguaje_principal}."
+    def mostrar_informacion(self):
+        super().mostrar_informacion()
+        print(f" | Lenguaje: {self.lenguaje_principal}")
+    
+    def escribir_codigo(self):
+        print(f"El empleado {self.nombre} con el id {self.id_empleado} esta programando en su lenguaje {self.lenguaje_principal}")
 
-    def mostrar_detalles(self):
-        super().mostrar_detalles()
-        print(f" Lenguaje principal: {self.lenguaje_principal}")
-
-
-# --- Subclase Gerente de Proyecto ---
+# - Clase 'GerenteProyecto(Empleado)':
+#     - __init__(self, id_empleado: int, nombre: str, proyecto_asignado: str):
+#         - Llamar a 'super().__init__(id_empleado, nombre)'.
+#         - Inicializar atributo exclusivo: 'proyecto_asignado'.
+#     - Método exclusivo 'coordinar_proyecto(self)':
+#         - Imprimir mensaje indicando el proyecto que está gestionando.
 class GerenteProyecto(Empleado):
-    def __init__(self, id_empleado: int, nombre: str, proyecto_actual: str):
-        # PISTA: Usa super() e inicializa el proyecto asignado
-        super().__init__(id_empleado,nombre)
-        self.proyecto_actual = proyecto_actual
+    def __init__(self, id_empleado: int, nombre: str, proyecto_asignado: str):
+        super().__init__(id_empleado, nombre)
+        self.proyecto_asignado = proyecto_asignado
+
+    def mostrar_informacion(self):
+        super().mostrar_informacion()
+        print(f" | Proyecto: {self.proyecto_asignado}")
 
     def coordinar_proyecto(self):
-        # PISTA: Función exclusiva de su actividad
-        return f"{self.nombre} esta coordinando el proyecto {self.proyecto_actual}."
+        print(f"El empleado {self.nombre} con el id {self.id_empleado} esta en el proyecto asignado {self.proyecto_asignado}")
 
-    def mostrar_detalles(self):
-        super().mostrar_detalles()
-        print(f" Proyecto asignado: {self.proyecto_actual}")
-
-
-# --- Subclase Gerente General ---
+# - Clase 'Gerente(Empleado)':
+#     - __init__(self, id_empleado: int, nombre: str, departamento: str):
+#         - Llamar a 'super().__init__(id_empleado, nombre)'.
+#         - Inicializar atributo exclusivo: 'departamento'.
+#     - Método exclusivo 'tomar_decisiones_estrategicas(self)':
+#         - Imprimir mensaje indicando las decisiones que ejecuta sobre su departamento.
 class Gerente(Empleado):
     def __init__(self, id_empleado: int, nombre: str, departamento: str):
-        # PISTA: Usa super() e inicializa departamento
-        super().__init__(id_empleado,nombre)
+        super().__init__(id_empleado, nombre)
         self.departamento = departamento
 
-    def tomar_decision_ejecutiva(self):
-        # PISTA: Función exclusiva de su actividad
-        return f"{self.nombre} tomo una decision para el area de {self.departamento}"
+    def mostrar_informacion(self):
+        super().mostrar_informacion()
+        print(f" | Departamento: {self.departamento}")
 
-    def mostrar_detalles(self):
-        super().mostrar_detalles()
-        print(f" Departamento: {self.departamento}")
+    def tomar_decisiones_estrategicas(self):
+        print(f"El empleado {self.nombre} con el id {self.id_empleado} esta en el departamento {self.departamento}")
 
 
-# --- Pruebas de la Dificultad Extra ---
-print ("=== JERARQUIA DE LA EMPRESA ===")
-dev1 = Programador(1,"Victor","Python")
-pm1 = GerenteProyecto(2,"Ana","Migracion ERP")
-gerente1 = Gerente(3, "Carlos", "Sistemas")
+# --- 3. PROCESO DE PRUEBA DE DIFICULTAD EXTRA ---
+# 1. Instanciar varios Programadores (ej. Programador 1, Programador 2).
+# 2. Instanciar un Gerente de Proyecto y asignarle los Programadores como subordinados.
+# 3. Instanciar un Gerente General y asignarle el Gerente de Proyecto como subordinado.
+# 4. Probar la ejecución de métodos exclusivos de cada rol y verificar la jerarquía de subordinados.
+programador1 = Programador(101,"Javier","Python")
+programador2 = Programador(102,"Carlos","Javascript")
 
-gerente1.agregar_a_cargo(pm1)
-pm1.agregar_a_cargo(dev1)
+pm = GerenteProyecto(201, "Roberto", "Sistema CRM")
+pm.agregar_subordinado(programador1)
+pm.agregar_subordinado(programador2)
 
-gerente1.mostrar_detalles()
-print()
-pm1.mostrar_detalles()
-print()
-dev1.mostrar_detalles()
+gerente_general = Gerente(301,"Laura", "Tecnologia")
+gerente_general.agregar_subordinado(pm)
+
+print("--- METODOS EXCLUSIVOS ---")
+programador1.escribir_codigo()
+pm.coordinar_proyecto()
+gerente_general.tomar_decisiones_estrategicas()
+
+print("\n --- INFORMACION DE EMPLEADOS ---")
+programador1.mostrar_informacion()
+programador2.mostrar_informacion()
+pm.mostrar_informacion()
+gerente_general.mostrar_informacion()
+
+print("\n --- JERARQUIA DE SUBORDINADOS ---")
+gerente_general.mostrar_subordinados()
+pm.mostrar_subordinados()
+programador1.mostrar_subordinados()
