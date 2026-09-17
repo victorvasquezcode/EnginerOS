@@ -1,89 +1,101 @@
 # =============================================================================
-# RETO 10: MANEJO DE EXCEPCIONES Y ERRORES
+# PARTE 1: MANEJO BÁSICO DE EXCEPCIONES (try - except - else - finally)
 # =============================================================================
+# Las excepciones permiten gestionar errores en tiempo de ejecución sin que
+# el programa se detenga de manera abrupta (crash).
 
-# -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: CAPTURA DE ERRORES BÁSICOS
-# -----------------------------------------------------------------------------
 
-print("=== MANEJO BÁSICO DE EXCEPCIONES ===")
-
-# --- Prueba 1: División entre cero ---
+# 1. Provocar y Capturar Error de División por Cero (ZeroDivisionError):
+# - Estructura 'try': Bloque de código donde se intenta ejecutar la operación riesgosa (10 / 0).
+# - Estructura 'except ZeroDivisionError as e':
+#     - Capturar específicamente la excepción de división por cero.
+#     - Imprimir el mensaje de error capturado sin detener el programa.
 try:
-    resultado = 10/0
-except ZeroDivisionError as error:
-    print(f"Error capturado correctamente {error}")
+    division = 10/0
+except ZeroDivisionError as e:
+    print(f"Error capturado {e}")
 
 
-# --- Prueba 2: Índice fuera de rango en lista ---
+# 2. Provocar y Capturar Error de Índice Fuera de Rango (IndexError):
+# - Definir una lista de prueba (ej. numeros = [1, 2, 3]).
+# - Estructura 'try': Intentar acceder a un índice inexistente (ej. numeros[5]).
+# - Estructura 'except IndexError as e':
+#     - Capturar la excepción de índice fuera de límites.
+#     - Imprimir el error correspondiente.
+numero = [1, 2, 3]
 try:
-    lista = [10, 20, 30]
-    elemento = lista[5]
-except IndexError as error:
-    print(f"Error capturado correctamente {error}")
-    pass
-
-print("El programa continuó su ejecución sin colapsar.\n")
+    numero[5]
+except IndexError as e:
+    print(f"Error capturado {type(e).__name__}")
 
 
 # =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
+# DIFICULTAD EXTRA: EXCEPCIONES PERSONALIZADAS Y CONTROL MULTI-ERROR
 # =============================================================================
 
-print("=== DIFICULTAD EXTRA ===")
-
-# --- 1. Tu Excepción Personalizada ---
+# --- 1. DEFINICIÓN DE EXCEPCIÓN PERSONALIZADA ---
+# - Crear una clase que herede de la clase base 'Exception' (o 'ValueError').
+# - Sintaxis: class MiExcepcionPersonalizadaError(Exception):
+# - Puede contener un constructor o simplemente 'pass'.
 class MiExcepcionPersonalizadaError(Exception):
     pass
 
 
-# --- 2. Función procesadora de parámetros ---
-def procesar_parametros(a: int, b: int, lista: list):
-    """
-    Debe lanzar 3 excepciones distintas:
-    1. MiExcepcionPersonalizadaError (lanzada manualmente con 'raise' si a < 0)
-    2. ZeroDivisionError (si b == 0)
-    3. IndexError (si intentas acceder a un índice fuera de rango en 'lista')
-    """
-    # TODO 1: Si 'a' es menor a 0, lanza con 'raise' tu excepción personalizada
-    if a < 0:
-        raise MiExcepcionPersonalizadaError("El valor de 'a' no puede ser negativo.")
-    # TODO 2: Realiza la división a / b (esto provocará ZeroDivisionError si b es 0)
-    resultado = a/b
-    # TODO 3: Accede a lista[a] (esto provocará IndexError si el índice no existe)
-    acceder_lista = lista[a]
-    # TODO 4: Retorna un mensaje exitoso con los resultados si todo salió bien
-    return f"Division: {resultado}, Elemento: {acceder_lista}"
+# --- 2. FUNCIÓN CON MÚLTIPLES DISPAROS DE EXCEPCIÓN ---
+# - Definir la función 'procesar_parametros(param1, param2)':
+#     - Caso Error 1 (TypeError): Si algún parámetro no es del tipo esperado (ej. no es int/float),
+#       lanzar manualmente con 'raise TypeError("Mensaje...")'.
+#     - Caso Error 2 (ValueError): Si un valor numérico no cumple un rango o condición (ej. valor negativo),
+#       lanzar manualmente con 'raise ValueError("Mensaje...")'.
+#     - Caso Error 3 (Custom Exception): Si se cumple una regla de negocio específica (ej. valor igual a cero),
+#       lanzar manualmente 'raise MiExcepcionPersonalizadaError("Mensaje...")'.
+#     - Si todo es correcto, retornar o procesar el resultado de los parámetros.
+def procesar_parametros(param1, param2):
+    if not isinstance(param1, (int,float)):
+        raise TypeError("El primer parametro debe ser un numero entero o decimal.")
+    if param2 < 0:
+        raise ValueError("El segundo parametro no puede ser un numero negativo")
+    if param1 == 0 and param2 == 0:
+        raise MiExcepcionPersonalizadaError("Ambos parametros son cero")
+    return param1 / param2
 
 
-# --- 3. Invocación y captura completa ---
-def probar_procesamiento(a, b, lista):
+# --- 3. BLOQUE PRINCIPAL DE CAPTURA Y CONTROL DE FLUJO ---
+# - Crear un bloque 'try' donde se convoque 'procesar_parametros(...)':
+#     - Probar llamadas con datos válidos e inválidos para validar cada flujo.
+#
+# - Múltiples bloques 'except':
+#     - except MiExcepcionPersonalizadaError as e: Capturar y mostrar tipo y mensaje.
+#     - except TypeError as e: Capturar y mostrar tipo y mensaje.
+#     - except ValueError as e: Capturar y mostrar tipo y mensaje.
+#     - except Exception as e: Capturar cualquier otra excepción genérica no prevista.
+#
+# - Cláusula 'else':
+#     - Se ejecuta ÚNICAMENTE si el bloque 'try' no lanzó ninguna excepción.
+#     - Imprimir mensaje indicando que la procesamiento fue exitoso.
+#
+# - Cláusula 'finally':
+#     - Se ejecuta SIEMPRE, haya ocurrido un error o no.
+#     - Imprimir mensaje indicando que la ejecución de la función ha finalizado.
+
+def probrar(p1,p2):
+    print(f"\n--- Probando con: param1= {p1}, param2= {p2} ---")
     try:
-        prueba_division = procesar_parametros(a,b,lista)
-    except ZeroDivisionError as e:
-        print(f"Error de tipo [{type(e).__name__}]: {e}")
-    except IndexError as e:
-        print(f"Error de tipo [{type(e).__name__}]: {e}")
+        resultado = procesar_parametros(p1,p2)
     except MiExcepcionPersonalizadaError as e:
-        print(f"Error de tipo [{type(e).__name__}]: {e}")
+        print(f"⚠️ Error Personalizado [{type(e).__name__}]: {e}")
+    except TypeError as e:
+        print(f"⚠️ Error de Tipo [{type(e).__name__}]: {e}")
+    except ValueError as e:
+        print(f"⚠️ Error de Valor [{type(e).__name__}]: {e}")
+    except Exception as e:
+        print(f"⚠️ Error Generico [{type(e).__name__}]: {e}")
     else:
-        # TODO: Se ejecuta si NO hubo ningún error (Imprime éxito)
-        print(f"Todo Salio Con Exito: {prueba_division}")
+        print(f"✅ Procesamiento exitoso. Resultado: {resultado}")
     finally:
-        # TODO: Se ejecuta SIEMPRE (Imprime que la ejecución ha finalizado)
-        print("La ejecucion a terminado")
+        print("🔒 La ejecucion ha finalizado.")
 
-
-
-#--- Casos de Prueba (Descomenta conforme vayas programando) ---
-print("Caso 1: Ejecución limpia")
-probar_procesamiento(1, 2, ["a", "b", "c"])
-
-print("\nCaso 2: Provocando ZeroDivisionError")
-probar_procesamiento(10, 0, [1, 2])
-
-print("\nCaso 3: Provocando IndexError")
-probar_procesamiento(5, 2, [1, 2])
-
-print("\nCaso 4: Provocando MiExcepcionPersonalizadaError")
-probar_procesamiento(-5, 2, [1, 2])
+probrar("5", -10)
+probrar(10, -5)
+probrar(0, 0)
+probrar(10, 2)
