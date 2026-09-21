@@ -161,7 +161,7 @@ def es_anagrama(palabra1:str, palabra2: str) -> bool:
 #     - Comparar la longitud de la palabra con la longitud de su conjunto (set(palabra)).
 #     - Si len(palabra) == len(set(palabra)), significa que no hay caracteres duplicados.
 # - Retornar el resultado booleano.
-def es_isograma(palabra:str) ->bool:
+def es_isograma(palabra:str) -> bool:
     palabra_limpia = sanitizar_texto(palabra)
     return len(palabra_limpia) == len(set(palabra_limpia))
 

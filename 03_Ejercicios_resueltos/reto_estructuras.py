@@ -187,6 +187,81 @@ def menu_principal():
             case __:
                 print("No se selecciono una opcion valida.")
 
+# 04===========================================================================
+# DIFICULTAD EXTRA: ANALIZADOR DE PALÍNDROMOS, ANAGRAMAS E ISOGRAMAS
+# =============================================================================
+
+# --- 1. FUNCIONES AUXILIARES DE SANITIZACIÓN ---
+# Crear una función para normalizar el texto antes de analizar:
+# - Convertir todo a minúsculas.
+# - Remover espacios en blanco y caracteres no alfabéticos.
+def normalizar_texto(texto: str) -> str:
+    texto_limpio=[]
+    for caracter in texto:
+        if caracter.isalpha():
+            texto_limpio.append(caracter.lower())
+    return "".join(texto_limpio)
+        
+# --- 2. FUNCIONES DE COMPROBACIÓN ---
+
+# A) Palíndromo (Palabra o frase que se lee igual de izquierda a derecha y viceversa):
+# - Definir función 'es_palindromo(palabra: str) -> bool'.
+# - Sanitizar la cadena.
+# - Comparar la cadena original con su versión invertida ([::-1]).
+# - Retornar True si son idénticas, False en caso contrario.
+def es_palindromo(palabra: str) -> bool:
+    texto_limpio = normalizar_texto(palabra)
+    return texto_limpio == texto_limpio[::-1]
+
+# B) Anagrama (Palabra formada al reordenar TODAS las letras de otra palabra exactamente igual):
+# - Definir función 'es_anagrama(palabra1: str, palabra2: str) -> bool'.
+# - Sanitizar ambas palabras.
+# - Verificar que no sean la misma palabra exacta (un anagrama requiere dos palabras distintas).
+# - Comprobar si ambas palabras tienen la misma cantidad de caracteres.
+# - Ordenar alfabéticamente las letras de ambas palabras (función sorted()) y comparar si son idénticas.
+# - Retornar el resultado booleano.
+def es_anagrama(palabra1: str, palabra2: str) -> bool:
+    texto_limpio_palabra1, texto_limpio_palabra2 = normalizar_texto(palabra1), normalizar_texto(palabra2)
+    return texto_limpio_palabra1 != texto_limpio_palabra2 and sorted(texto_limpio_palabra1) == sorted(texto_limpio_palabra2)
+
+# C) Isograma (Palabra en la que NINGUNA letra se repite, o cada letra se repite el mismo número de veces):
+# - Definir función 'es_isograma(palabra: str) -> bool'.
+# - Sanitizar la palabra.
+# - Opción Heterograma / Isograma de orden 1 (ninguna letra se repite):
+#     - Comparar la longitud de la palabra con la longitud de su conjunto (set(palabra)).
+#     - Si len(palabra) == len(set(palabra)), significa que no hay caracteres duplicados.
+# - Retornar el resultado booleano.
+def es_isograma(palabra: str) -> bool:
+    palabra_limpia = normalizar_texto(palabra)
+    return len(palabra_limpia) == len(set(palabra))
+
+# --- 3. BUCLE PRINCIPAL / INTERFACCIÓN DE CONSOLA ---
+# - Definir la función principal para interactuar con el usuario.
+# - Solicitar el ingreso de la primera palabra.
+# - Solicitar el ingreso de la segunda palabra.
+# - Ejecutar e imprimir las verificaciones individualmente para cada palabra y en conjunto:
+#     - ¿La palabra 1 es Palíndromo?
+#     - ¿La palabra 2 es Palíndromo?
+#     - ¿La palabra 1 es Isograma?
+#     - ¿La palabra 2 es Isograma?
+#     - ¿La palabra 1 y la palabra 2 forman un Anagrama?
+def menu_palabras():
+        print("\n--- ANALIZADOR DE PALABRAS ---")
+        primera_palabra = input("Ingrese la primera palabra: ").strip()
+        segunda_palabra = input("Ingrese la segunda palabra: ").strip()
+
+        es_palindromo1 = "Sí" if es_palindromo(primera_palabra) else "NO"
+        es_isograma1 = "Sí" if es_isograma(primera_palabra) else "NO"
+        print(f"'{primera_palabra}' -> Palindromo: {es_palindromo1} | Isograma: {es_isograma1}")
+
+        es_palindromo2 = "SÍ" if es_palindromo(segunda_palabra) else "NO"
+        es_isograma2 = "SÍ" if es_isograma(segunda_palabra) else "NO"
+        print(f"'{segunda_palabra}' -> Palindromo: {es_palindromo2} | Isograma: {es_isograma2}")
+
+        es_anagrama1 = "SÍ" if es_anagrama(primera_palabra, segunda_palabra) else "NO"
+        print(f"'{primera_palabra}' y '{segunda_palabra}' -> Anagrama: {es_anagrama1}")
+
+
+
 if __name__ == "__main__":
-    resultado = fizz_buzz()
-    print(resultado)
+    menu_palabras()
