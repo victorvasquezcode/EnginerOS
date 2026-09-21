@@ -1,4 +1,4 @@
-# 01 ==========================================================================
+# 01===========================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
 # =============================================================================
 # Enunciado: Crea un programa que imprima por consola todos los números
@@ -12,8 +12,13 @@
 #   2. Que sea diferente de 16 -> (numero != 16)
 #   3. Que NO sea múltiplo de 3 -> (numero % 3 != 0)
 # - Imprime únicamente los números que cumplan TODAS las condiciones simultáneamente.
+def ejercicio_01():
+    for numero in range(10,56,2):
+        if numero == 16 and numero % 3 == 0:
+            continue
+        print(f"numeros validos:{numero}")
 
-# 02 ==========================================================================
+# 02===========================================================================
 # DIFICULTAD EXTRA (OPCIONAL)
 # =============================================================================
 # Enunciado: Crea una función que reciba dos parámetros de tipo cadena de texto
@@ -33,40 +38,155 @@
 # - En el caso base de la condición (else), imprime el número e incrementa el contador.
 # - Retorna el contador final y muestra el resultado del retorno en consola.
 
-# 13 ==========================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
+def fizz_buzz(param1: str = "Fizz", param2: str = "Buzz") -> str:
+    contador = 0
+    for numero in range(1,101):
+        if numero % 15 == 0:
+            print(f"{param1} {param2}")
+        elif numero % 3 == 0:
+            print(param1)
+        elif numero % 5 == 0:
+            print(param2)
+        else:
+            print(numero)
+            contador += 1
+    return f"El numero de veces que se ha impreso solo el numero es: {contador}"
+
+# 03===========================================================================
+# PARTE 2: DIFICULTAD EXTRA - AGENDA DE CONTACTOS
 # =============================================================================
-# Enunciado: Crea un diccionario con las claves: "name", "age", "birth_date" y
-# "programming_languages". Crea dos test:
-# - El primero determina que existen todos los campos (claves).
-# - El segundo determina que los datos introducidos son del tipo correcto o válidos.
 
-# --- ESTRUCTURA DE DATOS A EVALUAR ---
-# Pasos sugeridos:
-# - Define el diccionario 'datos_usuario' con la estructura requerida.
+# --- 1. ESTRUCTURA DE DATOS PRINCIPAL ---
+# Razonar: ¿Qué estructura native es ideal para buscar rápido un contacto por su NOMBRE?
+# Pista: Un diccionario donde la "clave" sea el nombre y el "valor" sea el teléfono.
+agenda = {}
 
+# --- 2. FUNCIONES DE VALIDACIÓN ---
+# Crear una función para validar el teléfono según las reglas:
+# - ¿El valor ingresado contiene solo dígitos numéricos?
+# - ¿La longitud está dentro del límite permitido (ej. mayor a 0 y menor o igual a 11)?
+# - Retornar un booleano (True/False) para saber si pasa la prueba.
+def validar_telefono (telefono: str) -> bool:
+    es_valido = False
+    if telefono.isdigit() and 0 < len(telefono) <= 11:
+        es_valido = True
+    return es_valido
+# --- 3. FUNCIONES DE OPERACIONES DE LA AGENDA ---
 
-# --- TEST UNITARIO DEL DICCIONARIO ---
-# Pasos sugeridos:
-# - Crea una clase de prueba 'TestDatosUsuario' que herede de 'unittest.TestCase'.
-#
-# - TEST 1: VERIFICAR EXISTENCIA DE CAMPOS:
-#   * Define 'test_existencia_campos(self)'.
-#   * Obtén las claves del diccionario.
-#   * Comprueba con 'self.assertIn()' o 'self.assertTrue()' que las 4 claves requeridas
-#     existan dentro del diccionario.
-#
-# - TEST 2: VERIFICAR TIPOS DE DATOS Y VALIDEZ:
-#   * Define 'test_validez_datos(self)'.
-#   * Usa 'self.assertIsInstance()' para validar que 'name' sea str, 'age' sea int,
-#     'birth_date' sea str y 'programming_languages' sea list.
-#   * Opcional: Verifica con 'self.assertGreater()' que la edad sea mayor a 0 y que
-#     la lista de lenguajes no esté vacía.
+# Función: BÚSQUEDA
+# - Pedir el nombre a buscar.
+# - Verificar si existe en la estructura.
+# - Si existe: mostrar nombre y teléfono.
+# - Si no existe: mostrar mensaje de error.
+def busqueda ():
+    nombre = input("Ingrese el nombre que desea buscar: ").strip().capitalize()
+    if nombre in agenda:
+        print(f"Nombre contacto: '{nombre}' | Telefono: '{agenda[nombre]}'")
+    else:
+        print(f"No se encontro '{nombre}' en la agenda")
+# Función: INSERCIÓN
+# - Pedir el nombre del nuevo contacto.
+# - Pedir el teléfono y usar la función de validación dentro de un bucle hasta que sea válido.
+# - Si el nombre ya existe, avisar al usuario o redirigir a actualización.
+# - Guardar la relación nombre -> teléfono.
+def insercion():
+    nombre_nuevo_contacto = input("Ingrese el nombre del nuevo contacto: ").strip().capitalize()
 
+    if nombre_nuevo_contacto in agenda:
+        print(f"Ya existe en la agenda {nombre_nuevo_contacto}")
+        opcion = input(f"Desea actualizar el contactoñ{nombre_nuevo_contacto}? (si/no)").strip().lower()
 
-# =============================================================================
-# EJECUCIÓN DE LOS TESTS
-# =============================================================================
-# Pasos sugeridos:
-# - Agrega el bloque 'if __name__ == "__main__":' y llama a 'unittest.main()' 
-#   para ejecutar las pruebas automáticamente al correr el script.
+        if opcion in ("si", "sí", "s"):
+            actualizar()
+            return
+        else:
+            print("Operacion cancelada")
+            return
+        
+    while True:
+        telefono_nuevo_contacto = input(f"Ingrese el numero para el contacto '{nombre_nuevo_contacto}': ").strip()
+        if validar_telefono(telefono_nuevo_contacto):
+            print(f"'{telefono_nuevo_contacto}' telefono valido")
+            break
+        print(f"'{telefono_nuevo_contacto}' es un numero invalido")
+
+    agenda[nombre_nuevo_contacto] = telefono_nuevo_contacto
+    print(f"Agredo correctamente el contacto {nombre_nuevo_contacto} con su telefono {telefono_nuevo_contacto}")
+
+# Función: ACTUALIZACIÓN
+# - Pedir el nombre del contacto a actualizar.
+# - Verificar si existe.
+# - Si existe: pedir el nuevo teléfono (validándolo) y actualizar el valor.
+# - Si no existe: informar que no se encontró el contacto.
+def actualizar():
+    nuevo_nombre = input("Ingresa el nombre del contacto para actualizar: ").strip().capitalize()
+
+    if nuevo_nombre in agenda:
+        while True:
+            nuevo_telefono = input(f"Ingrese el nuevo numero para el contacto '{nuevo_nombre}': ").strip()
+            if validar_telefono(nuevo_telefono):
+                print(f"'{nuevo_telefono}' es un numero valido'")
+                break
+            print(f"'{nuevo_telefono}' es un numero invalido'")
+
+        agenda[nuevo_nombre] = nuevo_telefono
+        print("Telefono actualizado correctamente.")
+    else:
+        print(f"No se encontro el contacto {nuevo_nombre}.")
+
+# Función: ELIMINACIÓN
+# - Pedir el nombre a eliminar.
+# - Verificar si existe.
+# - Si existe: borrar el registro de la estructura y confirmar al usuario.
+# - Si no existe: informar que no se encontró.
+def eliminar():
+    nombre_eliminar = input("Ingrese el nombre a eliminar: ").strip().capitalize()
+
+    if nombre_eliminar in agenda:
+        del agenda[nombre_eliminar]
+        print(f"Se elimino el contacto '{nombre_eliminar}' de la agenda")
+    else:
+        print(f"No se encontro el contacto '{nombre_eliminar}'")
+# --- 4. BUCLE PRINCIPAL Y MENÚ DE INTERACCIÓN ---
+# - Definir una variable de control para mantener el programa activo (ej. ejecutable = True).
+# - Iniciar bucle while:
+#     - Mostrar las opciones del menú (1. Buscar, 2. Insertar, 3. Actualizar, 4. Eliminar, 5. Salir).
+#     - Leer la opción seleccionada por el usuario.
+#     - Evaluar la opción (usar estructuras condicionales if / elif / else o match/case):
+#         - Caso 1: Llamar función de Búsqueda.
+#         - Caso 2: Llamar función de Inserción.
+#         - Caso 3: Llamar función de Actualización.
+#         - Caso 4: Llamar función de Eliminación.
+#         - Caso 5: Cambiar variable de control para romper el bucle y despedir al usuario.
+#         - Caso Default: Notificar que la opción elegida no es válida.
+
+def menu_principal():
+    while True:
+        print("\n--- AGENDA ---")
+        print("Opcion de Agenda")
+        print("1. Buscar contacto")
+        print("2. Insertar contacto")
+        print("3. Actualizar contacto")
+        print("4. Eliminar contacto")
+        print("5. Salir")
+
+        opcion_seleccionada = input("Ingrese una opcion para la agenda: ").strip()
+
+        match opcion_seleccionada:
+            case "1":
+                busqueda()
+            case "2":
+                insercion()
+            case "3":
+                actualizar()
+            case "4":
+                eliminar()
+            case "5":
+                print("¡Hasta luego!")
+                break
+            case __:
+                print("No se selecciono una opcion valida.")
+
+if __name__ == "__main__":
+    resultado = fizz_buzz()
+    print(resultado)

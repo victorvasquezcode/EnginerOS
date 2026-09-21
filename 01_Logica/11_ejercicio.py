@@ -1,197 +1,268 @@
 # =============================================================================
-# RETO 11: MANEJO DE ARCHIVOS (.TXT)
-#
-# CONCEPTOS CLAVE:
-# 1. open(filename, mode): Función nativa para abrir/crear archivos.
-#    - "w" (Write): Abre para escribir (sobrescribe o crea si no existe).
-#    - "r" (Read): Abre para lectura.
-#    - "a" (Append): Abre para añadir contenido al final sin borrar lo existente.
-# 2. Context Manager `with open(...) as archivo:`
-#    - Garantiza el cierre automático del archivo, incluso si ocurren errores.
-# 3. Módulo `os`: Permite interactuar con el sistema operativo para verificar
-#    la existencia de archivos (`os.path.exists()`) y borrarlos (`os.remove()`).
+# PARTE 1: MANEJO BÁSICO DE ARCHIVOS DE TEXTO (.txt)
 # =============================================================================
+# El manejo de archivos en Python permite crear, leer, modificar y eliminar
+# datos persistentes en el disco utilizando el gestor de contexto 'with open()'.
+# Para operaciones del sistema de archivos (como eliminar), se utiliza el módulo 'os'.
 
+# 1. Definición de variables base:
+# - Definir el nombre del archivo (ejemplo: 'github_username.txt').
+# - Definir variables para nombre, edad y lenguaje de programación favorito.
 import os
 
-# -----------------------------------------------------------------------------
-# 1. EJERCICIO PRINCIPAL: MANEJO BÁSICO DE ARCHIVO .TXT
-# -----------------------------------------------------------------------------
+NOMBRE_ARCHIVO = 'github_username.txt'
+nombre = "Victor Javier Vasquez Trauco"
+edad = 26
+lenguaje_programacion = "Python"
 
-print("=== MANEJO BÁSICO DE ARCHIVOS ===")
+# 2. Creación y Escritura del archivo ('w'):
+# - Abrir el archivo en modo escritura ('w') usando 'with open(nombre_archivo, "w") as archivo:'.
+# - Escribir las líneas correspondientes (Nombre, Edad, Lenguaje) agregando saltos de línea ('\n').
+with open(NOMBRE_ARCHIVO, "w") as archivo:
+    archivo.writelines([
+        f"{nombre}\n",
+        f"{edad}\n",
+        f"{lenguaje_programacion}\n"
+    ])
 
-# TODO 1: Define el nombre del archivo con tu usuario de GitHub y extensión .txt
-NOMBRE_ARCHIVO = "VictorVasquezT.txt"
-
-# --- Paso A: Crear y escribir en el archivo ---
-# TODO 2: Usa 'with open(NOMBRE_ARCHIVO, "w") as archivo:' para escribir tus datos:
-# - Tu nombre
-# - Edad
-# - Lenguaje de programación favorito
-with open (NOMBRE_ARCHIVO, "w") as archivo:
-    archivo.write("Nombre: Victor Javier Vasquez Trauco\n")
-    archivo.write("Edad: 26 años?\n")
-    archivo.write("Lenguaje favorito: Python\n")
-
-
-# --- Paso B: Leer e imprimir el contenido del archivo ---
-# TODO 3: Usa 'with open(NOMBRE_ARCHIVO, "r") as archivo:' para leer su contenido e imprimirlo en consola
+# 3. Lectura e Impresión del contenido ('r'):
+# - Abrir el archivo en modo lectura ('r') usando 'with open(nombre_archivo, "r") as archivo:'.
+# - Leer el contenido completo (usando .read() o recorriendo línea por línea) e imprimirlo en consola.
 with open(NOMBRE_ARCHIVO, "r") as archivo:
     contenido = archivo.read()
     print(contenido)
 
-# --- Paso C: Eliminar el archivo del sistema ---
-# TODO 4: Usa 'os.remove(NOMBRE_ARCHIVO)' para borrar el archivo y confirma su eliminación en consola
+# 4. Eliminación del archivo:
+# - Importar la librería 'os'.
+# - Comprobar si el archivo existe con 'os.path.exists(nombre_archivo)'.
+# - Eliminar el archivo con 'os.remove(nombre_archivo)' para limpiar el entorno.
 if os.path.exists(NOMBRE_ARCHIVO):
     os.remove(NOMBRE_ARCHIVO)
-    print("Archivo eliminado del sistema correctamente.")
-
-print("Proceso principal finalizado.\n")
+    print(f"Archivo Eliminado correctamente {NOMBRE_ARCHIVO}")
 
 
 # =============================================================================
-# DIFICULTAD EXTRA (OPCIONAL)
+# DIFICULTAD EXTRA: SISTEMA DE GESTIÓN DE VENTAS CON ARCHIVO .TXT
 # =============================================================================
 
-print("=== DIFICULTAD EXTRA: GESTIÓN DE VENTAS ===")
+# --- 1. CONFIGURACIÓN E INICIALIZACIÓN ---
+# - Definir el nombre del archivo del sistema de ventas (ejemplo: 'ventas.txt').
+# - Asegurar la creación o existencia limpia del archivo al iniciar el programa.
+import os
+ARCHIVO_SISTEMA = 'ventas.txt'
 
-ARCHIVO_VENTAS = "ventas.txt"
+if not os.path.exists(ARCHIVO_SISTEMA):
+    with open(ARCHIVO_SISTEMA, "w") as archivo:
+        pass
 
-# --- Funciones Auxiliares recomendadas ---
+# --- 2. FUNCIONES AUXILIARES DE ARCHIVO ---
+# - Función para leer todas las líneas del archivo y retornar los productos como lista estructurada.
+# - Función para reescribir/actualizar todo el archivo a partir de la lista modificada.
+def cargar_productos() -> list:
+    productos = []
 
-def guardar_producto(nombre: str, cantidad: int, precio: float):
-    """
-    Añade una línea al archivo con el formato: [nombre], [cantidad], [precio]
-    """
-    # TODO: Usa el modo "a" (append) para agregar el producto al final del archivo ventas.txt
-    with open(ARCHIVO_VENTAS, "a") as archivo:
-        archivo.write(f"{nombre}, {cantidad}, {precio}\n")
-    pass
+    if not os.path.exists(ARCHIVO_SISTEMA):
+        return productos
 
+    with open(ARCHIVO_SISTEMA, "r") as archivo:
+        for linea in archivo:
+            linea_limpia = linea.strip()
+            if linea_limpia:
+                nombre, cantidad, precio = linea_limpia.split(",")
+                productos.append([
+                    nombre.strip(),
+                    int(cantidad.strip()),
+                    float(precio.strip())
+                ])
 
-def consultar_productos():
-    """
-    Lee todas las líneas de ventas.txt e imprime la lista de productos almacenados.
-    """
-    # TODO: Lee el archivo con modo "r", procesa las líneas y muestra el contenido.
-    # Tip: Valida primero si el archivo existe con 'if os.path.exists(ARCHIVO_VENTAS):'
-    if os.path.exists(ARCHIVO_VENTAS):
-        with open(ARCHIVO_VENTAS, "r") as archivo:
-            consulta = archivo.read()
-            print("\n--- PRODUCTOS REGISTRADOS ---")
-            print(consulta if consulta else "El archivo esta vacio.")
-    else:
-        print("Aún no hay ningún producto registrado.")
-    pass
+    return productos
 
+def guardar_todos_los_productos(productos: list) -> None:
+    with open(ARCHIVO_SISTEMA, "w") as archivo:
+        for prod in productos:
+            nombre, cantidad, precio = prod
+            archivo.write(f"{nombre}, {cantidad} , {precio}\n")
 
-def actualizar_producto(nombre_buscar: str, nueva_cantidad: int, nuevo_precio: float):
-    """
-    Busca un producto por nombre, actualiza sus datos y reescribe el archivo.
-    """
-    # TODO: Lee todo el archivo, modifica la línea que coincida con 'nombre_buscar' 
-    # y reescribe el archivo completo en modo "w".
+# --- 3. FUNCIONES CRUD Y OPERACIONES DEL MENÚ ---
+# - Función 'añadir_producto()':
+#     - Solicitar nombre del producto, cantidad vendida y precio desde la terminal.
+#     - Formatear como '[nombre], [cantidad], [precio]' y adjuntarlo al archivo en modo append ('a').
+def añadir_producto():
+    nombre = input("Nombre del producto: ").strip()
 
-    if not os.path.exists(ARCHIVO_VENTAS):
-        print("No existe el archivo de ventas.")
+    try:
+        cantidad = int(input("Cantidad vendida: "))
+        precio = float(input("Precio del producto: "))
+    except ValueError:
+        print("Error: Cantidad debe ser entero y Precio un numero decimal.")
         return
     
-    lineas_actualizadas = []
+    with open(ARCHIVO_SISTEMA, "a") as archivo:
+        archivo.write(f"{nombre}, {cantidad}, {precio}\n")
+
+    print(f"Producto '{nombre}' añadido correctamente")
+
+# - Función 'consultar_productos()':
+#     - Leer el archivo completo e imprimir cada producto en un formato legible para el usuario.
+#     - Manejar el caso donde el archivo esté vacío.
+def consultar_producto():
+    if not os.path.exists(ARCHIVO_SISTEMA):
+        print(f"⚠️ El registro de ventas no existe aún.")
+        return
+    
+    productos = cargar_productos()
+
+    if not productos:
+        print("ℹ️ El archivo de ventas está vacío.")
+        return
+    
+    print("\n--- LISTA DE PRODUCTOS REGISTRADOS ---")
+    for producto in productos:
+        nombre , cantidad, precio = producto
+        subtotal = cantidad * precio
+        print(f"• Producto: {nombre:<15} | Cantidad: {cantidad:<5} | Precio: ${precio:<7.2f} | Subtotal: ${subtotal:.2f}")
+    print("-" * 50)
+
+# - Función 'actualizar_producto()':
+#     - Solicitar el nombre del producto a modificar.
+#     - Buscar el producto en los registros, actualizar sus datos (cantidad/precio) y reescribir el archivo.
+def actualizar_producto():
+    producto_modificar = input("Nombre del producto para actualizar: ").strip()
+
+    productos = cargar_productos()
+
+    if not productos:
+        print("El archivo de ventas esta vacio.")
+        return
+    
     encontrado = False
 
-    with open(ARCHIVO_VENTAS, "r") as archivo:
-        for linea in archivo:
-            datos = linea.strip().split(", ")
-            if datos[0].lower() == nombre_buscar.lower():
-                lineas_actualizadas.append(f"{nombre_buscar}, {nueva_cantidad}, {nuevo_precio}")
-                encontrado = True
-            else:
-                lineas_actualizadas.append(linea)
+    for i, producto in enumerate(productos):
+        nombre, cantidad_actual, precio_actual = producto
 
-    if encontrado:
-        with open(ARCHIVO_VENTAS, "w") as archivo:
-            archivo.writelines(lineas_actualizadas)
-        print(f"Producto '{nombre_buscar}' actualizado con éxito.")
+        if nombre.lower() == producto_modificar.lower():
+            encontrado = True
+            print(f"Producto encontrado: {nombre} (Cantidad actual: {cantidad_actual}, Precio actual: ${precio_actual})")
+
+            try:
+                nueva_cantidad = int(input("Cantidad vendida: "))
+                nuevo_precio = float(input("Precio del producto: "))
+            except ValueError:
+                print("Error: Cantidad debe ser entero y Precio un numero decimal.")
+                return
+
+            productos[i] = [nombre,nueva_cantidad,nuevo_precio]
+            guardar_todos_los_productos(productos)
+            print(f"Producto {nombre} actualizado correctamente")
+            break
+
+    if not encontrado:
+        print(f"No se encontro el producto '{producto_modificar}'")
+
+# - Función 'eliminar_producto()':
+#     - Solicitar el nombre del producto a eliminar.
+#     - Filtrar la lista excluyendo dicho producto y reescribir el archivo.
+def eliminar_producto():
+    producto_eliminar = input("Nombre del producto para eliminar: ").strip()
+
+    productos = cargar_productos()
+
+    if not productos:
+        print("El archivo de ventas esta vacio.")
+        return
+    productos_filtrados = [p for p in productos if p[0].lower() != producto_eliminar.lower()]
+
+    if len(productos_filtrados) < len(productos):
+        guardar_todos_los_productos(productos_filtrados)
+        print(f"Producto '{producto_eliminar}' eliminado correctamente")
     else:
-        print(f"No se encontro el producto '{nombre_buscar}'.")
+        print(f"No se encontro el producto '{producto_eliminar}'")
 
+# - Función 'calcular_venta_total()':
+#     - Recorrer cada registro del archivo, multiplicar (cantidad * precio) y acumular el total general.
+#     - Imprimir la suma de todas las ventas registradas.
+def calcular_ventas_total():
+    productos = cargar_productos()
 
-def eliminar_producto(nombre_buscar: str):
-    """
-    Busca un producto por nombre y lo elimina reescribiendo el archivo sin él.
-    """
-    # TODO: Lee todo el archivo, filtra omitiendo el producto a eliminar 
-    # y reescribe el archivo con el resto de elementos.
+    if not productos:
+        print("El archivo de ventas esta vacio.")
+        return
+    
+    total_general = 0
 
-    if not os.path.exists(ARCHIVO_VENTAS):
-        print("No existe el archivo de ventas.")
+    for producto in productos:
+        nombre, cantidad_actual, precio_actual = producto
+        venta_total = cantidad_actual * precio_actual
+        total_general += venta_total
+
+    print(f"💰 La suma de todas las ventas registradas es: ${total_general:.2f}")
+
+# - Función 'calcular_venta_por_producto()':
+#     - Solicitar o listar el producto específico.
+#     - Calcular y mostrar el subtotal generado únicamente por ese producto (cantidad * precio).
+def calcular_venta_por_producto():
+    producto_calcular_venta = input("De que producto deseas calcular su venta: ")
+
+    productos = cargar_productos()
+
+    if not productos:
+        print("El archivo de ventas esta vacio")
         return
 
-    hoja_blanco=[]
     encontrado = False
 
-    with open(ARCHIVO_VENTAS, "r") as archivo:
-        for linea in archivo:
-            datos = linea.strip().split(", ")
-            if datos[0].lower() == nombre_buscar.lower():
-                print(f"Linea encontrada {datos}")
-                encontrado = True
-            else:
-                hoja_blanco.append(linea)
-
-    if encontrado:
-        with open(ARCHIVO_VENTAS, "w") as archivo:
-            archivo.writelines(hoja_blanco)
-            print(f"Se elimino correctamente '{nombre_buscar}'")
-    else:
-        print(f"No se encontro el producto '{nombre_buscar}'")
-
-
-def calcular_ventas_totales():
-    """
-    Calcula el total general de ventas (Suma de cantidad * precio de cada producto) 
-    y muestra el desglose individual por producto.
-    """
-    # TODO: Recorre las líneas, extrae cantidad y precio, calcula (cantidad * precio) 
-    # e imprime el desglose por producto y el gran total general.
-    pass
-
-
-# --- Menú interactivo por consola ---
-def menu_ventas():
-    while True:
-        print("\n--- MENÚ DE GESTIÓN DE VENTAS ---")
-        print("1. Añadir producto")
-        print("2. Consultar productos")
-        print("3. Actualizar producto")
-        print("4. Eliminar producto")
-        print("5. Calcular total de ventas")
-        print("6. Salir (Borra ventas.txt)")
-        
-        opcion = input("Selecciona una opción (1-6): ")
-
-        if opcion == "1":
-            # TODO: Pide datos por input y llama a guardar_producto()
-            pass
-        elif opcion == "2":
-            consultar_productos()
-        elif opcion == "3":
-            # TODO: Pide datos por input y llama a actualizar_producto()
-            pass
-        elif opcion == "4":
-            # TODO: Pide nombre del producto y llama a eliminar_producto()
-            pass
-        elif opcion == "5":
-            calcular_ventas_totales()
-        elif opcion == "6":
-            # TODO: Elimina ventas.txt si existe y rompe el bucle con 'break'
-            if os.path.exists(ARCHIVO_VENTAS):
-                os.remove(ARCHIVO_VENTAS)
-                print("Archivo de ventas eliminado correctamente.")
-            print("¡Hasta luego!")
+    for producto in productos:
+        nombre, cantidad_actual, precio_actual = producto
+        if nombre.lower() == producto_calcular_venta.lower():
+            encontrado = True
+            venta_total_producto = cantidad_actual * precio_actual
+            print(f"EL total de venta del producto es: ${venta_total_producto:.2f}")
             break
-        else:
-            print("Opción no válida. Intenta de nuevo.")
 
-# Para ejecutar el menú interactivo, desmarcar la llamada:
-# menu_ventas()
+    if not encontrado:
+        print(f"No se encontro el producto '{producto_calcular_venta}'")
+
+# --- 4. BUCLE PRINCIPAL Y MENÚ DE INTERACCIÓN POR TERMINAL ---
+# - Implementar un bucle 'while True' para mantener activo el programa:
+#     - Desplegar opciones: 1. Añadir, 2. Consultar, 3. Actualizar, 4. Eliminar, 5. Venta Total, 6. Venta por Producto, 7. Salir.
+#     - Capturar la opción ingresada por el usuario.
+#     - Invocar la función correspondiente según la opción seleccionada.
+#     - Opción 7 (Salir):
+#         - Eliminar el archivo de ventas usando 'os.remove()' si existe.
+#         - Mostrar mensaje de despedida y romper el bucle ('break').
+def menu_principal():
+    while True:
+        print("\n--- MENU DE INTERACCION ---")
+        print("1. Añadir")
+        print("2. Consultar")
+        print("3. Actualizar")
+        print("4. Eliminar")
+        print("5. Venta Total")
+        print("6. Venta por producto")
+        print("7. Salir")
+
+        opcion = input("Ingrese la opcion: ").strip()
+        match opcion:
+            case "1":
+                añadir_producto()
+            case "2":
+                consultar_producto()
+            case "3":
+                actualizar_producto()
+            case "4":
+                eliminar_producto()
+            case "5":
+                calcular_ventas_total()
+            case "6":
+                calcular_venta_por_producto()
+            case "7":
+                if os.path.exists(ARCHIVO_SISTEMA):
+                    os.remove(ARCHIVO_SISTEMA)
+                    print(f"Archivo Eliminado correctamente {ARCHIVO_SISTEMA}")
+                print("¡Hasta luego!")
+                break
+            case _:
+                print("No se coloco una opcion valida")
+
+if __name__ == "__main__":
+    menu_principal()
