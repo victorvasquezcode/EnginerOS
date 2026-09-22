@@ -261,7 +261,61 @@ def menu_palabras():
         es_anagrama1 = "SÍ" if es_anagrama(primera_palabra, segunda_palabra) else "NO"
         print(f"'{primera_palabra}' y '{segunda_palabra}' -> Anagrama: {es_anagrama1}")
 
+# 05===========================================================================
+# DIFICULTAD EXTRA: INTERCAMBIO DE VALORES (SWAP) Y RETORNO
+# =============================================================================
+
+# --- PROGRAMA 1: Intercambio con Tipos por Valor (Inmutables) ---
+# - Definir una función 'intercambiar_por_valor(a, b)':
+#     - Recibir dos variables inmutables (ej. dos números enteros).
+#     - Intercambiar sus valores internamente (ej. utilizando un 'swap' tradicional o tupla).
+#     - Retornar ambos valores intercambiados.
+# - Proceso de prueba:
+#     - Definir dos variables originales (ej. orig_a = 10, orig_b = 20).
+#     - Llamar a la función pasando las variables originales y asignar el retorno a dos variables nuevas.
+#     - Imprimir variables originales (deben conservar sus valores iniciales: 10 y 20).
+#     - Imprimir variables nuevas (deben tener los valores invertidos: 20 y 10).
+def intercambiar_por_valor(a: int, b:int) -> tuple:
+    a, b = b, a
+    return a, b
+
+def menu_sawp():
+    origin_a = 10
+    origin_b = 20
+
+    nuevo_a, nuevo_b = intercambiar_por_valor(origin_a, origin_b)
+
+    print(f"Valores originales: a -> {origin_a} b -> {origin_b}")
+    print(f"Valores nuevos: a -> {nuevo_a} b -> {nuevo_b}")
+
+# --- PROGRAMA 2: Intercambio con Tipos por Referencia (Mutables) ---
+# - Definir una función 'intercambiar_por_referencia(lista_a, lista_b)':
+#     - Recibir dos variables mutables (ej. dos listas).
+#     - Para conservar las listas originales intactas y evitar modificarlas por referencia:
+#         - Crear copias explícitas en el interior (.copy() o slicing [:]).
+#         - Intercambiar los contenidos entre las nuevas variables/copias.
+#     - Retornar ambas copias intercambiadas.
+# - Proceso de prueba:
+#     - Definir dos listas originales (ej. lista_orig_a = [1, 2], lista_orig_b = [3, 4]).
+#     - Llamar a la función pasando las listas originales y asignar el retorno a dos variables nuevas.
+#     - Imprimir listas originales (deben conservar sus elementos iniciales: [1, 2] y [3, 4]).
+#     - Imprimir listas nuevas (deben contener las estructuras invertidas: [3, 4] y [1, 2]).
+def intercambiar_por_referencia(lista_a: list, lista_b: list) -> tuple:
+    copia_lista_a = lista_a.copy()
+    copia_lista_b = lista_b.copy()
+    copia_lista_a, copia_lista_b = copia_lista_b, copia_lista_a
+    return copia_lista_a, copia_lista_b
+
+def menu_referencia():
+    lista_orig_a = [1,2]
+    lista_orig_b = [3,4]
+
+    nueva_lista_a, nueva_lista_b = intercambiar_por_referencia(lista_orig_a, lista_orig_b)
+
+    print(f"Valores originales de lista: lista 1 -> {lista_orig_a} lista 2 -> {lista_orig_b}")
+    print(f"Valores nuevos de lista: lista 1 -> {nueva_lista_a} lista 2 -> {nueva_lista_b}")
 
 
 if __name__ == "__main__":
-    menu_palabras()
+    menu_sawp()
+    menu_referencia()
