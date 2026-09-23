@@ -13,8 +13,7 @@ agenda = {}
 # - ¿La longitud está dentro del límite permitido (ej. mayor a 0 y menor o igual a 11)?
 # - Retornar un booleano (True/False) para saber si pasa la prueba.
 def validar_telefono(telefono: str):
-    telefono_limpio = telefono.strip()
-    return telefono_limpio.isdigit() and 0 < len(telefono_limpio) <= 11
+    return telefono.isdigit() and 0 < len(telefono) <= 11
 
 # --- 3. FUNCIONES DE OPERACIONES DE LA AGENDA ---
 
@@ -24,37 +23,35 @@ def validar_telefono(telefono: str):
 # - Si existe: mostrar nombre y teléfono.
 # - Si no existe: mostrar mensaje de error.
 def busqueda():
-    nombre = input("Cual es el nombre que desea buscar en la agenda: ").strip().capitalize()
-
+    nombre = input("Que nombre desea buscar en la agenda: ").strip().capitalize()
     if nombre in agenda:
-        print(f"El contacto '{nombre}' esta registrado en la agenda con el numero '{agenda[nombre]}'")
+        print(f"El nombre del contacto es '{nombre}' y su telefono es '{agenda[nombre]}'")
     else:
-        print(f"El contacto '{nombre}' no existe en la agenda")
+        print(f"No se encontro el contacto con el nombre '{nombre}'")
+
 # Función: INSERCIÓN
 # - Pedir el nombre del nuevo contacto.
 # - Pedir el teléfono y usar la función de validación dentro de un bucle hasta que sea válido.
 # - Si el nombre ya existe, avisar al usuario o redirigir a actualización.
 # - Guardar la relación nombre -> teléfono.
 def insertar():
-    nuevo_contacto = input("Ingresar el nombre del nuevo contacto: ").strip().capitalize()
-
-    if nuevo_contacto in agenda:
-        print(f"El contacto '{nuevo_contacto}' ya existe")
-        opcion = input("Desea actualizar el contacto ? (si/no): ").strip().lower()
+    nombre = input("Con que nombre se guardara el contacto: ").strip().capitalize()
+    if nombre in agenda:
+        print(f"El nombre '{nombre}' ya existe en la agenda")
+        opcion = input(f"Desea actualizar el contacto '{nombre}' ?")
         if opcion in ("si","sí","s"):
-            actualizar(nuevo_contacto)
+            actualizar(nombre)
         return
     
     while True:
-        telefono = input("Ingresar el telefono del nuevo contacto: ").strip()
+        telefono = input("Con que telefono se guardara el contacto: ").strip()
         if validar_telefono(telefono):
-            print(f"El numero '{telefono}' esta correcto")
             break
         else:
-            print(f"El numero '{telefono}' es invalido")
+            print(f"Numero de telefono '{telefono}' no cumple con los parametros")
 
-    agenda[nuevo_contacto] = telefono
-    print(f"Se agrego correctamente '{nuevo_contacto}' en la agenda con el numero '{telefono}'")
+    agenda[nombre] = telefono
+    print("Se guardo correctamente el contacto.")
 
 # Función: ACTUALIZACIÓN
 # - Pedir el nombre del contacto a actualizar.
@@ -63,39 +60,30 @@ def insertar():
 # - Si no existe: informar que no se encontró el contacto.
 def actualizar(nombre: str = None):
     if nombre is None:
-        nombre = input("Ingresa el nombre del contacto para actualizar: ").strip().capitalize()
+        nombre = input("Ingresar el nombre del contacto para actualizar: ").strip().capitalize()
     if nombre in agenda:
         while True:
-            nuevo_telefono = input(f"Ingresar el nuevo telefono para el contacto '{nombre}': ")
-            if validar_telefono(nuevo_telefono):
-                print(f"El numero '{nuevo_telefono}' esta correcto")
+            telefono = input("Ingresar el nuevo telefono: ")
+            if validar_telefono(telefono):
                 break
             else:
-                print(f"El numero '{nuevo_telefono}' es invalido")
-        agenda[nombre] = nuevo_telefono
+                print(f"Numero de telefono '{telefono}' no cumple con los parametros")
+        agenda[nombre] = telefono
     else:
-        print(f"No se encontro el contacto con el nombre '{nombre}'")
+        print(f"No se encontro el contacto '{nombre}'")
+
 # Función: ELIMINACIÓN
 # - Pedir el nombre a eliminar.
 # - Verificar si existe.
 # - Si existe: borrar el registro de la estructura y confirmar al usuario.
 # - Si no existe: informar que no se encontró.
 def eliminar():
-    nombre_eliminar = input("Ingresa el nombre del contacto para eliminar: ").strip().capitalize()
-    if nombre_eliminar in agenda:
-        del agenda[nombre_eliminar]
-        print(f"Se elimino correctamente {nombre_eliminar}")
+    nombre = input("Cual es el nombre de contacto a eliminar: ").strip().capitalize()
+    if nombre in agenda:
+        del agenda[nombre]
+        print(f"Se elimino correctamente el contacto '{nombre}'")
     else:
-        print(f"No se encontro '{nombre_eliminar}' en los contactos")
-
-def listar_contactos():
-    if not agenda:
-        print("La agenda esta vacia")
-        return
-    
-    for nombre,telefono in agenda.items():
-        print("=" * 40)
-        print(f"- Nombre de Contacto: {nombre:<20} | - Telefono {telefono:<20}")
+        print(f"No se encontro el contacto '{nombre}' para eliminar")
 
 # --- 4. BUCLE PRINCIPAL Y MENÚ DE INTERACCIÓN ---
 # - Definir una variable de control para mantener el programa activo (ej. ejecutable = True).
@@ -109,15 +97,15 @@ def listar_contactos():
 #         - Caso 4: Llamar función de Eliminación.
 #         - Caso 5: Cambiar variable de control para romper el bucle y despedir al usuario.
 #         - Caso Default: Notificar que la opción elegida no es válida.
-def menu_interaccion():
+def menu_principal():
     while True:
-        print("1. Buscar en la agenda.")
-        print("2. Insertar contacto en la agenda.")
-        print("3. Actualizar contacto en la agenda.")
-        print("4. Eliminar contacto en la agenda.")
-        print("5. Listar contactos en la agenda.")
-        print("6. Salir de la agenda.")
-        opcion = input("Ingresa que desea realizar en la agenda: ").strip()
+        print("\n--- PROGRAMA DE AGENDA ---")
+        print("1. Buscar contacto en Agenda")
+        print("2. Insertar contacto en Agenda")
+        print("3. Actualizar contacto en Agenda")
+        print("4. Eliminar contacto en Agenda")
+        print("5. Salir")
+        opcion = input("Seleccione una opcion valida: ").strip()
         match opcion:
             case "1":
                 busqueda()
@@ -128,12 +116,10 @@ def menu_interaccion():
             case "4":
                 eliminar()
             case "5":
-                listar_contactos()
-            case "6":
-                print("¡Hata Luego!")
+                print("¡Hasta Luego!")
                 break
             case _:
-                print("Opcion no valida")
+                print("No se selecciono una opcion valida.")
 
 if __name__ == "__main__":
-    menu_interaccion()
+    menu_principal()
