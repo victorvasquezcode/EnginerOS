@@ -8,7 +8,6 @@
 # - Puede contener un constructor o simplemente 'pass'.
 class MiExcepcionPersonalizadaError(Exception):
     pass
-
 # --- 2. FUNCIÓN CON MÚLTIPLES DISPAROS DE EXCEPCIÓN ---
 # - Definir la función 'procesar_parametros(param1, param2)':
 #     - Caso Error 1 (TypeError): Si algún parámetro no es del tipo esperado (ej. no es int/float),
@@ -19,14 +18,13 @@ class MiExcepcionPersonalizadaError(Exception):
 #       lanzar manualmente 'raise MiExcepcionPersonalizadaError("Mensaje...")'.
 #     - Si todo es correcto, retornar o procesar el resultado de los parámetros.
 def procesar_parametros(param1, param2):
-    if not isinstance(param1, (int, float)) or not isinstance(param2, (int, float)):
-        raise TypeError("Los numeros no son entero ni decimal")
+    if not isinstance(param1, (int,float)) or not isinstance(param2, (int,float)):
+        raise TypeError("Debe ser entero o decimal")
     if param1 < 0 or param2 < 0:
-        raise ValueError("Los numero no pueden ser negativo")
+        raise ValueError("No puede ser negativo")
     if param1 == 0 or param2 == 0:
-        raise MiExcepcionPersonalizadaError("Los numeros no pueden ser cero")
-    else:
-        return param1 + param2
+        raise MiExcepcionPersonalizadaError("No puede ser igual a cero")
+    return param1 + param2
 # --- 3. BLOQUE PRINCIPAL DE CAPTURA Y CONTROL DE FLUJO ---
 # - Crear un bloque 'try' donde se convoque 'procesar_parametros(...)':
 #     - Probar llamadas con datos válidos e inválidos para validar cada flujo.
@@ -45,9 +43,7 @@ def procesar_parametros(param1, param2):
 #     - Se ejecuta SIEMPRE, haya ocurrido un error o no.
 #     - Imprimir mensaje indicando que la ejecución de la función ha finalizado.
 try:
-    
-    proceso = procesar_parametros(5,4)
-
+    proceso = procesar_parametros(4,10)
 except MiExcepcionPersonalizadaError as e:
     print(e)
 except TypeError as e:
@@ -58,7 +54,7 @@ except Exception as e:
     print(e)
 
 else:
-    print(f"Procesamiento fue exitoso {proceso}")
+    print(f"El proceso fue exitoso {proceso}")
 
 finally:
-    print("La ejecucion a finalizado")
+    print("La ejecucion finalizo")
