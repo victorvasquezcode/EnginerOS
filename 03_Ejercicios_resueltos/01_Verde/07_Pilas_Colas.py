@@ -10,6 +10,7 @@
 pila_atras = []
 pila_adelante = []
 pagina_actual = "google.com"
+
 # Lógica del bucle interactivo:
 # 1. Leer entrada del usuario.
 # 2. Comando "atras":
@@ -30,41 +31,43 @@ pagina_actual = "google.com"
 #    - Limpiar por completo 'pila_adelante' (.clear()), ya que una nueva navegación invalida el historial "adelante".
 # 6. Imprimir en todo momento la 'pagina_actual'.
 def atras():
-    if pila_atras:
-        global pagina_actual
+    global pagina_actual
+    if pila_atras:  
         pila_adelante.append(pagina_actual)
         pagina_actual = pila_atras.pop()
-        print(f"la pagina actual es {pagina_actual}")
     else:
-        print("No hay paginas atras.")
+        print("No hay paginas atras")
 
 def adelante():
+    global pagina_actual
     if pila_adelante:
-        global pagina_actual
         pila_atras.append(pagina_actual)
         pagina_actual = pila_adelante.pop()
     else:
-        print("No hay paginas adelante.")
+        print("No hay paginas adelante")
 
-def nueva_pagina_web(palabra: str):
+def nueva_pagina_web(pagina: str):
     global pagina_actual
-    if pagina_actual:
-        pila_atras.append(pagina_actual)
-        pagina_actual = palabra
-        pila_adelante.clear()
+    pila_atras.append(pagina_actual)
+    pagina_actual = pagina
+    pila_adelante.clear()
 
-def ejemplo_pilas():
+def pagina_web():
     while True:
-        print("\n--- MENU DE NAVEGACION DE PAGINAS WEB ---")
         print(f"La pagina actual es {pagina_actual}")
-        opcion = input("Ingresa el comando (atras/adelante/salir) o una pagina web: ").lower().strip()
+        opcion = input("Seleccione la opcion (atras/adelante/salir) o coloque una nueva pagina web: ").strip().lower()
+
+        if not opcion:
+            print("No puede estar vacia la opcion")
+            continue
+
         match opcion:
             case "atras":
                 atras()
             case "adelante":
                 adelante()
             case "salir":
-                print("¡Hasta Luego!")
+                print("¡Hasta luego!")
                 break
             case _:
                 nueva_pagina_web(opcion)
@@ -85,38 +88,36 @@ def ejemplo_pilas():
 #    - Confirmar que el documento se agregó correctamente a la lista de espera.
 # 5. Mostrar el estado actual de la cola tras cada acción.
 from collections import deque
-
 cola_impresion = deque()
 
 def imprimir():
     if cola_impresion:
         documento = cola_impresion.popleft()
-        print(f"Impresion de documento '{documento}'")
+        print(f"Imprimiendo documento '{documento}'")
     else:
-        print("No hay documentos pendientes.")
+        print("No hay documentos pendientes")
 
-def nuevo_documento(documento: str):
+def agregar_documento(documento: str):
     cola_impresion.append(documento)
-    print(f"Se agrego correctamente el documento '{documento}' a la lista de espera")
+    print(f"El documento '{documento}' se agrego correctamente a la lista de espera")
 
-def ejemplo_colas():
+def impresion():
     while True:
-        print(f"La cola de la impresion: {list(cola_impresion)}")
-        opcion = input("Ingresa opcion (imprimir/salir) o un documento nuevo para imprimir: ").strip()
-
+        print(f"Estado actual de la cola: {list(cola_impresion)}")
+        opcion = input("Ingrese opcion (imprimir/salir) o agregar nuevo documento a la cola: ").strip().lower()
+        
         if not opcion:
-            print("No se puede agregar un valor vacio")
+            print("No puede estar vacia la opcion")
             continue
-        comando = opcion.lower()
 
-        match comando:
+        match opcion:
             case "imprimir":
                 imprimir()
             case "salir":
                 print("¡Hasta luego!")
                 break
             case _:
-                nuevo_documento(opcion)
+                agregar_documento(opcion)
 
 if __name__ == "__main__":
-    ejemplo_colas()
+    impresion()
