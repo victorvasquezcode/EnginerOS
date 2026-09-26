@@ -13,19 +13,13 @@
 def factorial(n: int) -> int:
     if n < 0:
         return None
-    if n in (0, 1):
+    if n == 0 or n == 1:
         return 1
     return n * factorial(n - 1)
 
 # - Proceso de prueba:
 #     - Probar con un número concreto (ej. factorial(5)) e imprimir el resultado (debe dar 120).
-numero = input("Que numero quieres sacar factorial: ")
-if numero.isdigit():
-    n = int(numero)
-    print(f"La factorial de '{n}' es: {factorial(n)}")
-else:
-    print("Ingrese un digito valido")
-
+print(f"La factorial es: {factorial(5)}")
 
 # --- PROGRAMA 2: Valor de la Sucesión de Fibonacci según su Posición ---
 # La sucesión de Fibonacci inicia con 0 y 1, y cada número siguiente es la suma
@@ -49,9 +43,4 @@ def fibonacci(posicion: int) -> int:
         return 1
     return fibonacci(posicion - 1) + fibonacci(posicion - 2)
 
-numero2 = input("Que posicion para fibonacci: ")
-if numero2.isdigit():
-    n = int(numero2)
-    print(f"Fibonacci de posicion '{n}' es: {fibonacci(n)}")
-else:
-    print("Intese un digito valido")
+print(f"Fibonacci es: {fibonacci(7)}")
