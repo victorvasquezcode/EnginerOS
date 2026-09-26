@@ -18,24 +18,22 @@
 class Pila:
     def __init__(self):
         self.items = []
-
-    def push(self,elemento):
+    def push(self, elemento):
+        print(f"Se agrego a la pila '{elemento}'")
         self.items.append(elemento)
-
     def pop(self):
         if self.items:
             ultimo_elemento = self.items.pop()
-            print(f"Se elimino correctamente: {ultimo_elemento}")
+            print(f"Se elimino el elemento '{ultimo_elemento}'")
             return ultimo_elemento
         else:
             return None
-    def contar(self) -> int:
+    def contar (self) -> int:
         print(f"Cantidad de elementos actuales: {len(self.items)}")
         return len(self.items)
-
     def imprimir(self):
-        print(f"Contenido actual de la fila: {self.items}")
-
+        print(f"Contenido actual de la pila: {self.items}")
+        
 # --- PROGRAMA 2: CLASE COLA (QUEUE - FIFO) ---
 # - Importar 'deque' desde 'collections'.
 # - Definir la clase 'Cola':
@@ -54,22 +52,19 @@ from collections import deque
 class Cola:
     def __init__(self):
         self.items = deque()
-
     def enqueue(self, elemento):
+        print(f"Se agrego a la cola '{elemento}'")
         self.items.append(elemento)
-
     def dequeue(self):
         if self.items:
             primer_elemento = self.items.popleft()
-            print(f"Se elimino correctamente: {primer_elemento}")
+            print(f"Se elimino el primer elemento '{primer_elemento}'")
             return primer_elemento
         else:
             return None
-        
-    def contar (self) -> int:
+    def contar(self) -> int:
         print(f"Cantidad de elementos actuales: {len(self.items)}")
         return len(self.items)
-    
     def imprimir(self):
         print(f"Contenido actual de la cola: {list(self.items)}")
 
