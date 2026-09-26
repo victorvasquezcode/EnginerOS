@@ -17,17 +17,17 @@ class Empleado:
     def __init__(self, id_empleado: int, nombre: str):
         self.id_empleado = id_empleado
         self.nombre = nombre
-        self.empleados_a_cargo = []
-    def agregar_subordinado(self, empleado):
-        self.empleados_a_cargo.append(empleado)
+        self.empleado_a_cargo = []
+    def agregar_subordinado(self,empleado):
+        self.empleado_a_cargo.append(empleado)
     def mostrar_informacion(self):
-        print(f"- ID: {self.id_empleado}\n- Nombre de empleado: {self.nombre}\n- Funcion del empleado: {self.__class__.__name__}")
+        print(f"-ID: {self.id_empleado}\n-NOMBRE: {self.nombre}\n-FUNCION: {self.__class__.__name__}")
     def mostrar_subordinados(self):
-        if not self.empleados_a_cargo:
-            print("No tiene empleados a su cargo")
+        if not self.empleado_a_cargo:
+            print("No tiene empleados a cargo")
             return
-        print("Empleados a cargo: ")
-        for empleado in self.empleados_a_cargo:
+        print("Empleado a cargo: ")
+        for empleado in self.empleado_a_cargo:
             empleado.mostrar_informacion()
 
 # --- 2. SUBCLASES ESPECIALIZADAS ---
@@ -39,11 +39,11 @@ class Empleado:
 #     - Método exclusivo 'escribir_codigo(self)':
 #         - Imprimir un mensaje indicando que está programando en su lenguaje.
 class Programador(Empleado):
-    def __init__(self, id_empleado: int, nombre: str, lenguaje_principal: str):
+    def __init__(self, id_empleado: int , nombre: str, lenguaje_principal: str):
         super().__init__(id_empleado, nombre)
         self.lenguaje_principal = lenguaje_principal
     def escribir_codigo(self):
-        print(f"El programador '{self.nombre}' esta programando en su lenguaje '{self.lenguaje_principal}'")
+        print(f"El programador '{self.nombre}' su lengujae de programacion es '{self.lenguaje_principal}'")
 
 # - Clase 'GerenteProyecto(Empleado)':
 #     - __init__(self, id_empleado: int, nombre: str, proyecto_asignado: str):
@@ -56,7 +56,8 @@ class GerenteProyecto(Empleado):
         super().__init__(id_empleado, nombre)
         self.proyecto_asignado = proyecto_asignado
     def coordinar_proyecto(self):
-        print(f"El Gerente '{self.nombre}' esta en el proyecto '{self.proyecto_asignado}'")
+        print(f"El gerente de proyecto '{self.nombre}' tiene a cargo el proyecto '{self.proyecto_asignado}'"
+              )
 # - Clase 'Gerente(Empleado)':
 #     - __init__(self, id_empleado: int, nombre: str, departamento: str):
 #         - Llamar a 'super().__init__(id_empleado, nombre)'.
@@ -68,31 +69,43 @@ class Gerente(Empleado):
         super().__init__(id_empleado, nombre)
         self.departamento = departamento
     def tomar_decisiones_estrategicas(self):
-        print(f"El Gerente '{self.nombre}' esta ejecutando decisiones en su departamento '{self.departamento}'")
+        print(f"El gerente '{self.nombre}' toma decisiones en el departamento de '{self.departamento}'")
 
 # --- 3. PROCESO DE PRUEBA DE DIFICULTAD EXTRA ---
 # 1. Instanciar varios Programadores (ej. Programador 1, Programador 2).
 # 2. Instanciar un Gerente de Proyecto y asignarle los Programadores como subordinados.
 # 3. Instanciar un Gerente General y asignarle el Gerente de Proyecto como subordinado.
 # 4. Probar la ejecución de métodos exclusivos de cada rol y verificar la jerarquía de subordinados.
-programador_1 = Programador(1,"Victor","Java")
-programador_2 = Programador(2,"Javier","Python")
-programador_3 = Programador(3,"Ana","SQL")
 
-gerente_proyecto = GerenteProyecto(1,"Enrique","Pagina Web")
-gerente_proyecto.agregar_subordinado(programador_1)
-gerente_proyecto.agregar_subordinado(programador_2)
-gerente_proyecto.agregar_subordinado(programador_3)
+if __name__ == "__main__":
+    print("=== 1. CREACIÓN DE PROGRAMADORES ===")
+    prog1 = Programador(101, "Víctor", "Python")
+    prog2 = Programador(102, "Ana", "JavaScript")
 
-gerente_general = Gerente(1,"Eduardo","TI")
-gerente_general.agregar_subordinado(gerente_proyecto)
+    # Ejecución de métodos exclusivos
+    prog1.escribir_codigo()
+    prog2.escribir_codigo()
 
-programador_1.mostrar_informacion()
-programador_2.mostrar_informacion()
-programador_3.mostrar_informacion()
+    print("\n=== 2. CREACIÓN DE GERENTE DE PROYECTO Y ASIGNACIÓN ===")
+    gerente_proy = GerenteProyecto(201, "Carlos", "Sistema ERP")
+    
+    # Asignación de subordinados (Programadores)
+    gerente_proy.agregar_subordinado(prog1)
+    gerente_proy.agregar_subordinado(prog2)
+    
+    # Método exclusivo y verificación de jerarquía
+    gerente_proy.coordinar_proyecto()
+    gerente_proy.mostrar_subordinados()
 
-gerente_proyecto.mostrar_informacion()
-gerente_proyecto.mostrar_subordinados()
+    print("\n=== 3. CREACIÓN DE GERENTE GENERAL Y ASIGNACIÓN DE ALTO NIVEL ===")
+    gerente_general = Gerente(301, "Sofia", "Tecnología e Innovación")
+    
+    # Asignación de subordinado (Gerente de Proyecto)
+    gerente_general.agregar_subordinado(gerente_proy)
+    
+    # Método exclusivo e información general
+    gerente_general.tomar_decisiones_estrategicas()
+    gerente_general.mostrar_informacion()
 
-gerente_general.mostrar_informacion()
-gerente_general.mostrar_subordinados()
+    print("\n=== 4. MOSTRAR SUBORDINADOS DEL GERENTE GENERAL ===")
+    gerente_general.mostrar_subordinados()
