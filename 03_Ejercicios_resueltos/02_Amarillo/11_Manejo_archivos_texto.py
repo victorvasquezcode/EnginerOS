@@ -17,49 +17,51 @@ if not os.path.exists(SISTEMA_VENTAS):
 # - Función para reescribir/actualizar todo el archivo a partir de la lista modificada.
 def lista_estructurada():
     producto = []
-    with open (SISTEMA_VENTAS, "r") as archivo:
-        for linea in archivo:
-            if not linea.strip(): continue
-            linea_limpia = linea.strip().split(",")
-            if len(linea_limpia) != 3: continue
-            nombre = linea_limpia[0]
-            cantidad = linea_limpia[1]
-            precio = linea_limpia[2]
+    with open(SISTEMA_VENTAS, "r") as archivo:
+        for lista in archivo:
+            if not lista.strip(): continue
+            lista_limpia = lista.strip().split(",")
+            if len(lista_limpia) != 3: continue
+            nombre = lista_limpia[0]
+            cantidad = lista_limpia[1]
+            precio = lista_limpia[2]
+
             try:
                 producto.append((nombre,int(cantidad),float(precio)))
             except ValueError as e:
-                print(f"Error de formato {e}")
+                print(f"Error en formato {e}")
+
         return producto
 
 def actualizar(producto):
     with open (SISTEMA_VENTAS, "w") as archivo:
-        for linea in producto:
-            nombre = linea[0]
-            cantidad = linea[1]
-            precio = linea[2]
+        for lista in producto:
+            nombre = lista[0]
+            cantidad = lista[1]
+            precio = lista[2]
             archivo.write(f"{nombre},{cantidad},{precio:.2f}\n")
-        
 
-def validador(mensaje,tipo):
+def validar(mensaje,tipo):
     try:
-        numero = tipo(input(mensaje).strip()) 
+        valor = tipo(input(mensaje).strip())
     except ValueError as e:
         print(f"Error en formato {e}")
         return None
     else:
-        if numero <= 0:
+        if valor <= 0:
+            print(f"No puede ser menor a 0")
             return None
         else:
-            return numero
+            return valor
         
 # --- 3. FUNCIONES CRUD Y OPERACIONES DEL MENÚ ---
 # - Función 'añadir_producto()':
 #     - Solicitar nombre del producto, cantidad vendida y precio desde la terminal.
 #     - Formatear como '[nombre], [cantidad], [precio]' y adjuntarlo al archivo en modo append ('a').
 def añadir_producto():
-    nombre_producto = input("Ingrese el nombre del producto: ").strip().capitalize()
-    cantidad = validador("Ingrese la cantidad del producto: ", int)
-    precio = validador("Ingrese el precio del producto: ", float)
+    nombre_producto = input("Ingresar el nombre del producto: ").strip().capitalize()
+    cantidad = validar("Ingresa la cantidad del producto", int)
+    precio = validar("Ingrese el precio del producto", float)
     if cantidad is None or precio is None: return
     with open(SISTEMA_VENTAS, "a") as archivo:
         archivo.write(f"{nombre_producto},{cantidad},{precio:.2f}\n")
@@ -67,48 +69,53 @@ def añadir_producto():
 # - Función 'consultar_productos()':
 #     - Leer el archivo completo e imprimir cada producto en un formato legible para el usuario.
 #     - Manejar el caso donde el archivo esté vacío.
-def consultar_productos():
-    productos = lista_estructurada()
-    if not productos:
-        print(f"No existen productos registrados.")
+def consultar_producto():
+    producto = lista_estructurada()
+    if not producto:
+        print("No existen productos")
         return
-
-    for producto in productos:
+    for lista in producto:
         print("-" * 60)
-        print(f"Nombre de producto: {producto[0]}\nCantidad de producto: {producto[1]}\nPrecio de producto: {producto[2]:.2f}")
+        print(f"Nombre del producto: {lista[0]}\nCantidad de producto: {lista[1]}\nPrecio del producto: {lista[2]}")
+
 
 # - Función 'actualizar_producto()':
 #     - Solicitar el nombre del producto a modificar.
 #     - Buscar el producto en los registros, actualizar sus datos (cantidad/precio) y reescribir el archivo.
 def actualizar_producto():
-    nombre_producto_modificar = input("Ingrese el nombre del producto a modificar: ").strip().capitalize()
-    productos = lista_estructurada()
+    nombre_producto_modificar = input("Ingrese el nombre del producto para modificar: ").strip().capitalize()
+    producto = lista_estructurada()
+    if not producto:
+        print("No existen productos")
+        return
     encontrado = False
-    for i,producto in enumerate(productos):
-        if nombre_producto_modificar == producto[0]:
-            cantidad = validador("Ingrese la cantidad del producto: ", int)
-            precio = validador("Ingrese el precio del producto: ", float)
+    for i,lista in enumerate(producto):
+        if nombre_producto_modificar == lista[0]:
+            cantidad = validar("Ingresa la cantidad del producto", int)
+            precio = validar("Ingrese el precio del producto", float)
             if cantidad is None or precio is None: return
-            productos[i] = (nombre_producto_modificar,cantidad,precio)
-            actualizar(productos)
+            producto[i] = (nombre_producto_modificar,cantidad,precio)
+            actualizar(producto)
             encontrado = True
-            break
+            return
     if not encontrado:
-        print(f"No se encontro '{nombre_producto_modificar}' en los productos")
+        print(f"No se encontro el producto '{nombre_producto_modificar}'")
         
 # - Función 'eliminar_producto()':
 #     - Solicitar el nombre del producto a eliminar.
 #     - Filtrar la lista excluyendo dicho producto y reescribir el archivo.
 def eliminar_producto():
-    nombre_eliminar = input("Ingrese el nombre del producto a eliminar: ").strip().capitalize()
-    productos = lista_estructurada()
+    nombre_eliminar = input("Ingrese el nombre a eliminar: ").strip().capitalize()
+    producto = lista_estructurada()
+    if not producto:
+        print("No existen productos")
+        return
     encontrado = False
-    for i,producto in enumerate(productos):
-        if nombre_eliminar == producto[0]:
-            productos.pop(i)
-            actualizar(productos)
+    for i,lista in enumerate(producto):
+        if nombre_eliminar == lista[0]:
+            producto.pop(i)
+            actualizar(producto)
             encontrado = True
-            break
     if not encontrado:
         print(f"No se encontro el nombre '{nombre_eliminar}' para eliminar")
 
@@ -117,43 +124,37 @@ def eliminar_producto():
 #     - Imprimir la suma de todas las ventas registradas.
 def calcular_venta_total():
     productos = lista_estructurada()
-    suma_ventas = 0
-
     if not productos:
-        print("No existen productos registrados.")
+        print("No existen productos")
         return
-    
-    for producto in productos:
-        cantidad = producto[1]
-        precio = producto[2]
+    total_ventas = 0
+    for lista in productos:
+        cantidad = lista[1]
+        precio = lista[2]
         total_general = cantidad * precio
-        suma_ventas += total_general
-    print(f"La suma de todas las ventas registradas es: S/.{suma_ventas:.2f}")
+        total_ventas += total_general
+    print(f"La suma de todas las ventas registradas es: S/.{total_ventas:.2f}")
 
 # - Función 'calcular_venta_por_producto()':
 #     - Solicitar o listar el producto específico.
 #     - Calcular y mostrar el subtotal generado únicamente por ese producto (cantidad * precio).
 def calcular_venta_por_producto():
-    producto_especifico = input("Ingresa el producto que desea calcular su venta: ").strip().capitalize()
+    producto_especifico = input("Ingrese el producto para calcular sus ventas: ").strip().capitalize()
     productos = lista_estructurada()
-
-    if not productos:
-        print("No existen productos registrados.")
-        return
-    
     encontrado = False
-
-    for producto in productos:
-        if producto_especifico == producto[0]:
-            cantidad = producto[1]
-            precio = producto[2]
-            total = cantidad * precio
+    if not productos:
+        print("No existen productos")
+        return
+    for lista in productos:
+        if producto_especifico == lista[0]:
+            cantidad = lista[1]
+            precio = lista[2]
+            subtotal = cantidad * precio
+            print(f"Las ventas del producto '{producto_especifico}' es S/.{subtotal:.2f}")
             encontrado = True
-            print(f"El Subtotal del producto '{producto_especifico}' es: S/.{total}")
-            break
-
+            return
     if not encontrado:
-        print(f"No se encontro '{producto_especifico}' en los productos registrados.")
+        print(f"No se encontro el producto '{producto_especifico}'")
 
 # --- 4. BUCLE PRINCIPAL Y MENÚ DE INTERACCIÓN POR TERMINAL ---
 # - Implementar un bucle 'while True' para mantener activo el programa:
@@ -178,7 +179,7 @@ if __name__ == "__main__":
             case "1":
                 añadir_producto()
             case "2":
-                consultar_productos()
+                consultar_producto()
             case "3":
                 actualizar_producto()
             case "4":
