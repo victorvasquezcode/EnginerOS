@@ -3,17 +3,21 @@
 ### 🟡 [11] CRUD Ventas
 - **Fallas:**
   1. Invertí la condición lógica al evaluar líneas vacías usando `if lista.strip(): continue`.
+     1. Negué la condición con `if not lista.strip(): continue` para saltar únicamente las líneas vacías.
+   
   2. Dupliqué paréntesis al castear la tupla creando un anidamiento incorrecto `(nombre,(int(cantidad),(float(precio))))`.
+     1. Simplifiqué el formateo a una sola tupla limpia `((nombre,int(cantidad),float(precio)))`.
+   
   3. Redundé agregando `return None` dentro del `except ValueError` cuando la función ya retornaba `None` por defecto.
+     1. Removí el `return None` explícito dejando solo el mensaje de error en el bloque de excepción.
+   
   4. Intenté aplicar el método `.strip()` a una tupla `(nombre, cantidad, precio)` provocando un error de atributo `AttributeError`.
+     1. Removí la validación `if not lista.strip(): continue` al iterar sobre elementos que ya venían deserializados como tuplas estructuradas.
+   
   5. Omití el salto de línea `\n` al final de la cadena de formato dentro de `archivo.write()`.
-- **Soluciones:**
-  1. Negué la condición con `if not lista.strip():` continue para saltar únicamente las líneas vacías.
-  2. Simplifiqué el formateo a una sola tupla limpia `((nombre,int(cantidad),float(precio)))`.
-  3. Removí el `return None` explícito dejando solo el mensaje de error en el bloque de excepción.
-  4. Removí la validación `if not lista.strip(): continue` al iterar sobre elementos que ya venían deserializados como tuplas estructuradas.
-  5. Agregué `\n` al final del formato `f"{nombre_producto},{cantidad},{precio:.2f}\n"` para evitar que los nuevos registros se concatenen en la misma línea del archivo.
-- **Revisar:** Mañana 5 AM.
+     1. Agregué `\n` al final del formato `f"{nombre_producto},{cantidad},{precio:.2f}\n"` para evitar que los nuevos registros se concatenen en la misma línea del archivo.
+   
+- **Revisar:** [05/10/2026].
 
 ### 🟡 [12] XML y JSON
 - **Fallas:**
@@ -22,7 +26,7 @@
 - **Soluciones:**
   1. .
   2. .
-- **Revisar:** .
+- **Revisar:** [03/10/2026].
 
 ### 🟡 [13] Pruebas Unitarias
 - **Fallas:**
@@ -59,8 +63,9 @@
   1. .
   2. .
 - **Revisar:**.
+- - **Fecha a amarillo:** [30/07/2026]
 
-### 🟡 [17] Regex Validaciones 
+### 🟡 [17] Mecanismos de Interacion
 - **Notas / Conceptos aprendidos:**
   1. List Comprehension y Side-Effects (Mecanismos 1-2)
      1. La diferencia fundamental entre un bucle tradicional `for` y una List Comprehension es que esta última evalúa una expresión para cada elemento directamente dentro de corchetes `[...]` en una sola línea.
@@ -103,10 +108,11 @@
   1. .
   2. .
 - **Revisar:**.
+- **Fecha a amarillo:** [01/08/2026]
 
 ---
 
-### 🔴 [18] 
+### 🔴 [18] Conjuntos
 - **Notas / Conceptos aprendidos:**
   1. .
   2. .
