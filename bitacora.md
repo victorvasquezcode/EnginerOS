@@ -1,6 +1,6 @@
 # 🔴 / 🟡 ACTIVOS
 
-### 🟡 [11] CRUD Ventas
+### 🟡 / 🟢 [11] CRUD Ventas
 - **Fallas:**
   1. Invertí la condición lógica al evaluar líneas vacías usando `if lista.strip(): continue`.
      1. Negué la condición con `if not lista.strip(): continue` para saltar únicamente las líneas vacías.
@@ -110,13 +110,28 @@
 - **Revisar:**.
 - **Fecha a amarillo:** [01/08/2026]
 
----
-
-### 🔴 [18] Conjuntos
+### 🟡 [18] Estructuras de Datos: Listas y Conjuntos
 - **Notas / Conceptos aprendidos:**
+  1. Uso de `.append()` y `.insert(0, elem)` para añadir elementos al final o al inicio de una lista.
+  2. Extensión de listas al final con `.extend()` o en índices específicos mediante rebanado (`lista[i:i] = [...]`).
+  3. Modificación y eliminación de elementos por índice usando asignación directa y `.pop(i)`.
+  4. Búsqueda booleana de elementos con el operador de pertenencia `in` y vaciado total con `.clear()`.
+  5. Operaciones de teoría de conjuntos con *sets*: unión (`|`), intersección (`&`), diferencia (`-`) y diferencia simétrica (`^`).
+- **Fallas:**
   1. .
   2. .
+- **Soluciones:**
+  1. .
+  2. .
+- **Revisar:**.
+- **Fecha a amarillo:** [02/08/2026]
+  
+---
 
+### 🔴 [19] 
+- **Notas / Conceptos aprendidos:**
+  1. 
+  2. 
 ---
 
 # 🟢 DOMINADOS (VERDES)
