@@ -122,10 +122,10 @@
   
 ---
 
-### 🔴 [19] 
+### 🔴 [19] Enumerados (Enums) y Gestión de Estados
 - **Notas / Conceptos aprendidos:**
-  1. 
-  2. 
+  1. La clase `Enum` mapea claves y valores estáticos de forma nativa; al invocar `Enum(valor)`, Python valida el parámetro implícitamente y lanza un `ValueError` si el valor no existe dentro del registro.
+  2. Los miembros de un Enum son inmutables y se pueden evaluar mediante comparación directa (`self.estado == EstadoPedido.PENDIENTE`) o mediante iterables/tuplas (`self.estado in (...)`) para validar transiciones de estado de forma limpia e idiomática.
 ---
 
 # 🟢 DOMINADOS (VERDES)
