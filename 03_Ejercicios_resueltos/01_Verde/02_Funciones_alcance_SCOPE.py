@@ -19,6 +19,9 @@
 # - Retorna el contador final y muestra el resultado del retorno en consola.
 
 def fizzbuzz (param1: str = "Fizz", param2: str = "Buzz") -> int:
+    if not param1.strip() or not param2.strip():
+        print("No se puede ingresar datos vacios o espacios")
+        return
     contador = 0
     for numero in range(1,101):
         if numero % 15 == 0:

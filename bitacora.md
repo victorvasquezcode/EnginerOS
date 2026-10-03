@@ -3,30 +3,24 @@
 ### 🟡 / 🟢 [11] CRUD Ventas
 - **Fallas:**
   1. Invertí la condición lógica al evaluar líneas vacías usando `if lista.strip(): continue`.
-     1. Negué la condición con `if not lista.strip(): continue` para saltar únicamente las líneas vacías.
-   
+     1. Negué la condición con `if not lista.strip(): continue` para saltar únicamente las líneas vacías.  
   2. Dupliqué paréntesis al castear la tupla creando un anidamiento incorrecto `(nombre,(int(cantidad),(float(precio))))`.
      1. Simplifiqué el formateo a una sola tupla limpia `((nombre,int(cantidad),float(precio)))`.
-   
   3. Redundé agregando `return None` dentro del `except ValueError` cuando la función ya retornaba `None` por defecto.
      1. Removí el `return None` explícito dejando solo el mensaje de error en el bloque de excepción.
-   
   4. Intenté aplicar el método `.strip()` a una tupla `(nombre, cantidad, precio)` provocando un error de atributo `AttributeError`.
      1. Removí la validación `if not lista.strip(): continue` al iterar sobre elementos que ya venían deserializados como tuplas estructuradas.
-   
   5. Omití el salto de línea `\n` al final de la cadena de formato dentro de `archivo.write()`.
-     1. Agregué `\n` al final del formato `f"{nombre_producto},{cantidad},{precio:.2f}\n"` para evitar que los nuevos registros se concatenen en la misma línea del archivo.
-   
+     1. Agregué `\n` al final del formato `f"{nombre_producto},{cantidad},{precio:.2f}\n"` para evitar que los nuevos registros se concatenen en la misma línea del archivo. 
 - **Revisar:** [05/10/2026].
 
 ### 🟡 [12] XML y JSON
 - **Fallas:**
-  1. .
-  2. .
-- **Soluciones:**
-  1. .
-  2. .
-- **Revisar:** [03/10/2026].
+  1. Intentar usar métodos inexistentes (`json.add`), no pasar el objeto archivo a `json.load()` / `json.dump()`, y olvidar desempaquetar el diccionario (`**dict`) al instanciar la clase.
+     1. Usar `with open(..., "w")` con `json.dump()` para escribir y `json.load()` para leer, pasando el archivo abierto; e instanciar la clase desempaquetando claves con `Persona(**diccionario)`.
+  2. Confundir tipos de datos y nombres de atributos al construir/parsear XML (pasar `int` a `.text` en lugar de `str`, usar singular `lenguaje` en lugar de `lenguajes`, y no iterar sobre los nodos hijo de `<lenguajes>`).
+     1. Convertir valores numéricos a `str` al asignar `.text`, verificar nombres exactos de variables en los bucles, y usar `[nodo.text for nodo in raiz.find("lenguajes")]` para reconstruir listas desde XML.
+- **Revisar:** [04/10/2026].
 
 ### 🟡 [13] Pruebas Unitarias
 - **Fallas:**
@@ -137,6 +131,7 @@
 # 🟢 DOMINADOS (VERDES)
 - [01 al 10] Conceptos básicos
 
+---
 
 # 📌 MODO DE TRABAJO DIARIO (EL 1%)
 
@@ -155,3 +150,28 @@
    - Hacer prueba rápida a 3 o 4 ejercicios Verdes (cambiando reglas o refactorizando).
    - Si aprueban -> Siguen en Verde.
    - Si fallan -> Bajan a Amarillo para repasarlos en la semana.
+  
+---
+
+## 📅 [2026-10-03] - Auditoría de Verdes (Sábado)
+
+### 🟢 Ejercicios Validados y Confirmados
+1. **Filtrado de Rango (10 a 55):**
+   - *Prueba:* Generación en una sola línea mediante comprensiones/generadores y paso de iteración `range(10, 56, 2)`.
+   - *Resultado:* Aprobado sin fallos.
+
+2. **FizzBuzz Adaptado:**
+   - *Prueba:* Validación de argumentos vacíos o espacios usando `if not param1.strip()`.
+   - *Resultado:* Aprobado sin fallos.
+
+3. **Agenda de Contactos (Validación de Teléfono):**
+   - *Prueba:* Restricción de formato celular Perú (9 dígitos, iniciando con '9') con `.isdigit()`, `len()` e indexación.
+   - *Resultado:* Aprobado sin fallos.
+
+4. **Analizador de Palabras (Isograma):**
+   - *Prueba:* Verificación en una sola línea comparando longitudes con `set()`: `len(palabra) == len(set(palabra))`.
+   - *Resultado:* Aprobado sin fallos.
+
+---
+- **Estado global:** Los 4 ejercicios mantienen su estatus 🟢 **VERDE**.
+

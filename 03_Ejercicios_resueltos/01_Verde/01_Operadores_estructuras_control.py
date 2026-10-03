@@ -14,10 +14,16 @@
 # - Imprime únicamente los números que cumplan TODAS las condiciones simultáneamente.
 def comparacion():
     for numero in range(10,56,2):
-        if numero == 16 or numero % 3 == 0:
-            continue
-        print(numero)
+        if numero != 16 and numero % 3 != 0:
+            print(numero)
+
+def comparacion_una_linea():
+    print(*(numero for numero in range(10,56,2) if numero != 16 and numero % 3 != 0), sep="\n")
+
+def comparacion_bucle_sola_linea():
+    for n in range(10, 56, 2): (n != 16 and n % 3 != 0) and print(n)
 
 # EJECUCION
 if __name__ == "__main__":
-    comparacion()
+    comparacion_bucle_sola_linea()
+

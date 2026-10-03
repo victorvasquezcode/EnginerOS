@@ -13,7 +13,7 @@ agenda = {}
 # - ¿La longitud está dentro del límite permitido (ej. mayor a 0 y menor o igual a 11)?
 # - Retornar un booleano (True/False) para saber si pasa la prueba.
 def validar_telefono(telefono: str):
-    return telefono.isdigit() and 0 < len(telefono) <= 11
+    return telefono.isdigit() and 0 < len(telefono) == 9 and telefono[0] == "9"
 
 # --- 3. FUNCIONES DE OPERACIONES DE LA AGENDA ---
 
