@@ -1,3 +1,5 @@
+# 🔴 [07] PILAS Y COLAS
+
 # DIFICULTAD EXTRA (opcional):
 # Utilizando la implementación de pila y cadenas de texto, simula el mecanismo adelante/atrás
 # de un navegador web. Crea un programa en el que puedas navegar a una página o indicarle

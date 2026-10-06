@@ -1,3 +1,5 @@
+# 🔴 [10] EXCEPCIONES
+
 # DIFICULTAD EXTRA (opcional):
 # Crea una función que sea capaz de procesar parámetros, pero que también
 # pueda lanzar 3 tipos diferentes de excepciones (una de ellas tiene que

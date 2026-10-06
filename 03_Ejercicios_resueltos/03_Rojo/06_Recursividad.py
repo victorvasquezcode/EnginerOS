@@ -1,3 +1,5 @@
+# 🔴 [06] RECURSIVIDAD
+
 # DIFICULTAD EXTRA (opcional):
 # Utiliza el concepto de recursividad para:
 #- Calcular el factorial de un número concreto (la función recibe ese número).

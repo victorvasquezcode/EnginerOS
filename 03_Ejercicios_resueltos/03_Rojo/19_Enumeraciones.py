@@ -1,3 +1,5 @@
+# 🔴 [19] ENUMERACIONES
+
 # DIFICULTAD EXTRA (opcional):
 # Crea un pequeño sistema de gestión del estado de pedidos.
 # Implementa una clase que defina un pedido con las siguientes características:

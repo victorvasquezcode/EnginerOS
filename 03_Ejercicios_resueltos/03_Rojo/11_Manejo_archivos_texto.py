@@ -1,3 +1,5 @@
+# 🔴 [11] MANEJO DE FICHEROS
+
 # DIFICULTAD EXTRA (opcional):
 # Desarrolla un programa de gestión de ventas que almacena sus datos en un 
 # archivo .txt.
