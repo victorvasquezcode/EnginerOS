@@ -1,4 +1,4 @@
-# 🟡 [02] FUNCIONES Y ALCANCE
+# 🟢 / 🟡 [02] FUNCIONES Y ALCANCE
 
 # DIFICULTAD EXTRA (opcional):
 # Crea una función que reciba dos parámetros de tipo cadena de texto y retorne un número.
