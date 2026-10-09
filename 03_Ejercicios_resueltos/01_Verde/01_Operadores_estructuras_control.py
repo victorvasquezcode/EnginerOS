@@ -1,4 +1,4 @@
-# 🟢 / 🟡 [01] OPERADORES Y ESTRUCTURAS DE CONTROL 
+# 🟢 [01] OPERADORES Y ESTRUCTURAS DE CONTROL 
 
 #  DIFICULTAD EXTRA (opcional):
 #  Crea un programa que imprima por consola todos los números comprendidos
@@ -9,3 +9,5 @@ for numero in range(10,56,2):
     if numero == 16 or numero % 3 == 0:
         continue
     print(numero)
+
+    isinstance

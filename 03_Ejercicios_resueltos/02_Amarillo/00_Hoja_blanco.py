@@ -30,3 +30,34 @@
 # Al finalizar el recorrido, la función debe retornar una tupla (conteo_reemplazos, suma_impresos) donde:
 #     conteo_reemplazos: Es el total de veces que se imprimió un texto (o combinación) en lugar de un número.
 #     suma_impresos: Es la suma acumulada de todos los números que sí se llegaron a imprimir en consola.
+
+# 📝 [03] ESTRUCTURA DE DATOS — MUTACIÓN ENUNCIADO
+# Crea un sistema de gestión de contactos por terminal que utilice un diccionario anidado o lista de estructuras
+# donde la clave principal sea un ID único numérico correlativo (autoincremental) generado automáticamente por el
+# sistema (ej. 1, 2, 3).
+
+# Nuevas Restricciones y Reglas de Negocio:
+# 1. Estructura del Contacto:
+#    Cada registro asociado a un ID debe contener:
+#        nombre: Cadena de texto sanitizada.
+#        telefono: Cadena numérica de exactamente 9 dígitos que obligatoriamente debe empezar con el dígito 9 (formato móvil estándar). ✅
+#        categoria: Solo se permite asignar una de las siguientes tres categorías exactas: "Personal", "Trabajo" o "Emergencia".
+
+# 2. Inserción Defensiva: ✅
+#    No se permite registrar dos contactos que compartan el mismo número de teléfono (el sistema debe bloquear el registro e informar
+#    la duplicidad). ✅
+#    El usuario no ingresa el ID; el sistema debe asignarle el siguiente entero disponible automáticamente en tiempo de ejecución $O(1)$.✅
+
+# 3. Búsqueda Avanzada y Filtrado:
+#    La opción de búsqueda debe permitir encontrar un contacto ya sea introduciendo su ID exacto
+#    o por Categoría (mostrando en este último caso la lista completa de contactos pertenecientes a dicha categoría).
+
+# 4. Operación de Eliminación:
+#    La eliminación solo puede realizarse solicitando el ID único del contacto. Al eliminar un registro,
+#    los IDs de los demás contactos no deben reasignarse.
+
+# 5. Finalización:
+#    Debe incluir una opción explícita para salir del programa.
+
+#     "1" : {"nombre": "Victor", "telefono": 916487419, "categoria": "Personal"}
+

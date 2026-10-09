@@ -1,25 +1,28 @@
 
 # 🟢 DOMINADOS (VERDES)
 - ### 🟢 [00] SINTAXIS, VARIABLES, TIPOS DE DATOS Y HOLA MUNDO
-- ### 🟢 / 🟡 [01] OPERADORES Y ESTRUCTURAS DE CONTROL [07/10/2026]
-- ### 🟢 / 🟡 [02] FUNCIONES Y ALCANCE [07/10/2026]
+- ### 🟢 [01] OPERADORES Y ESTRUCTURAS DE CONTROL [07/10/2026]
+        1. Manejar un try except con ValueError, TypeError o utilizar isinstance(x, int)
+        2. Para proteccion invocamos el modulo `import builtins`;
+- ### 🟢 [02] FUNCIONES Y ALCANCE [07/10/2026]
+        1. Nunca acoples la lógica de negocio a un print() interno. Procesa datos, construye el resultado y haz return; que el código cliente decida cómo y dónde mostrar las métricas o mensajes.
+
 ---
 
 # 🟡 ACTIVOS
 
-### 🟡 [] 
+### 🟡 [03]  ESTRUCTURAS DE DATOS
+- **Notas:**
+  1. Acostúmbrate a devolver explícitamente return False al final de tus funciones de validación en lugar de dejar un return None implícito.
+  2. Recuerda que un dict en Python busca por clave mediante una función Hash en tiempo constante $O(1)$.
+  3. $O(1)$ (Constante): Es el más eficiente. Accede directo al dato en un solo paso, como un diccionario.
+  4. $O(n)$ (Lineal): Recorre los datos uno por uno. El tiempo crece proporcionalmente al tamaño, como una lista."*
 - **Fallas:**
   1. .
   2. .
 - **Revisar:** .
 
-  
 ---
-
-### 🔴 [03] ESTRUCTURAS DE DATOS
-- **Notas / Conceptos aprendidos:**
-  1. 
-  2. 
 
 ### 🔴 [04] CADENAS DE CARACTERES
 - **Notas / Conceptos aprendidos:**

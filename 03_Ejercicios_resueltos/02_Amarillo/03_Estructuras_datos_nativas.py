@@ -1,4 +1,4 @@
-# 🔴 [03] ESTRUCTURAS DE DATOS
+# 🟡 [03] ESTRUCTURAS DE DATOS
 
 # DIFICULTAD EXTRA (opcional):
 # Crea una agenda de contactos por terminal.
@@ -13,17 +13,14 @@
 
 agenda = {}
 
-def validacion(telefono):
-    if telefono.isdigit() and len(telefono) <= 11:
-        return True
+def validacion(telefono: str) -> bool:
+    return telefono.isdigit() and len(telefono) <= 11
     
 def busqueda():
     nombre = input("Ingrese el nombre para buscar en los contactos: ").strip().capitalize()
-    encontrado = False
     if nombre in agenda:
         print(f"El contacto '{nombre}' esta registrado con el numero '{agenda[nombre]}'")
-        encontrado = True
-    if not encontrado:
+    else:
         print(f"No se encontro el contacto '{nombre}' en la agenda")
         
 def insercion():
@@ -76,6 +73,7 @@ while True:
     match opcion:
         case "1":
             insercion()
+            print(agenda)
         case "2":
             busqueda()
         case "3":

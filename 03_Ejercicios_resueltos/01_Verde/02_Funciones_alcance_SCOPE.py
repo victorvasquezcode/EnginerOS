@@ -1,4 +1,4 @@
-# 🟢 / 🟡 [02] FUNCIONES Y ALCANCE
+# 🟢 [02] FUNCIONES Y ALCANCE
 
 # DIFICULTAD EXTRA (opcional):
 # Crea una función que reciba dos parámetros de tipo cadena de texto y retorne un número.
@@ -13,6 +13,7 @@
 
 def fuzzbizz(palabra1: str, palabra2: str) -> int:
     contador = 0
+
     for numero in range(1,101):
         if numero % 15 == 0:
             print(f"{palabra1}{palabra2}")
@@ -23,7 +24,9 @@ def fuzzbizz(palabra1: str, palabra2: str) -> int:
         else:
             print(numero)
             contador += 1
+    
     return contador
 
 prueba1 = fuzzbizz("Victor","Javier")
-print(f"El numero de veces que se imprimio el numero en lugar de texto es: {prueba1}")
+
+print(f"El total de números impresos fue: {prueba1}")
