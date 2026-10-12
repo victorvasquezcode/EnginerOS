@@ -22,12 +22,12 @@
   2. .
 - **Revisar:** .
 
----
-
-### 🔴 [04] CADENAS DE CARACTERES
+### 🟡 [04] CADENAS DE CARACTERES
 - **Notas / Conceptos aprendidos:**
-  1. 
-  2. 
+  1. sorted(palabra) (Timsort): Tiene un costo temporal de O(n log n) debido a la sobrecarga de ordenar los caracteres alfabéticamente antes de compararlos.
+  2. Conteo de frecuencias (Diccionarios / Hash Maps): Es la alternativa óptima de tiempo lineal O(n), ya que solo requiere recorrer las cadenas una vez para registrar la frecuencia de cada letra sin necesidad de ordenarlas.
+
+---
 
 ### 🔴 [05] VALOR Y REFERENCIA
 - **Notas / Conceptos aprendidos:**

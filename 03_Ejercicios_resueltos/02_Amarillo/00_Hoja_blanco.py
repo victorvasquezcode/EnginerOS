@@ -40,12 +40,13 @@
 # 1. Estructura del Contacto:
 #    Cada registro asociado a un ID debe contener:
 #        nombre: Cadena de texto sanitizada.
-#        telefono: Cadena numérica de exactamente 9 dígitos que obligatoriamente debe empezar con el dígito 9 (formato móvil estándar). ✅
+#        telefono: Cadena numérica de exactamente 9 dígitos que obligatoriamente debe empezar con el dígito 9 
+#        (formato móvil estándar).
 #        categoria: Solo se permite asignar una de las siguientes tres categorías exactas: "Personal", "Trabajo" o "Emergencia".
 
-# 2. Inserción Defensiva: ✅
+# 2. Inserción Defensiva:
 #    No se permite registrar dos contactos que compartan el mismo número de teléfono (el sistema debe bloquear el registro e informar
-#    la duplicidad). ✅
+#    la duplicidad).
 #    El usuario no ingresa el ID; el sistema debe asignarle el siguiente entero disponible automáticamente en tiempo de ejecución $O(1)$.✅
 
 # 3. Búsqueda Avanzada y Filtrado:
@@ -58,6 +59,3 @@
 
 # 5. Finalización:
 #    Debe incluir una opción explícita para salir del programa.
-
-#     "1" : {"nombre": "Victor", "telefono": 916487419, "categoria": "Personal"}
-
